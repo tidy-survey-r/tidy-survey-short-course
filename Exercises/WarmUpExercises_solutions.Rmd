@@ -30,6 +30,7 @@ glimpse(penguins)
 ```
 
 How many penguins of each species are there? Hint: use `count`
+
 ```{r speciestab}
 penguins %>%
    count(species)
@@ -40,6 +41,28 @@ How many penguins of each species and sex are there? Hint: use `count`
 ```{r speciessextab}
 penguins %>%
    count(species, sex)
+```
+
+What is the proportion of each species of penguins? Hint: use `count` then `mutate` 
+
+```{r speciestabp}
+penguins %>%
+   count(species) %>%
+   mutate(
+      p=n/sum(n)
+   )
+```
+
+What is the proportion of each sex of penguins within species? Hint: use `count` then `group_by` and `mutate` 
+
+```{r speciessextabp}
+penguins %>%
+   count(species, sex) %>%
+   group_by(species) %>%
+   mutate(
+      p=n/sum(n)
+   )
+
 ```
 
 # Warm-up exercises for Day 2

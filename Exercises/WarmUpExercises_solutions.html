@@ -1689,6 +1689,32 @@ library(tidyverse) # for tidyverse</code></pre>
 {"columns":[{"label":["species"],"name":[1],"type":["fct"],"align":["left"]},{"label":["sex"],"name":[2],"type":["fct"],"align":["left"]},{"label":["n"],"name":[3],"type":["int"],"align":["right"]}],"data":[{"1":"Adelie","2":"female","3":"73"},{"1":"Adelie","2":"male","3":"73"},{"1":"Adelie","2":"NA","3":"6"},{"1":"Chinstrap","2":"female","3":"34"},{"1":"Chinstrap","2":"male","3":"34"},{"1":"Gentoo","2":"female","3":"58"},{"1":"Gentoo","2":"male","3":"61"},{"1":"Gentoo","2":"NA","3":"5"}],"options":{"columns":{"min":{},"max":[10]},"rows":{"min":[10],"max":[10]},"pages":{}}}
   </script>
 </div>
+<p>What is the proportion of each species of penguins? Hint: use
+<code>count</code> then <code>mutate</code></p>
+<pre class="r"><code>penguins %&gt;%
+   count(species) %&gt;%
+   mutate(
+      p=n/sum(n)
+   )</code></pre>
+<div data-pagedtable="false">
+<script data-pagedtable-source type="application/json">
+{"columns":[{"label":["species"],"name":[1],"type":["fct"],"align":["left"]},{"label":["n"],"name":[2],"type":["int"],"align":["right"]},{"label":["p"],"name":[3],"type":["dbl"],"align":["right"]}],"data":[{"1":"Adelie","2":"152","3":"0.4418605"},{"1":"Chinstrap","2":"68","3":"0.1976744"},{"1":"Gentoo","2":"124","3":"0.3604651"}],"options":{"columns":{"min":{},"max":[10]},"rows":{"min":[10],"max":[10]},"pages":{}}}
+  </script>
+</div>
+<p>What is the proportion of each sex of penguins within species? Hint:
+use <code>count</code> then <code>group_by</code> and
+<code>mutate</code></p>
+<pre class="r"><code>penguins %&gt;%
+   count(species, sex) %&gt;%
+   group_by(species) %&gt;%
+   mutate(
+      p=n/sum(n)
+   )</code></pre>
+<div data-pagedtable="false">
+<script data-pagedtable-source type="application/json">
+{"columns":[{"label":["species"],"name":[1],"type":["fct"],"align":["left"]},{"label":["sex"],"name":[2],"type":["fct"],"align":["left"]},{"label":["n"],"name":[3],"type":["int"],"align":["right"]},{"label":["p"],"name":[4],"type":["dbl"],"align":["right"]}],"data":[{"1":"Adelie","2":"female","3":"73","4":"0.48026316"},{"1":"Adelie","2":"male","3":"73","4":"0.48026316"},{"1":"Adelie","2":"NA","3":"6","4":"0.03947368"},{"1":"Chinstrap","2":"female","3":"34","4":"0.50000000"},{"1":"Chinstrap","2":"male","3":"34","4":"0.50000000"},{"1":"Gentoo","2":"female","3":"58","4":"0.46774194"},{"1":"Gentoo","2":"male","3":"61","4":"0.49193548"},{"1":"Gentoo","2":"NA","3":"5","4":"0.04032258"}],"options":{"columns":{"min":{},"max":[10]},"rows":{"min":[10],"max":[10]},"pages":{}}}
+  </script>
+</div>
 </div>
 <div id="warm-up-exercises-for-day-2" class="section level1">
 <h1>Warm-up exercises for Day 2</h1>
