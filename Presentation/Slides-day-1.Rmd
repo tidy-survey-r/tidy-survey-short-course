@@ -127,21 +127,29 @@ glimpse(penguins)
 - Explore the penguins data
   - How many penguins of each species are there? 
   - How many penguins of each species and sex are there? 
+  - What is the proportion of each species of penguins?
+  - What is the proportion of each sex of penguins within species?
 
 
 ---
 ## Ex. 1: How many penguins of each species are there? 
 
+.pull-left[
 ```{r peng1}
 penguins %>%
    count(species)
+```
+]
 
+.pull-right[
+```{r peng1alt}
 penguins %>%
    group_by(species) %>%
    summarise(
       n=n(), .groups="drop"
    )
 ```
+]
 
 ???
 - Using `count` we see there are 3 different species and the number of penguins for each species
@@ -156,10 +164,34 @@ penguins %>%
 - `count` can take more than one variable to get a cross-tabs between the two variables
 
 ---
+## Ex. 3: What is the proportion of each species of penguins?
+
+```{r speciestabp}
+penguins %>%
+   count(species) %>%
+   mutate(
+      p=n/sum(n)
+   )
+```
+
+---
+## What is the proportion of each sex of penguins within species?
+
+```{r speciessextabp}
+penguins %>%
+   count(species, sex) %>%
+   group_by(species) %>%
+   mutate(
+      p=n/sum(n)
+   )
+
+```
+
+---
 class: inverse center middle
 # Survey Datasets
 ---
-## American National Election Studies (ANES) 2016 
+## American National Election Studies (ANES) 2020 
 
 - Pre and post election surveys
 
@@ -171,7 +203,7 @@ class: inverse center middle
 
 - <b>Target Population</b>: US citizens, 18 and older living in US 
 
-- <b>Mode</b>: FTF with CASI and Web
+- <b>Mode</b>: Web, videoconference, or telephone.
 
 - <b>Sample Information</b>: Pseudo-strata and pseudo-cluster included for variance estimation
 
@@ -179,7 +211,7 @@ https://electionstudies.org/
 
 ???
 - We have subset the columns of this data and created derived variables, code in repository
-- Chose not to use 2020 data because it is still preliminary
+- Historically FTF existed but pandemic prevented this
 
 ---
 class: inverse center middle
@@ -232,9 +264,9 @@ install.packages("srvyr")
 library(survey) # for survey analysis
 library(srvyr) # for tidy survey analysis
 
-anes <- read_rds(here("Data", "anes.rds")) %>%
-   mutate(Weight=Weight/sum(Weight)*224059005) 
-# adjust weight to sum to citizen pop, 18+ in Nov 2016 per ANES methodology documentation
+anes <- read_rds(here("Data", "anes_2020.rds")) %>%
+   mutate(Weight=Weight/sum(Weight)*231592693) 
+# adjust weight to sum to citizen pop, 18+ in Nov 2020 per ANES methodology documentation
 anes_des <- anes %>%
    as_survey_design(weights = Weight,
                     strata = Stratum,
@@ -314,12 +346,12 @@ anes_des %>%
 ## Conditional proportions with more than one group
 
 - Specifying more than one group calculates conditional proportions
-- Example: people voting in 2012 and 2016
+- Example: people voting in 2016 and 2020
 
 ```{r survey_p_cond, tidy=FALSE}
 anes_des %>%
-  filter(!is.na(VotedPres2012), !is.na(VotedPres2016)) %>%
-  group_by(VotedPres2012, VotedPres2016) %>%
+  filter(!is.na(VotedPres2016), !is.na(VotedPres2020)) %>%
+  group_by(VotedPres2016, VotedPres2020) %>%
   summarize(
     p=survey_mean(),
     N=survey_total(),
@@ -329,19 +361,19 @@ anes_des %>%
 ```
 ???
 - We will talk more about this next time but filter after creating design object to subset data
-- Note that this is the proportion of voting in 2016 by whether people voted in 2012
+- Note that this is the proportion of voting in 2020 by whether people voted in 2016
 - What if we don't want conditional proportions?
 
 ---
 ## Joint proportions with more than one group
 
 - Specify an interaction to get joint distribution - use `interact` within `group_by`
-- Example: people voting in 2012 and 2016
+- Example: people voting in 2016 and 2020
 
 ```{r survey_p_joint}
 anes_des %>%
-  filter(!is.na(VotedPres2012), !is.na(VotedPres2016)) %>%
-  group_by(interact(VotedPres2016, VotedPres2012)) %>% #<<
+  filter(!is.na(VotedPres2020), !is.na(VotedPres2016)) %>%
+  group_by(interact(VotedPres2016, VotedPres2020)) %>% #<<
   summarize(
     p=survey_mean(),
     N=survey_total(),
@@ -357,10 +389,10 @@ anes_des %>%
 
 ```{r survey_p_deff}
 anes_des %>%
-  filter(!is.na(VotedPres2012), !is.na(VotedPres2016)) %>%
-  group_by(VotedPres2012, VotedPres2016) %>%
+  filter(!is.na(VotedPres2016), !is.na(VotedPres2020)) %>%
+  group_by(interact(VotedPres2016, VotedPres2020)) %>% 
   summarize(
-    p=survey_mean(deff=TRUE),
+    p=survey_mean(deff=TRUE), #<<
     N=survey_total()
   )
 ```

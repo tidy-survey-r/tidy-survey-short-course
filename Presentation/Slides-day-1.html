@@ -146,11 +146,14 @@ glimpse(penguins)
 - Explore the penguins data
   - How many penguins of each species are there? 
   - How many penguins of each species and sex are there? 
+  - What is the proportion of each species of penguins?
+  - What is the proportion of each sex of penguins within species?
 
 
 ---
 ## Ex. 1: How many penguins of each species are there? 
 
+.pull-left[
 
 ```r
 penguins %&gt;%
@@ -165,6 +168,9 @@ penguins %&gt;%
 ## 2 Chinstrap    68
 ## 3 Gentoo      124
 ```
+]
+
+.pull-right[
 
 ```r
 penguins %&gt;%
@@ -182,6 +188,7 @@ penguins %&gt;%
 ## 2 Chinstrap    68
 ## 3 Gentoo      124
 ```
+]
 
 ???
 - Using `count` we see there are 3 different species and the number of penguins for each species
@@ -211,10 +218,59 @@ penguins %&gt;%
 - `count` can take more than one variable to get a cross-tabs between the two variables
 
 ---
+## Ex. 3: What is the proportion of each species of penguins?
+
+
+```r
+penguins %&gt;%
+   count(species) %&gt;%
+   mutate(
+      p=n/sum(n)
+   )
+```
+
+```
+## # A tibble: 3 x 3
+##   species       n     p
+##   &lt;fct&gt;     &lt;int&gt; &lt;dbl&gt;
+## 1 Adelie      152 0.442
+## 2 Chinstrap    68 0.198
+## 3 Gentoo      124 0.360
+```
+
+---
+## What is the proportion of each sex of penguins within species?
+
+
+```r
+penguins %&gt;%
+   count(species, sex) %&gt;%
+   group_by(species) %&gt;%
+   mutate(
+      p=n/sum(n)
+   )
+```
+
+```
+## # A tibble: 8 x 4
+## # Groups:   species [3]
+##   species   sex        n      p
+##   &lt;fct&gt;     &lt;fct&gt;  &lt;int&gt;  &lt;dbl&gt;
+## 1 Adelie    female    73 0.480 
+## 2 Adelie    male      73 0.480 
+## 3 Adelie    &lt;NA&gt;       6 0.0395
+## 4 Chinstrap female    34 0.5   
+## 5 Chinstrap male      34 0.5   
+## 6 Gentoo    female    58 0.468 
+## 7 Gentoo    male      61 0.492 
+## 8 Gentoo    &lt;NA&gt;       5 0.0403
+```
+
+---
 class: inverse center middle
 # Survey Datasets
 ---
-## American National Election Studies (ANES) 2016 
+## American National Election Studies (ANES) 2020 
 
 - Pre and post election surveys
 
@@ -226,7 +282,7 @@ class: inverse center middle
 
 - &lt;b&gt;Target Population&lt;/b&gt;: US citizens, 18 and older living in US 
 
-- &lt;b&gt;Mode&lt;/b&gt;: FTF with CASI and Web
+- &lt;b&gt;Mode&lt;/b&gt;: Web, videoconference, or telephone.
 
 - &lt;b&gt;Sample Information&lt;/b&gt;: Pseudo-strata and pseudo-cluster included for variance estimation
 
@@ -234,7 +290,7 @@ https://electionstudies.org/
 
 ???
 - We have subset the columns of this data and created derived variables, code in repository
-- Chose not to use 2020 data because it is still preliminary
+- Historically FTF existed but pandemic prevented this
 
 ---
 class: inverse center middle
@@ -289,9 +345,9 @@ install.packages("srvyr")
 library(survey) # for survey analysis
 library(srvyr) # for tidy survey analysis
 
-anes &lt;- read_rds(here("Data", "anes.rds")) %&gt;%
-   mutate(Weight=Weight/sum(Weight)*224059005) 
-# adjust weight to sum to citizen pop, 18+ in Nov 2016 per ANES methodology documentation
+anes &lt;- read_rds(here("Data", "anes_2020.rds")) %&gt;%
+   mutate(Weight=Weight/sum(Weight)*231592693) 
+# adjust weight to sum to citizen pop, 18+ in Nov 2020 per ANES methodology documentation
 anes_des &lt;- anes %&gt;%
    as_survey_design(weights = Weight,
                     strata = Stratum,
@@ -341,13 +397,13 @@ anes_des %&gt;%
 ## # A tibble: 7 x 3
 ##   AgeGroup            N     N_se
 ##   &lt;fct&gt;           &lt;dbl&gt;    &lt;dbl&gt;
-## 1 18-29       44974907. 2246933.
-## 2 30-39       36733407. 1773602.
-## 3 40-49       33478645. 1548796.
-## 4 50-59       45937153. 1912133.
-## 5 60-69       33751497. 1617678.
-## 6 70 or older 24552684. 1478702.
-## 7 &lt;NA&gt;         4630712.  475533.
+## 1 18-29       43859809. 2340503.
+## 2 30-39       39747151. 1556193.
+## 3 40-49       36920134. 1452300.
+## 4 50-59       39191266. 1602082.
+## 5 60-69       35833416. 1214320.
+## 6 70 or older 27503517. 1146535.
+## 7 &lt;NA&gt;         8537401.  710907.
 ```
 ???
 - `survey_count` is placed on its own like `count`
@@ -382,13 +438,13 @@ anes_des %&gt;%
 ## # A tibble: 7 x 6
 ##   AgeGroup         p    p_se         N     N_se     n
 ##   &lt;fct&gt;        &lt;dbl&gt;   &lt;dbl&gt;     &lt;dbl&gt;    &lt;dbl&gt; &lt;int&gt;
-## 1 18-29       0.201  0.00846 44974907. 2246933.   651
-## 2 30-39       0.164  0.00754 36733407. 1773602.   761
-## 3 40-49       0.149  0.00670 33478645. 1548796.   620
-## 4 50-59       0.205  0.00809 45937153. 1912133.   781
-## 5 60-69       0.151  0.00672 33751497. 1617678.   769
-## 6 70 or older 0.110  0.00624 24552684. 1478702.   567
-## 7 &lt;NA&gt;        0.0207 0.00208  4630712.  475533.   121
+## 1 18-29       0.189  0.00838 43859809. 2340503.   871
+## 2 30-39       0.172  0.00659 39747151. 1556193.  1241
+## 3 40-49       0.159  0.00609 36920134. 1452300.  1081
+## 4 50-59       0.169  0.00657 39191266. 1602082.  1200
+## 5 60-69       0.155  0.00488 35833416. 1214320.  1436
+## 6 70 or older 0.119  0.00474 27503517. 1146535.  1330
+## 7 &lt;NA&gt;        0.0369 0.00305  8537401.  710907.   294
 ```
 ???
 - to get proportions we use `group_by` and `survey_mean`
@@ -398,13 +454,13 @@ anes_des %&gt;%
 ## Conditional proportions with more than one group
 
 - Specifying more than one group calculates conditional proportions
-- Example: people voting in 2012 and 2016
+- Example: people voting in 2016 and 2020
 
 
 ```r
 anes_des %&gt;%
-  filter(!is.na(VotedPres2012), !is.na(VotedPres2016)) %&gt;%
-  group_by(VotedPres2012, VotedPres2016) %&gt;%
+  filter(!is.na(VotedPres2016), !is.na(VotedPres2020)) %&gt;%
+  group_by(VotedPres2016, VotedPres2020) %&gt;%
   summarize(
     p=survey_mean(),
     N=survey_total(),
@@ -415,29 +471,29 @@ anes_des %&gt;%
 
 ```
 ## # A tibble: 4 x 7
-##   VotedPres2012 VotedPres2016      p    p_se          N     N_se     n
+##   VotedPres2016 VotedPres2020      p    p_se          N     N_se     n
 ##   &lt;fct&gt;         &lt;fct&gt;          &lt;dbl&gt;   &lt;dbl&gt;      &lt;dbl&gt;    &lt;dbl&gt; &lt;int&gt;
-## 1 Yes           Yes           0.905  0.00717 137951845. 3318434.  2441
-## 2 Yes           No            0.0948 0.00717  14455048. 1165836.   225
-## 3 No            Yes           0.679  0.0199   31671027. 1780765.   435
-## 4 No            No            0.321  0.0199   14980427. 1165804.   215
+## 1 Yes           Yes           0.924  0.00566 144578247. 2617349.  5534
+## 2 Yes           No            0.0762 0.00566  11917394.  955174.   274
+## 3 No            Yes           0.455  0.0162   33923120. 1594478.   859
+## 4 No            No            0.545  0.0162   40606907. 2036095.   761
 ```
 ???
 - We will talk more about this next time but filter after creating design object to subset data
-- Note that this is the proportion of voting in 2016 by whether people voted in 2012
+- Note that this is the proportion of voting in 2020 by whether people voted in 2016
 - What if we don't want conditional proportions?
 
 ---
 ## Joint proportions with more than one group
 
 - Specify an interaction to get joint distribution - use `interact` within `group_by`
-- Example: people voting in 2012 and 2016
+- Example: people voting in 2016 and 2020
 
 
 ```r
 anes_des %&gt;%
-  filter(!is.na(VotedPres2012), !is.na(VotedPres2016)) %&gt;%
-* group_by(interact(VotedPres2016, VotedPres2012)) %&gt;%
+  filter(!is.na(VotedPres2020), !is.na(VotedPres2016)) %&gt;%
+* group_by(interact(VotedPres2016, VotedPres2020)) %&gt;%
   summarize(
     p=survey_mean(),
     N=survey_total(),
@@ -447,12 +503,12 @@ anes_des %&gt;%
 
 ```
 ## # A tibble: 4 x 6
-##   VotedPres2016 VotedPres2012      p    p_se          N     N_se
+##   VotedPres2016 VotedPres2020      p    p_se          N     N_se
 ##   &lt;fct&gt;         &lt;fct&gt;          &lt;dbl&gt;   &lt;dbl&gt;      &lt;dbl&gt;    &lt;dbl&gt;
-## 1 Yes           Yes           0.693  0.00971 137951845. 3318434.
-## 2 Yes           No            0.159  0.00812  31671027. 1780765.
-## 3 No            Yes           0.0726 0.00569  14455048. 1165836.
-## 4 No            No            0.0753 0.00559  14980427. 1165804.
+## 1 Yes           Yes           0.626  0.00934 144578247. 2617349.
+## 2 Yes           No            0.0516 0.00391  11917394.  955174.
+## 3 No            Yes           0.147  0.00628  33923120. 1594478.
+## 4 No            No            0.176  0.00770  40606907. 2036095.
 ```
 ???
 - We add an interaction for the groups
@@ -464,23 +520,22 @@ anes_des %&gt;%
 
 ```r
 anes_des %&gt;%
-  filter(!is.na(VotedPres2012), !is.na(VotedPres2016)) %&gt;%
-  group_by(VotedPres2012, VotedPres2016) %&gt;%
+  filter(!is.na(VotedPres2016), !is.na(VotedPres2020)) %&gt;%
+  group_by(interact(VotedPres2016, VotedPres2020)) %&gt;% 
   summarize(
-    p=survey_mean(deff=TRUE),
+*   p=survey_mean(deff=TRUE),
     N=survey_total()
   )
 ```
 
 ```
 ## # A tibble: 4 x 7
-## # Groups:   VotedPres2012 [2]
-##   VotedPres2012 VotedPres2016      p    p_se p_deff          N     N_se
+##   VotedPres2016 VotedPres2020      p    p_se p_deff          N     N_se
 ##   &lt;fct&gt;         &lt;fct&gt;          &lt;dbl&gt;   &lt;dbl&gt;  &lt;dbl&gt;      &lt;dbl&gt;    &lt;dbl&gt;
-## 1 Yes           Yes           0.905  0.00717   1.58 137951845. 3318434.
-## 2 Yes           No            0.0948 0.00717   1.58  14455048. 1165836.
-## 3 No            Yes           0.679  0.0199    1.18  31671027. 1780765.
-## 4 No            No            0.321  0.0199    1.18  14980427. 1165804.
+## 1 Yes           Yes           0.626  0.00934   2.76 144578247. 2617349.
+## 2 Yes           No            0.0516 0.00391   2.32  11917394.  955174.
+## 3 No            Yes           0.147  0.00628   2.34  33923120. 1594478.
+## 4 No            No            0.176  0.00770   3.04  40606907. 2036095.
 ```
 ???
 - Use `deff=TRUE` option in the `survey_mean` function
@@ -533,7 +588,7 @@ anes_des %&gt;%
 ## 	Pearson's X^2: Rao &amp; Scott adjustment
 ## 
 ## data:  NextMethod()
-## F = 12.608, ndf = 13.161, ddf = 1750.368, p-value &lt; 2.2e-16
+## F = 29.08, ndf = 11.443, ddf = 583.587, p-value &lt; 2.2e-16
 ```
 ???
 - We want to compare the distributions of these two questions
@@ -557,7 +612,7 @@ anes_des %&gt;%
 ## 	Design-based Wald test of association
 ## 
 ## data:  NextMethod()
-## F = 24.692, ndf = 8, ddf = 133, p-value &lt; 2.2e-16
+## F = 8.7453, ndf = 8, ddf = 51, p-value = 1.984e-07
 ```
 ???
 - Can use different statistics
@@ -644,15 +699,15 @@ filter(anes_des, Weight&gt;0) %&gt;%
 ## 
 ## Coefficients:
 ##                              Estimate Std. Error t value Pr(&gt;|t|)    
-## (Intercept)                    3.5822     0.2561  13.987  &lt; 2e-16 ***
-## VotedPres2016_selectionTrump   2.3099     0.5355   4.313 3.14e-05 ***
-## VotedPres2016_selectionOther   1.1029     1.0186   1.083    0.281    
+## (Intercept)                    4.4531     0.3174  14.031   &lt;2e-16 ***
+## VotedPres2016_selectionTrump   0.2168     0.4516   0.480    0.633    
+## VotedPres2016_selectionOther   0.1254     1.0075   0.124    0.901    
 ## ---
 ## Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
 ## 
-## (Dispersion parameter for quasibinomial family taken to be 0.9679923)
+## (Dispersion parameter for quasibinomial family taken to be 0.8657907)
 ## 
-## Number of Fisher Scoring iterations: 8
+## Number of Fisher Scoring iterations: 7
 ```
 
 ---
