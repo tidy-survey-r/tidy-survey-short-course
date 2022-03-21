@@ -29,27 +29,27 @@ class: inverse center middle
 
 ```{css sizesetup, echo = FALSE}
 .small .remark-code { /*Change made here*/
-  font-size: 80% !important;
+font-size: 80% !important;
 }
 .smaller .remark-code { /*Change made here*/
-  font-size: 70% !important;
+font-size: 70% !important;
 }
 ```
 
 ## Overview
 
 - At the end of this workshop series, you should be able to 
-  - Calculate point estimates and their standard errors with survey data 
-      - Proportions, totals, and counts
-      - Means, quantiles, and ratios
-  - Perform t-tests and chi-squared tests
-  - Fit regression models
-  - Specify a survey design in R to create a survey object
-  
+- Calculate point estimates and their standard errors with survey data 
+- Proportions, totals, and counts
+- Means, quantiles, and ratios
+- Perform t-tests and chi-squared tests
+- Fit regression models
+- Specify a survey design in R to create a survey object
+
 - We will not be going over the following but provide some resources at the end
-  - Weighting (calibration, post-stratification, raking, etc.)
-  - Survival analysis
-  - Nonlinear models
+- Weighting (calibration, post-stratification, raking, etc.)
+- Survival analysis
+- Nonlinear models
 
 
 
@@ -72,10 +72,10 @@ class: inverse center middle
 
 - We will be using RStudio Cloud today to ensure everyone has access
 
-    - Sign-up for a free RStudio Cloud account 
-    - Access the project and files via link in email and Zoom chat
-    - Click "START" to open the project and get started
-    - Rstudio Cloud has the same features and appearance as RStudio for ease of use
+- Sign-up for a free RStudio Cloud account 
+- Access the project and files via link in email and Zoom chat
+- Click "START" to open the project and get started
+- Rstudio Cloud has the same features and appearance as RStudio for ease of use
 
 - All slides and code are available on GitHub: https://github.com/tidy-survey-r/tidy-survey-short-course
 
@@ -125,10 +125,10 @@ glimpse(penguins)
 - Take 10 minutes to set up RStudio Cloud and do these exercises on your own. We will then go over together
 
 - Explore the penguins data
-  - How many penguins of each species are there? 
-  - How many penguins of each species and sex are there? 
-  - What is the proportion of each species of penguins?
-  - What is the proportion of each sex of penguins within species?
+- How many penguins of each species are there? 
+- How many penguins of each species and sex are there? 
+- What is the proportion of each species of penguins?
+- What is the proportion of each sex of penguins within species?
 
 
 ---
@@ -233,17 +233,17 @@ class: inverse center middle
 ## Weighted Analysis for Categorical Variable
 
 - Functions to use within `summarize` after `group_by`
-   - survey_mean
-   - survey_total
+- survey_mean/survey_prop
+- survey_total
 
 - Functions to get counts
-  - survey_count
+- survey_count
 
 ???
 
 - we use the same mean and total functions as with continuous variables
 - `survey_count` is new
-    - has a similar structure as the standard (non-survey) version of count
+- has a similar structure as the standard (non-survey) version of count
 
 
 ---
@@ -278,7 +278,7 @@ anes_des <- anes %>%
 - need to install github version of survey package if you want CIs with quantiles
 - American National Election Studies
 - provides weights that sum to the sample, but we want to get population estimates
-    - need to adjust the weight to get it to the population count
+- need to adjust the weight to get it to the population count
 - we will cover setting up the sample design object later
 
 ---
@@ -289,13 +289,13 @@ anes_des <- anes %>%
 - Produces weighted counts and variance of your choice of those counts
 ```{r survey_count_syn, eval=FALSE, tidy=FALSE}
 survey_count(
-  x,
-  ...,
-  wt = NULL,
-  sort = FALSE,
-  name = "n",
-  .drop = dplyr::group_by_drop_default(x),
-  vartype = c("se", "ci", "var", "cv")
+   x,
+   ...,
+   wt = NULL,
+   sort = FALSE,
+   name = "n",
+   .drop = dplyr::group_by_drop_default(x),
+   vartype = c("se", "ci", "var", "cv")
 )
 ```
 ???
@@ -308,7 +308,7 @@ survey_count(
 - Cross-tab of population in each age group and gender
 ```{r survey_count_ex}
 anes_des %>%
-  survey_count(AgeGroup, name="N")
+   survey_count(AgeGroup, name="N")
 
 ```
 ???
@@ -321,8 +321,39 @@ anes_des %>%
 ## `survey_mean` and `survey_total` within `summarize`
 - Specify the sample design,
 - then specify the crosstab in `group_by`,
-- then `survey_mean` used with no x (variable) calculates a proportion of groups within `summarize`, or
+- then `survey_mean` or `survey_prop` used with no x (variable) calculates a proportion of groups within `summarize`, or
 - `survey_total` used with no x (variable) calculates a population count estimate within `summarize`
+
+---
+## `survey_mean` and `survey_prop` Syntax
+
+```{r survey_mean_syn, eval=FALSE}
+survey_mean(
+   x,
+   na.rm = FALSE,
+   vartype = c("se", "ci", "var", "cv"),
+   level = 0.95,
+   proportion = FALSE,
+   prop_method = c("logit", "likelihood", "asin", "beta", "mean"),
+   deff = FALSE,
+   df = NULL,
+   ...
+)
+
+survey_prop(
+  vartype = c("se", "ci", "var", "cv"),
+  level = 0.95,
+  proportion = FALSE,
+  prop_method = c("logit", "likelihood", "asin", "beta", "mean"),
+  deff = FALSE,
+  df = NULL,
+  ...
+)
+```
+
+???
+- `proportion`/ `prop_method` impact the CI only
+
 
 ---
 ## `survey_mean` and `survey_total` Examples
@@ -330,13 +361,14 @@ anes_des %>%
 Looking at population by age group as done with `survey_count`.
 ```{r survey_p_ex1}
 anes_des %>%
-  group_by(AgeGroup) %>%
-  summarize(
-    p=survey_mean(),
-    N=survey_total(),
-    n=unweighted(n()), # this gets unweighted counts aka sample sizes
-    .groups="drop" # summarize option to remove groups
-  )
+   group_by(AgeGroup) %>%
+   summarize(
+      p1=survey_mean(),
+      p2=survey_prop(),
+      N=survey_total(),
+      n=unweighted(n()), # this gets unweighted counts aka sample sizes
+      .groups="drop" # summarize option to remove groups
+   )
 ```
 ???
 - to get proportions we use `group_by` and `survey_mean`
@@ -350,14 +382,14 @@ anes_des %>%
 
 ```{r survey_p_cond, tidy=FALSE}
 anes_des %>%
-  filter(!is.na(VotedPres2016), !is.na(VotedPres2020)) %>%
-  group_by(VotedPres2016, VotedPres2020) %>%
-  summarize(
-    p=survey_mean(),
-    N=survey_total(),
-    n=unweighted(n()), 
-    .groups="drop"
-  )
+   filter(!is.na(VotedPres2016), !is.na(VotedPres2020)) %>%
+   group_by(VotedPres2016, VotedPres2020) %>%
+   summarize(
+      p=survey_mean(),
+      N=survey_total(),
+      n=unweighted(n()), 
+      .groups="drop"
+   )
 ```
 ???
 - We will talk more about this next time but filter after creating design object to subset data
@@ -372,13 +404,13 @@ anes_des %>%
 
 ```{r survey_p_joint}
 anes_des %>%
-  filter(!is.na(VotedPres2020), !is.na(VotedPres2016)) %>%
-  group_by(interact(VotedPres2016, VotedPres2020)) %>% #<<
-  summarize(
-    p=survey_mean(),
-    N=survey_total(),
-    .groups="drop"
-  )
+   filter(!is.na(VotedPres2020), !is.na(VotedPres2016)) %>%
+   group_by(interact(VotedPres2016, VotedPres2020)) %>% #<<
+   summarize(
+      p=survey_mean(),
+      N=survey_total(),
+      .groups="drop"
+   )
 ```
 ???
 - We add an interaction for the groups
@@ -389,15 +421,31 @@ anes_des %>%
 
 ```{r survey_p_deff}
 anes_des %>%
-  filter(!is.na(VotedPres2016), !is.na(VotedPres2020)) %>%
-  group_by(interact(VotedPres2016, VotedPres2020)) %>% 
-  summarize(
-    p=survey_mean(deff=TRUE), #<<
-    N=survey_total()
-  )
+   filter(!is.na(VotedPres2016), !is.na(VotedPres2020)) %>%
+   group_by(interact(VotedPres2016, VotedPres2020)) %>% 
+   summarize(
+      p=survey_mean(deff=TRUE), #<<
+      N=survey_total()
+   )
 ```
 ???
 - Use `deff=TRUE` option in the `survey_mean` function
+
+---
+## Proportions: confidence intervals
+
+```{r survey_p_ci}
+anes_des %>%
+   group_by(interact(Income7, VotedPres2016, VotedPres2020)) %>% 
+   summarize(
+      pd=survey_prop(vartype="ci") %>% round(4),
+      pl=survey_prop(proportion = TRUE, prop_method="logit", vartype="ci") %>% round(4),
+      px=survey_prop(proportion = TRUE, prop_method="likelihood", vartype="ci") %>% round(4)
+   ) %>% select(Income7, VotedPres2016, VotedPres2020, contains("_")) %>%
+   DT::datatable(fillContainer = FALSE, options = list(pageLength = 4))
+```
+
+
 
 ---
 ## Practice on your own
@@ -423,7 +471,7 @@ svychisq(formula,
          statistic = c("F",  "Chisq", "Wald", "adjWald", "lincom", "saddlepoint"),
          na.rm=TRUE,
          ...)
-                       
+
 ```
 ???
 - when we want to test categorical distributions we use `svychisq`
@@ -478,9 +526,9 @@ I |`I(X-Z)`| as-as: include a new variable which is the difference of these vari
 ## Formula notation - knowledge check
 
 I want to model the following:
-   
+
 $$mpg_i=\beta_0+\beta_1cyl_{i}+\beta_2disp_{i}+\beta_3hp_{i}+\beta_4cyl_{i}disp_{i}+\beta_5cyl_{i}hp_{i}+\beta_6disp_{i}hp_{i}+\epsilon_i$$
-      
+
 How can you write this formula? Select all that apply:
 
 1. `mpg~cyl:disp:hp`
@@ -493,9 +541,9 @@ How can you write this formula? Select all that apply:
 ## Formula notation - knowledge check (solution)
 
 I want to model the following:
-   
+
 $$mpg_i=\beta_0+\beta_1cyl_{i}+\beta_2disp_{i}+\beta_3hp_{i}+\beta_4cyl_{i}disp_{i}+\beta_5cyl_{i}hp_{i}+\beta_6disp_{i}hp_{i}+\epsilon_i$$
-      
+
 How can you write this formula? Select all that apply:
 
 1. `mpg~cyl:disp:hp` - no, this only has the interactions
@@ -526,8 +574,8 @@ svyglm(formula, # response ~ terms
 ```{r logisticexamp}
 filter(anes_des, Weight>0) %>%
    svyglm(design=.,
-            formula=TrustGovernment~ VotedPres2016_selection,
-            family = quasibinomial) %>%
+          formula=TrustGovernment~ VotedPres2016_selection,
+          family = quasibinomial) %>%
    summary()
 ```
 
@@ -547,7 +595,7 @@ class: inverse center middle
 - https://cran.r-project.org/web/packages/srvyr/vignettes/srvyr-vs-survey.html
 
 - https://r-survey.r-forge.r-project.org/survey/ 
-  - Includes more advanced modeling
+- Includes more advanced modeling
 
 
 ---
