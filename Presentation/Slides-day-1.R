@@ -126,7 +126,7 @@ glimpse(penguins)
 #' 
 #' - <b>Let's open RStudio cloud and do some warm-up examples</b>
 #' 
-#' - Take 10 minutes to set up RStudio Cloud and do these exercises on your own. We will then go over together
+#' - Take 10 minutes to set up RStudio Cloud and do these exercises in breakout rooms. We will then go over together
 #' 
 #' - Explore the penguins data
 #'    - How many penguins of each species are there? 
@@ -455,9 +455,11 @@ anes_des %>%
 ## ----survey_p_ci_print, ref.label="survey_p_ci", eval=TRUE, echo=FALSE--------------------------------------------------------------------------------
 
 #' 
+#' ???
+#' Note that some of the lower bounds are less than 0 for the default method
 #' 
 #' ---
-#' ## Practice on your own
+#' ## Breakout rooms: Practice time
 #' 
 #' - Open CategoricalExercises.Rmd and work through Part 1
 #' 
@@ -506,12 +508,12 @@ anes_des %>%
 #' ## `svychisq` Example 2: Wald Statistic
 #' 
 #' - How often can you trust the federal gov't to do what is right?
-#' - Who did you vote for? Clinton, Trump, or Other
+#' - Who did you vote for? Biden, Trump, or Other
 #' 
 ## ----svychisq_ex2-------------------------------------------------------------------------------------------------------------------------------------
 anes_des %>%
    svychisq(design=.,
-            formula=~TrustGovernment +VotedPres2016_selection,
+            formula=~TrustGovernment +VotedPres2020_selection,
             statistic="Wald")
 
 
@@ -578,18 +580,18 @@ anes_des %>%
 #' 
 #' ---
 #' ## Example logistic regression
-#' - Predicting trust in government by who someone voted in 2016
+#' - Predicting trust in government by who someone voted in 2020
 #' 
 ## ----logisticexamp------------------------------------------------------------------------------------------------------------------------------------
 filter(anes_des, Weight>0) %>%
    svyglm(design=.,
-          formula=TrustGovernment~ VotedPres2016_selection,
+          formula=TrustGovernment~ VotedPres2020_selection,
           family = quasibinomial) %>%
    summary()
 
 #' 
 #' ---
-#' ## Practice on your own
+#' ## Breakout rooms: Practice time
 #' 
 #' - Open CategoricalExercises.Rmd and work through Part 2
 #' 
@@ -635,6 +637,10 @@ filter(anes_des, Weight>0) %>%
 #' ## Session info - platform
 #' 
 ## ----si, echo=FALSE-----------------------------------------------------------------------------------------------------------------------------------
+library(xaringan)
+library(knitr)
+library(remotes)
+library(DT)
 j <- devtools::session_info(pkgs="attached")
 print(j$platform)
 

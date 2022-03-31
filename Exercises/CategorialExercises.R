@@ -67,7 +67,7 @@ anes_des <- anes %>%
 
 #' 
 #' 
-#' 2. Is there a relationship between PartyID and trust in the government? Hints: `TrustGovernment` indicates how strongly people trust government. Use Wald as the `statistic` option.
+#' 2. Is there a relationship between PartyID and trust in the government? Hints: `TrustGovernment` indicates how strongly people trust the government. Use Wald as the `statistic` option.
 #' 
 ## ----ex2_2--------------------------------------------------------------------------------------------------------------------------------------------
 
