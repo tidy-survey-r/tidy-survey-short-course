@@ -1802,7 +1802,7 @@ p-value=1.5^{-4}</p>
 <ol start="2" style="list-style-type: decimal">
 <li>Is there a relationship between PartyID and trust in the government?
 Hints: <code>TrustGovernment</code> indicates how strongly people trust
-government. Use Wald as the <code>statistic</code> option.</li>
+the government. Use Wald as the <code>statistic</code> option.</li>
 </ol>
 <pre class="r"><code>anes_des %&gt;%
    filter(!is.na(PartyID), !is.na(TrustGovernment)) %&gt;%

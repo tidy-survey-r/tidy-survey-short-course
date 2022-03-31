@@ -122,7 +122,7 @@ anes_des %>%
 #' 
 #' There is strong association with when people voted and their party, p-value=`r pluck(pid_vote, "p.value") %>% round(5)`
 #' 
-#' 2. Is there a relationship between PartyID and trust in the government? Hints: `TrustGovernment` indicates how strongly people trust government. Use Wald as the `statistic` option.
+#' 2. Is there a relationship between PartyID and trust in the government? Hints: `TrustGovernment` indicates how strongly people trust the government. Use Wald as the `statistic` option.
 #' 
 ## ----ex2_2--------------------------------------------------------------------------------------------------------------------------------------------
 anes_des %>%
