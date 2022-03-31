@@ -78,7 +78,7 @@ cps_state <- cps_state_in %>%
 cps_state %>%
    count(state)
 
-# confirm this is only November 2020
+# confirm this is only November 2016
 cps_state %>% 
    count(HRMONTH, HRYEAR4)
 

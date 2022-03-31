@@ -140,7 +140,7 @@ cps_state %>%
     ## # ... with 41 more rows
 
 ``` r
-# confirm this is only November 2020
+# confirm this is only November 2016
 cps_state %>% 
    count(HRMONTH, HRYEAR4)
 ```
