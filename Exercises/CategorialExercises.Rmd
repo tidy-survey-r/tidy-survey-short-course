@@ -6,7 +6,7 @@ output:
 ---
 
 # Set-up
-```{r}
+```{r setup}
 library(tidyverse) # for tidyverse
 library(here) # for file paths
 library(survey) # for survey analysis
@@ -60,14 +60,14 @@ anes_des <- anes %>%
 
 # Part 2
 
-1. Is there a relationship between PartyID and when people voted in the 2020 election (on election day or early voting)?
+1. Is there a relationship between PartyID and whether people voted early?
 
 ```{r ex2_1}
 
 ```
 
 
-2. Is there a relationship between PartyID and trust in the government? Hint: `TrustGovernment` indicates how strongly people trust government.
+2. Is there a relationship between PartyID and trust in the government? Hints: `TrustGovernment` indicates how strongly people trust government. Use Wald as the `statistic` option.
 
 ```{r ex2_2}
 

@@ -5,7 +5,7 @@ author:
    - Stephanie Zimmer, Abt Associates
    - Rebecca Powell, RTI International
    - Isabella Velásquez, RStudio
-date: "TBD 2022"
+date: "April 15, 2022"
 output:
   xaringan::moon_reader:
     css: xaringan-themer-mod.css
@@ -39,17 +39,17 @@ font-size: 70% !important;
 ## Overview
 
 - At the end of this workshop series, you should be able to 
-- Calculate point estimates and their standard errors with survey data 
-- Proportions, totals, and counts
-- Means, quantiles, and ratios
-- Perform t-tests and chi-squared tests
-- Fit regression models
-- Specify a survey design in R to create a survey object
+   - Calculate point estimates and their standard errors with survey data 
+      - Proportions, totals, and counts
+      - Means, quantiles, and ratios
+   - Perform t-tests and chi-squared tests
+   - Fit regression models
+   - Specify a survey design in R to create a survey object
 
 - We will not be going over the following but provide some resources at the end
-- Weighting (calibration, post-stratification, raking, etc.)
-- Survival analysis
-- Nonlinear models
+   - Weighting (calibration, post-stratification, raking, etc.)
+   - Survival analysis
+   - Nonlinear models
 
 
 
@@ -72,10 +72,10 @@ font-size: 70% !important;
 
 - We will be using RStudio Cloud today to ensure everyone has access
 
-- Sign-up for a free RStudio Cloud account 
+- Sign-up for a free RStudio Cloud account (https://rstudio.cloud/)
 - Access the project and files via link in email and Zoom chat
 - Click "START" to open the project and get started
-- Rstudio Cloud has the same features and appearance as RStudio for ease of use
+- RStudio Cloud has the same features and appearance as RStudio for ease of use
 
 - All slides and code are available on GitHub: https://github.com/tidy-survey-r/tidy-survey-short-course
 
@@ -125,10 +125,10 @@ glimpse(penguins)
 - Take 10 minutes to set up RStudio Cloud and do these exercises on your own. We will then go over together
 
 - Explore the penguins data
-- How many penguins of each species are there? 
-- How many penguins of each species and sex are there? 
-- What is the proportion of each species of penguins?
-- What is the proportion of each sex of penguins within species?
+   - How many penguins of each species are there? 
+   - How many penguins of each species and sex are there? 
+   - What is the proportion of each species of penguins?
+   - What is the proportion of each sex of penguins within species?
 
 
 ---
@@ -254,7 +254,7 @@ class: inverse center middle
 ```{r inst_srv, eval=FALSE}
 # Install survey and srvyr packages
 
-remotes::install_github("bschneidr/survey", ref = "c217689")
+remotes::install_github("bschneidr/r-forge-survey-mirror")
 install.packages("srvyr")
 ```
 
@@ -308,7 +308,7 @@ survey_count(
 - Cross-tab of population in each age group and gender
 ```{r survey_count_ex}
 anes_des %>%
-   survey_count(AgeGroup, name="N")
+   survey_count(AgeGroup, Gender, name="N")
 
 ```
 ???
@@ -434,7 +434,7 @@ anes_des %>%
 ---
 ## Proportions: confidence intervals
 
-```{r survey_p_ci}
+```{r survey_p_ci, eval=FALSE}
 anes_des %>%
    group_by(interact(Income7, VotedPres2016, VotedPres2020)) %>% 
    summarize(
@@ -445,6 +445,11 @@ anes_des %>%
    DT::datatable(fillContainer = FALSE, options = list(pageLength = 4))
 ```
 
+---
+## Proportions: confidence intervals (results)
+
+```{r survey_p_ci_print, ref.label="survey_p_ci", eval=TRUE, echo=FALSE}
+```
 
 
 ---
@@ -620,3 +625,19 @@ Please let us know if you have any feedback on this workshop. All feedback is we
 - <font size="3">Greg Freedman Ellis and Ben Schneider (2020). srvyr: 'dplyr'-Like Syntax for Summary Statistics of Survey Data. R package version 1.0.0. https://CRAN.R-project.org/package=srvyr </font>
 
 - <font size="3">Hadley Wickham, Romain François, Lionel Henry and Kirill Müller (2021). dplyr: A Grammar of Data Manipulation. R package version 1.0.5. https://CRAN.R-project.org/package=dplyr </font>
+
+
+---
+## Session info - platform
+
+```{r si, echo=FALSE}
+j <- devtools::session_info(pkgs="attached")
+print(j$platform)
+```
+
+---
+## Session info - packages
+
+```{r sipack1, echo=FALSE}
+print(j$packages)
+```

@@ -5,7 +5,7 @@
 #'    - Stephanie Zimmer, Abt Associates
 #'    - Rebecca Powell, RTI International
 #'    - Isabella Velásquez, RStudio
-#' date: "TBD 2022"
+#' date: "April 15, 2022"
 #' output:
 #'   xaringan::moon_reader:
 #'     css: xaringan-themer-mod.css
@@ -17,7 +17,7 @@
 #'       countIncrementalSlides: true
 #' ---
 #' 
-## ----setup, include=FALSE----------------------------------------------------------------------------------------------
+## ----setup, include=FALSE-----------------------------------------------------------------------------------------------------------------------------
 knitr::opts_chunk$set(echo = TRUE, message = FALSE, tidy = FALSE)
 
 #' 
@@ -29,13 +29,13 @@ knitr::opts_chunk$set(echo = TRUE, message = FALSE, tidy = FALSE)
 #' 
 ## .small .remark-code { /*Change made here*/
 
-##   font-size: 80% !important;
+## font-size: 80% !important;
 
 ## }
 
 ## .smaller .remark-code { /*Change made here*/
 
-##   font-size: 70% !important;
+## font-size: 70% !important;
 
 ## }
 
@@ -43,17 +43,17 @@ knitr::opts_chunk$set(echo = TRUE, message = FALSE, tidy = FALSE)
 #' ## Overview
 #' 
 #' - At the end of this workshop series, you should be able to 
-#'   - Calculate point estimates and their standard errors with survey data 
+#'    - Calculate point estimates and their standard errors with survey data 
 #'       - Proportions, totals, and counts
 #'       - Means, quantiles, and ratios
-#'   - Perform t-tests and chi-squared tests
-#'   - Fit regression models
-#'   - Specify a survey design in R to create a survey object
-#'   
+#'    - Perform t-tests and chi-squared tests
+#'    - Fit regression models
+#'    - Specify a survey design in R to create a survey object
+#' 
 #' - We will not be going over the following but provide some resources at the end
-#'   - Weighting (calibration, post-stratification, raking, etc.)
-#'   - Survival analysis
-#'   - Nonlinear models
+#'    - Weighting (calibration, post-stratification, raking, etc.)
+#'    - Survival analysis
+#'    - Nonlinear models
 #' 
 #' 
 #' 
@@ -76,10 +76,10 @@ knitr::opts_chunk$set(echo = TRUE, message = FALSE, tidy = FALSE)
 #' 
 #' - We will be using RStudio Cloud today to ensure everyone has access
 #' 
-#'     - Sign-up for a free RStudio Cloud account 
-#'     - Access the project and files via link in email and Zoom chat
-#'     - Click "START" to open the project and get started
-#'     - Rstudio Cloud has the same features and appearance as RStudio for ease of use
+#' - Sign-up for a free RStudio Cloud account (https://rstudio.cloud/)
+#' - Access the project and files via link in email and Zoom chat
+#' - Click "START" to open the project and get started
+#' - RStudio Cloud has the same features and appearance as RStudio for ease of use
 #' 
 #' - All slides and code are available on GitHub: https://github.com/tidy-survey-r/tidy-survey-short-course
 #' 
@@ -99,7 +99,7 @@ knitr::opts_chunk$set(echo = TRUE, message = FALSE, tidy = FALSE)
 #' ####If you are using your own RStudio environment:
 #' - Make sure you have `tidyverse`, `here`, and `palmerpenguins` installed
 #' 
-## ----inst_packages, error=FALSE, warning=FALSE, eval=FALSE-------------------------------------------------------------
+## ----inst_packages, error=FALSE, warning=FALSE, eval=FALSE--------------------------------------------------------------------------------------------
 ## # Run package installation if you don't have these packages already
 ## # As a reminder, installing takes package from internet to your computer
 ## # and only needs to be done once, not each session
@@ -114,7 +114,7 @@ knitr::opts_chunk$set(echo = TRUE, message = FALSE, tidy = FALSE)
 #' 
 #' - Look at the penguins dataset using `glimpse`
 #' 
-## ----load_pack1, error=FALSE, warning=FALSE----------------------------------------------------------------------------
+## ----load_pack1, error=FALSE, warning=FALSE-----------------------------------------------------------------------------------------------------------
 library(tidyverse) # for tidyverse
 library(here) # for file paths
 library(palmerpenguins) # for warm-up data
@@ -129,24 +129,24 @@ glimpse(penguins)
 #' - Take 10 minutes to set up RStudio Cloud and do these exercises on your own. We will then go over together
 #' 
 #' - Explore the penguins data
-#'   - How many penguins of each species are there? 
-#'   - How many penguins of each species and sex are there? 
-#'   - What is the proportion of each species of penguins?
-#'   - What is the proportion of each sex of penguins within species?
+#'    - How many penguins of each species are there? 
+#'    - How many penguins of each species and sex are there? 
+#'    - What is the proportion of each species of penguins?
+#'    - What is the proportion of each sex of penguins within species?
 #' 
 #' 
 #' ---
 #' ## Ex. 1: How many penguins of each species are there? 
 #' 
 #' .pull-left[
-## ----peng1-------------------------------------------------------------------------------------------------------------
+## ----peng1--------------------------------------------------------------------------------------------------------------------------------------------
 penguins %>%
    count(species)
 
 #' ]
 #' 
 #' .pull-right[
-## ----peng1alt----------------------------------------------------------------------------------------------------------
+## ----peng1alt-----------------------------------------------------------------------------------------------------------------------------------------
 penguins %>%
    group_by(species) %>%
    summarise(
@@ -160,7 +160,7 @@ penguins %>%
 #' ---
 #' ## Ex. 2: How many penguins of each species and sex are there?
 #' 
-## ----peng2-------------------------------------------------------------------------------------------------------------
+## ----peng2--------------------------------------------------------------------------------------------------------------------------------------------
 penguins %>%
    count(species, sex)
 
@@ -170,7 +170,7 @@ penguins %>%
 #' ---
 #' ## Ex. 3: What is the proportion of each species of penguins?
 #' 
-## ----speciestabp-------------------------------------------------------------------------------------------------------
+## ----speciestabp--------------------------------------------------------------------------------------------------------------------------------------
 penguins %>%
    count(species) %>%
    mutate(
@@ -181,7 +181,7 @@ penguins %>%
 #' ---
 #' ## What is the proportion of each sex of penguins within species?
 #' 
-## ----speciessextabp----------------------------------------------------------------------------------------------------
+## ----speciessextabp-----------------------------------------------------------------------------------------------------------------------------------
 penguins %>%
    count(species, sex) %>%
    group_by(species) %>%
@@ -237,17 +237,17 @@ penguins %>%
 #' ## Weighted Analysis for Categorical Variable
 #' 
 #' - Functions to use within `summarize` after `group_by`
-#'    - survey_mean
-#'    - survey_total
+#' - survey_mean/survey_prop
+#' - survey_total
 #' 
 #' - Functions to get counts
-#'   - survey_count
+#' - survey_count
 #' 
 #' ???
 #' 
 #' - we use the same mean and total functions as with continuous variables
 #' - `survey_count` is new
-#'     - has a similar structure as the standard (non-survey) version of count
+#' - has a similar structure as the standard (non-survey) version of count
 #' 
 #' 
 #' ---
@@ -255,16 +255,16 @@ penguins %>%
 #' - `srvyr` package uses tidy-syntax but uses the `survey` package behind it to do calculations
 #' 
 #' - If using your own RStudio environment, install both packages:
-## ----inst_srv, eval=FALSE----------------------------------------------------------------------------------------------
+## ----inst_srv, eval=FALSE-----------------------------------------------------------------------------------------------------------------------------
 ## # Install survey and srvyr packages
 ## 
-## remotes::install_github("bschneidr/survey", ref = "c217689")
+## remotes::install_github("bschneidr/r-forge-survey-mirror")
 ## install.packages("srvyr")
 
 #' 
 #' 
 #' - First, we will set-up a design object and talk about what it means in Session 3
-## ----anes_des, error=FALSE, warning=FALSE------------------------------------------------------------------------------
+## ----anes_des, error=FALSE, warning=FALSE-------------------------------------------------------------------------------------------------------------
 library(survey) # for survey analysis
 library(srvyr) # for tidy survey analysis
 
@@ -282,7 +282,7 @@ anes_des <- anes %>%
 #' - need to install github version of survey package if you want CIs with quantiles
 #' - American National Election Studies
 #' - provides weights that sum to the sample, but we want to get population estimates
-#'     - need to adjust the weight to get it to the population count
+#' - need to adjust the weight to get it to the population count
 #' - we will cover setting up the sample design object later
 #' 
 #' ---
@@ -291,15 +291,15 @@ anes_des <- anes %>%
 #' - `survey_count` functions similarly to `count` in that it is <b>NOT</b> called within `summarize`
 #' 
 #' - Produces weighted counts and variance of your choice of those counts
-## ----survey_count_syn, eval=FALSE, tidy=FALSE--------------------------------------------------------------------------
+## ----survey_count_syn, eval=FALSE, tidy=FALSE---------------------------------------------------------------------------------------------------------
 ## survey_count(
-##   x,
-##   ...,
-##   wt = NULL,
-##   sort = FALSE,
-##   name = "n",
-##   .drop = dplyr::group_by_drop_default(x),
-##   vartype = c("se", "ci", "var", "cv")
+##    x,
+##    ...,
+##    wt = NULL,
+##    sort = FALSE,
+##    name = "n",
+##    .drop = dplyr::group_by_drop_default(x),
+##    vartype = c("se", "ci", "var", "cv")
 ## )
 
 #' ???
@@ -310,9 +310,9 @@ anes_des <- anes %>%
 #' ## `survey_count` Example
 #' 
 #' - Cross-tab of population in each age group and gender
-## ----survey_count_ex---------------------------------------------------------------------------------------------------
+## ----survey_count_ex----------------------------------------------------------------------------------------------------------------------------------
 anes_des %>%
-  survey_count(AgeGroup, name="N")
+   survey_count(AgeGroup, Gender, name="N")
 
 
 #' ???
@@ -325,22 +325,54 @@ anes_des %>%
 #' ## `survey_mean` and `survey_total` within `summarize`
 #' - Specify the sample design,
 #' - then specify the crosstab in `group_by`,
-#' - then `survey_mean` used with no x (variable) calculates a proportion of groups within `summarize`, or
+#' - then `survey_mean` or `survey_prop` used with no x (variable) calculates a proportion of groups within `summarize`, or
 #' - `survey_total` used with no x (variable) calculates a population count estimate within `summarize`
+#' 
+#' ---
+#' ## `survey_mean` and `survey_prop` Syntax
+#' 
+## ----survey_mean_syn, eval=FALSE----------------------------------------------------------------------------------------------------------------------
+## survey_mean(
+##    x,
+##    na.rm = FALSE,
+##    vartype = c("se", "ci", "var", "cv"),
+##    level = 0.95,
+##    proportion = FALSE,
+##    prop_method = c("logit", "likelihood", "asin", "beta", "mean"),
+##    deff = FALSE,
+##    df = NULL,
+##    ...
+## )
+## 
+## survey_prop(
+##   vartype = c("se", "ci", "var", "cv"),
+##   level = 0.95,
+##   proportion = FALSE,
+##   prop_method = c("logit", "likelihood", "asin", "beta", "mean"),
+##   deff = FALSE,
+##   df = NULL,
+##   ...
+## )
+
+#' 
+#' ???
+#' - `proportion`/ `prop_method` impact the CI only
+#' 
 #' 
 #' ---
 #' ## `survey_mean` and `survey_total` Examples
 #' 
 #' Looking at population by age group as done with `survey_count`.
-## ----survey_p_ex1------------------------------------------------------------------------------------------------------
+## ----survey_p_ex1-------------------------------------------------------------------------------------------------------------------------------------
 anes_des %>%
-  group_by(AgeGroup) %>%
-  summarize(
-    p=survey_mean(),
-    N=survey_total(),
-    n=unweighted(n()), # this gets unweighted counts aka sample sizes
-    .groups="drop" # summarize option to remove groups
-  )
+   group_by(AgeGroup) %>%
+   summarize(
+      p1=survey_mean(),
+      p2=survey_prop(),
+      N=survey_total(),
+      n=unweighted(n()), # this gets unweighted counts aka sample sizes
+      .groups="drop" # summarize option to remove groups
+   )
 
 #' ???
 #' - to get proportions we use `group_by` and `survey_mean`
@@ -352,16 +384,16 @@ anes_des %>%
 #' - Specifying more than one group calculates conditional proportions
 #' - Example: people voting in 2016 and 2020
 #' 
-## ----survey_p_cond, tidy=FALSE-----------------------------------------------------------------------------------------
+## ----survey_p_cond, tidy=FALSE------------------------------------------------------------------------------------------------------------------------
 anes_des %>%
-  filter(!is.na(VotedPres2016), !is.na(VotedPres2020)) %>%
-  group_by(VotedPres2016, VotedPres2020) %>%
-  summarize(
-    p=survey_mean(),
-    N=survey_total(),
-    n=unweighted(n()), 
-    .groups="drop"
-  )
+   filter(!is.na(VotedPres2016), !is.na(VotedPres2020)) %>%
+   group_by(VotedPres2016, VotedPres2020) %>%
+   summarize(
+      p=survey_mean(),
+      N=survey_total(),
+      n=unweighted(n()), 
+      .groups="drop"
+   )
 
 #' ???
 #' - We will talk more about this next time but filter after creating design object to subset data
@@ -374,15 +406,15 @@ anes_des %>%
 #' - Specify an interaction to get joint distribution - use `interact` within `group_by`
 #' - Example: people voting in 2016 and 2020
 #' 
-## ----survey_p_joint----------------------------------------------------------------------------------------------------
+## ----survey_p_joint-----------------------------------------------------------------------------------------------------------------------------------
 anes_des %>%
-  filter(!is.na(VotedPres2020), !is.na(VotedPres2016)) %>%
-  group_by(interact(VotedPres2016, VotedPres2020)) %>% #<<
-  summarize(
-    p=survey_mean(),
-    N=survey_total(),
-    .groups="drop"
-  )
+   filter(!is.na(VotedPres2020), !is.na(VotedPres2016)) %>%
+   group_by(interact(VotedPres2016, VotedPres2020)) %>% #<<
+   summarize(
+      p=survey_mean(),
+      N=survey_total(),
+      .groups="drop"
+   )
 
 #' ???
 #' - We add an interaction for the groups
@@ -391,17 +423,38 @@ anes_des %>%
 #' ---
 #' ## Proportions with Design Effects
 #' 
-## ----survey_p_deff-----------------------------------------------------------------------------------------------------
+## ----survey_p_deff------------------------------------------------------------------------------------------------------------------------------------
 anes_des %>%
-  filter(!is.na(VotedPres2016), !is.na(VotedPres2020)) %>%
-  group_by(interact(VotedPres2016, VotedPres2020)) %>% 
-  summarize(
-    p=survey_mean(deff=TRUE), #<<
-    N=survey_total()
-  )
+   filter(!is.na(VotedPres2016), !is.na(VotedPres2020)) %>%
+   group_by(interact(VotedPres2016, VotedPres2020)) %>% 
+   summarize(
+      p=survey_mean(deff=TRUE), #<<
+      N=survey_total()
+   )
 
 #' ???
 #' - Use `deff=TRUE` option in the `survey_mean` function
+#' 
+#' ---
+#' ## Proportions: confidence intervals
+#' 
+## ----survey_p_ci, eval=FALSE--------------------------------------------------------------------------------------------------------------------------
+## anes_des %>%
+##    group_by(interact(Income7, VotedPres2016, VotedPres2020)) %>%
+##    summarize(
+##       pd=survey_prop(vartype="ci") %>% round(4),
+##       pl=survey_prop(proportion = TRUE, prop_method="logit", vartype="ci") %>% round(4),
+##       px=survey_prop(proportion = TRUE, prop_method="likelihood", vartype="ci") %>% round(4)
+##    ) %>% select(Income7, VotedPres2016, VotedPres2020, contains("_")) %>%
+##    DT::datatable(fillContainer = FALSE, options = list(pageLength = 4))
+
+#' 
+#' ---
+#' ## Proportions: confidence intervals (results)
+#' 
+## ----survey_p_ci_print, ref.label="survey_p_ci", eval=TRUE, echo=FALSE--------------------------------------------------------------------------------
+
+#' 
 #' 
 #' ---
 #' ## Practice on your own
@@ -421,7 +474,7 @@ anes_des %>%
 #' - Testing and modeling is done with the `survey` package
 #' - You can use the same design object
 #' 
-## ----svychisq_syn, eval=FALSE------------------------------------------------------------------------------------------
+## ----svychisq_syn, eval=FALSE-------------------------------------------------------------------------------------------------------------------------
 ## svychisq(formula,
 ##          design,
 ##          statistic = c("F",  "Chisq", "Wald", "adjWald", "lincom", "saddlepoint"),
@@ -439,7 +492,7 @@ anes_des %>%
 #' - How often can you trust the federal gov't to do what is right?
 #' - How often can you trust other people?
 #' 
-## ----svychisq_ex1------------------------------------------------------------------------------------------------------
+## ----svychisq_ex1-------------------------------------------------------------------------------------------------------------------------------------
 anes_des %>%
    svychisq(design=.,
             formula=~TrustPeople +TrustGovernment)
@@ -455,7 +508,7 @@ anes_des %>%
 #' - How often can you trust the federal gov't to do what is right?
 #' - Who did you vote for? Clinton, Trump, or Other
 #' 
-## ----svychisq_ex2------------------------------------------------------------------------------------------------------
+## ----svychisq_ex2-------------------------------------------------------------------------------------------------------------------------------------
 anes_des %>%
    svychisq(design=.,
             formula=~TrustGovernment +VotedPres2016_selection,
@@ -482,9 +535,9 @@ anes_des %>%
 #' ## Formula notation - knowledge check
 #' 
 #' I want to model the following:
-#'    
+#' 
 #' $$mpg_i=\beta_0+\beta_1cyl_{i}+\beta_2disp_{i}+\beta_3hp_{i}+\beta_4cyl_{i}disp_{i}+\beta_5cyl_{i}hp_{i}+\beta_6disp_{i}hp_{i}+\epsilon_i$$
-#'       
+#' 
 #' How can you write this formula? Select all that apply:
 #' 
 #' 1. `mpg~cyl:disp:hp`
@@ -497,9 +550,9 @@ anes_des %>%
 #' ## Formula notation - knowledge check (solution)
 #' 
 #' I want to model the following:
-#'    
+#' 
 #' $$mpg_i=\beta_0+\beta_1cyl_{i}+\beta_2disp_{i}+\beta_3hp_{i}+\beta_4cyl_{i}disp_{i}+\beta_5cyl_{i}hp_{i}+\beta_6disp_{i}hp_{i}+\epsilon_i$$
-#'       
+#' 
 #' How can you write this formula? Select all that apply:
 #' 
 #' 1. `mpg~cyl:disp:hp` - no, this only has the interactions
@@ -515,7 +568,7 @@ anes_des %>%
 #' ## Logistic regression with `svyglm`
 #' 
 #' 
-## ----logisticsyntax, eval=FALSE----------------------------------------------------------------------------------------
+## ----logisticsyntax, eval=FALSE-----------------------------------------------------------------------------------------------------------------------
 ## svyglm(formula, # response ~ terms
 ##        design,
 ##        na.action, #default is na.omit
@@ -527,11 +580,11 @@ anes_des %>%
 #' ## Example logistic regression
 #' - Predicting trust in government by who someone voted in 2016
 #' 
-## ----logisticexamp-----------------------------------------------------------------------------------------------------
+## ----logisticexamp------------------------------------------------------------------------------------------------------------------------------------
 filter(anes_des, Weight>0) %>%
    svyglm(design=.,
-            formula=TrustGovernment~ VotedPres2016_selection,
-            family = quasibinomial) %>%
+          formula=TrustGovernment~ VotedPres2016_selection,
+          family = quasibinomial) %>%
    summary()
 
 #' 
@@ -551,7 +604,7 @@ filter(anes_des, Weight>0) %>%
 #' - https://cran.r-project.org/web/packages/srvyr/vignettes/srvyr-vs-survey.html
 #' 
 #' - https://r-survey.r-forge.r-project.org/survey/ 
-#'   - Includes more advanced modeling
+#' - Includes more advanced modeling
 #' 
 #' 
 #' ---
@@ -576,3 +629,19 @@ filter(anes_des, Weight>0) %>%
 #' - <font size="3">Greg Freedman Ellis and Ben Schneider (2020). srvyr: 'dplyr'-Like Syntax for Summary Statistics of Survey Data. R package version 1.0.0. https://CRAN.R-project.org/package=srvyr </font>
 #' 
 #' - <font size="3">Hadley Wickham, Romain François, Lionel Henry and Kirill Müller (2021). dplyr: A Grammar of Data Manipulation. R package version 1.0.5. https://CRAN.R-project.org/package=dplyr </font>
+#' 
+#' 
+#' ---
+#' ## Session info - platform
+#' 
+## ----si, echo=FALSE-----------------------------------------------------------------------------------------------------------------------------------
+j <- devtools::session_info(pkgs="attached")
+print(j$platform)
+
+#' 
+#' ---
+#' ## Session info - packages
+#' 
+## ----sipack1, echo=FALSE------------------------------------------------------------------------------------------------------------------------------
+print(j$packages)
+

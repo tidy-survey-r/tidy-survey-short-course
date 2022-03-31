@@ -6,7 +6,7 @@ output:
 ---
 
 # Set-up
-```{r}
+```{r setup}
 library(tidyverse) # for tidyverse
 library(here) # for file paths
 library(survey) # for survey analysis
@@ -103,7 +103,7 @@ The design effect is `r round(pull(pdeff, p_deff), 2)`.
 
 # Part 2
 
-1. Is there a relationship between PartyID and when people voted in the 2020 election (on election day or early voting)?
+1. Is there a relationship between PartyID and whether people voted early?
 
 ```{r ex2_1}
 anes_des %>%
@@ -122,7 +122,7 @@ anes_des %>%
 
 There is strong association with when people voted and their party, p-value=`r pluck(pid_vote, "p.value") %>% round(5)`
 
-2. Is there a relationship between PartyID and trust in the government? Hint: `TrustGovernment` indicates how strongly people trust government.
+2. Is there a relationship between PartyID and trust in the government? Hints: `TrustGovernment` indicates how strongly people trust government. Use Wald as the `statistic` option.
 
 ```{r ex2_2}
 anes_des %>%
@@ -171,7 +171,6 @@ anes_des %>%
                              PartyID %in% c("Strong republican",
                                             "Not very strong republican",
                                             "Independent-republican")~"LeanRep",
-                             is.na(PartyID)~NA_character_,
                              TRUE~"Other")) %>% 
    group_by(PartyID3) %>% 
    summarize(p=survey_prop(vartype="ci", proportion = TRUE))
@@ -214,3 +213,10 @@ summary(earlyv_glm)
 ```
 
 Yes, there is evidence that those leaning democrat were more likely to vote early. They are the reference level in the model and the other coeffecients are negative and significant.
+
+# Session information
+
+```{r si}
+devtools::session_info(pkgs="attached")
+```
+

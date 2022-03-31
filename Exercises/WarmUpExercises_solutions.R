@@ -8,9 +8,9 @@
 #' # Course set-up
 #' First, let's make sure you have everything you need for the course. Run the following library statements. If something is not installed, install it.
 #' 
-## ----setup-------------------------------------------------------------------------------------------------------------
+## ----setup--------------------------------------------------------------------------------------------------------------------------------------------
 # install.packages("tidyverse")
-# remotes::install_github("bschneidr/survey", ref = "c217689")
+# remotes::install_github("bschneidr/r-forge-survey-mirror")
 # install.packages("srvyr")
 # install.packages("here")
 # install.packages("palmerpenguins")
@@ -25,27 +25,27 @@ library(palmerpenguins)
 #' 
 #' # Warm-up exercises for Day 1
 #' 
-## ----datapeek----------------------------------------------------------------------------------------------------------
+## ----datapeek-----------------------------------------------------------------------------------------------------------------------------------------
 glimpse(penguins)
 
 #' 
 #' How many penguins of each species are there? Hint: use `count`
 #' 
-## ----speciestab--------------------------------------------------------------------------------------------------------
+## ----speciestab---------------------------------------------------------------------------------------------------------------------------------------
 penguins %>%
    count(species)
 
 #' 
 #' How many penguins of each species and sex are there? Hint: use `count`
 #' 
-## ----speciessextab-----------------------------------------------------------------------------------------------------
+## ----speciessextab------------------------------------------------------------------------------------------------------------------------------------
 penguins %>%
    count(species, sex)
 
 #' 
 #' What is the proportion of each species of penguins? Hint: use `count` then `mutate` 
 #' 
-## ----speciestabp-------------------------------------------------------------------------------------------------------
+## ----speciestabp--------------------------------------------------------------------------------------------------------------------------------------
 penguins %>%
    count(species) %>%
    mutate(
@@ -55,7 +55,7 @@ penguins %>%
 #' 
 #' What is the proportion of each sex of penguins within species? Hint: use `count` then `group_by` and `mutate` 
 #' 
-## ----speciessextabp----------------------------------------------------------------------------------------------------
+## ----speciessextabp-----------------------------------------------------------------------------------------------------------------------------------
 penguins %>%
    count(species, sex) %>%
    group_by(species) %>%
@@ -68,7 +68,7 @@ penguins %>%
 #' # Warm-up exercises for Day 2
 #' 
 #' What is the mean length of flipper by species? Hint: use `group_by` and `summarise`
-## ----fliplengthspecies-------------------------------------------------------------------------------------------------
+## ----fliplengthspecies--------------------------------------------------------------------------------------------------------------------------------
 penguins %>%
    group_by(species) %>%
    summarize(
@@ -78,7 +78,7 @@ penguins %>%
 #' 
 #' 
 #' What is the mean flipper length by species and sex? Hint: use `group_by` and `summarise`
-## ----fliplengthspecsex-------------------------------------------------------------------------------------------------
+## ----fliplengthspecsex--------------------------------------------------------------------------------------------------------------------------------
 penguins %>%
    group_by(species, sex) %>%
    summarize(
@@ -90,7 +90,7 @@ penguins %>%
 #' 
 #' Fit a simple linear regression between body mass and flipper length.
 #' 
-## ----massfliplength----------------------------------------------------------------------------------------------------
+## ----massfliplength-----------------------------------------------------------------------------------------------------------------------------------
 mod1 <- lm(body_mass_g ~ flipper_length_mm,
            data=penguins)
 summary(mod1)
@@ -99,7 +99,7 @@ summary(mod1)
 #' 
 #' Test whether the average flipper length is significantly different between male and female penguins. Use t-test, lm, or glm
 #' 
-## ----lensexrelshp------------------------------------------------------------------------------------------------------
+## ----lensexrelshp-------------------------------------------------------------------------------------------------------------------------------------
 t.test(flipper_length_mm ~ sex, data=penguins)
 
 mod3 <- lm(flipper_length_mm ~ sex, data=penguins)
@@ -109,3 +109,8 @@ mod4 <- glm(flipper_length_mm ~ sex, data=penguins)
 summary(mod4)
 
 #' 
+#' # Session information
+#' 
+## ----si-----------------------------------------------------------------------------------------------------------------------------------------------
+devtools::session_info(pkgs="attached")
+
