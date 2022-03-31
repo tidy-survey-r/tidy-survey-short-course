@@ -18,15 +18,17 @@ mypurl("Exercises", "CategorialExercises_solutions")
 mypurl("Exercises", "ContinuousExercises_solutions")
 mypurl("Exercises", "WarmUpExercises_solutions")
 
-mypurl("Presentation", "Slides")
+mypurl("Presentation", "Slides-day-1")
 
 # remotes::install_github("jhelvy/xaringanBuilder")
 # remotes::install_github('rstudio/chromote')
+# install.packages('pdftools')
+# install.packages('officer')
 xaringanBuilder::build_pdf(
-   input=here("Presentation", "Slides.html"),
-   output_file=here("Presentation", "Slides.pdf"),
+   input=here("Presentation", "Slides-day-1.html"),
+   output_file=here("Presentation", "Slides-day-1.pdf"),
    partial_slides= TRUE)
 xaringanBuilder::build_pptx(
-   input=here("Presentation", "Slides.pdf"),
-   output_file=here("Presentation", "Slides.pptx"),
+   input=here("Presentation", "Slides-day-1.pdf"),
+   output_file=here("Presentation", "Slides-day-1.pptx"),
    partial_slides= TRUE)

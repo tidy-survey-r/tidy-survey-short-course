@@ -5,7 +5,7 @@ author:
    - Stephanie Zimmer, Abt Associates
    - Rebecca Powell, RTI International
    - Isabella Velásquez, RStudio
-date: "TBD 2022"
+date: "April 15, 2022"
 output:
   xaringan::moon_reader:
     css: xaringan-themer-mod.css
@@ -29,27 +29,27 @@ class: inverse center middle
 
 ```{css sizesetup, echo = FALSE}
 .small .remark-code { /*Change made here*/
-  font-size: 80% !important;
+font-size: 80% !important;
 }
 .smaller .remark-code { /*Change made here*/
-  font-size: 70% !important;
+font-size: 70% !important;
 }
 ```
 
 ## Overview
 
 - At the end of this workshop series, you should be able to 
-  - Calculate point estimates and their standard errors with survey data 
+   - Calculate point estimates and their standard errors with survey data 
       - Proportions, totals, and counts
       - Means, quantiles, and ratios
-  - Perform t-tests and chi-squared tests
-  - Fit regression models
-  - Specify a survey design in R to create a survey object
-  
+   - Perform t-tests and chi-squared tests
+   - Fit regression models
+   - Specify a survey design in R to create a survey object
+
 - We will not be going over the following but provide some resources at the end
-  - Weighting (calibration, post-stratification, raking, etc.)
-  - Survival analysis
-  - Nonlinear models
+   - Weighting (calibration, post-stratification, raking, etc.)
+   - Survival analysis
+   - Nonlinear models
 
 
 
@@ -72,10 +72,10 @@ class: inverse center middle
 
 - We will be using RStudio Cloud today to ensure everyone has access
 
-    - Sign-up for a free RStudio Cloud account 
-    - Access the project and files via link in email and Zoom chat
-    - Click "START" to open the project and get started
-    - Rstudio Cloud has the same features and appearance as RStudio for ease of use
+- Sign-up for a free RStudio Cloud account (https://rstudio.cloud/)
+- Access the project and files via link in email and Zoom chat
+- Click "START" to open the project and get started
+- RStudio Cloud has the same features and appearance as RStudio for ease of use
 
 - All slides and code are available on GitHub: https://github.com/tidy-survey-r/tidy-survey-short-course
 
@@ -125,23 +125,31 @@ glimpse(penguins)
 - Take 10 minutes to set up RStudio Cloud and do these exercises on your own. We will then go over together
 
 - Explore the penguins data
-  - How many penguins of each species are there? 
-  - How many penguins of each species and sex are there? 
+   - How many penguins of each species are there? 
+   - How many penguins of each species and sex are there? 
+   - What is the proportion of each species of penguins?
+   - What is the proportion of each sex of penguins within species?
 
 
 ---
 ## Ex. 1: How many penguins of each species are there? 
 
+.pull-left[
 ```{r peng1}
 penguins %>%
    count(species)
+```
+]
 
+.pull-right[
+```{r peng1alt}
 penguins %>%
    group_by(species) %>%
    summarise(
       n=n(), .groups="drop"
    )
 ```
+]
 
 ???
 - Using `count` we see there are 3 different species and the number of penguins for each species
@@ -156,10 +164,34 @@ penguins %>%
 - `count` can take more than one variable to get a cross-tabs between the two variables
 
 ---
+## Ex. 3: What is the proportion of each species of penguins?
+
+```{r speciestabp}
+penguins %>%
+   count(species) %>%
+   mutate(
+      p=n/sum(n)
+   )
+```
+
+---
+## What is the proportion of each sex of penguins within species?
+
+```{r speciessextabp}
+penguins %>%
+   count(species, sex) %>%
+   group_by(species) %>%
+   mutate(
+      p=n/sum(n)
+   )
+
+```
+
+---
 class: inverse center middle
 # Survey Datasets
 ---
-## American National Election Studies (ANES) 2016 
+## American National Election Studies (ANES) 2020 
 
 - Pre and post election surveys
 
@@ -171,7 +203,7 @@ class: inverse center middle
 
 - <b>Target Population</b>: US citizens, 18 and older living in US 
 
-- <b>Mode</b>: FTF with CASI and Web
+- <b>Mode</b>: Web, videoconference, or telephone.
 
 - <b>Sample Information</b>: Pseudo-strata and pseudo-cluster included for variance estimation
 
@@ -179,7 +211,7 @@ https://electionstudies.org/
 
 ???
 - We have subset the columns of this data and created derived variables, code in repository
-- Chose not to use 2020 data because it is still preliminary
+- Historically FTF existed but pandemic prevented this
 
 ---
 class: inverse center middle
@@ -201,17 +233,17 @@ class: inverse center middle
 ## Weighted Analysis for Categorical Variable
 
 - Functions to use within `summarize` after `group_by`
-   - survey_mean
-   - survey_total
+- survey_mean/survey_prop
+- survey_total
 
 - Functions to get counts
-  - survey_count
+- survey_count
 
 ???
 
 - we use the same mean and total functions as with continuous variables
 - `survey_count` is new
-    - has a similar structure as the standard (non-survey) version of count
+- has a similar structure as the standard (non-survey) version of count
 
 
 ---
@@ -222,7 +254,7 @@ class: inverse center middle
 ```{r inst_srv, eval=FALSE}
 # Install survey and srvyr packages
 
-remotes::install_github("bschneidr/survey", ref = "c217689")
+remotes::install_github("bschneidr/r-forge-survey-mirror")
 install.packages("srvyr")
 ```
 
@@ -232,9 +264,9 @@ install.packages("srvyr")
 library(survey) # for survey analysis
 library(srvyr) # for tidy survey analysis
 
-anes <- read_rds(here("Data", "anes.rds")) %>%
-   mutate(Weight=Weight/sum(Weight)*224059005) 
-# adjust weight to sum to citizen pop, 18+ in Nov 2016 per ANES methodology documentation
+anes <- read_rds(here("Data", "anes_2020.rds")) %>%
+   mutate(Weight=Weight/sum(Weight)*231592693) 
+# adjust weight to sum to citizen pop, 18+ in Nov 2020 per ANES methodology documentation
 anes_des <- anes %>%
    as_survey_design(weights = Weight,
                     strata = Stratum,
@@ -246,7 +278,7 @@ anes_des <- anes %>%
 - need to install github version of survey package if you want CIs with quantiles
 - American National Election Studies
 - provides weights that sum to the sample, but we want to get population estimates
-    - need to adjust the weight to get it to the population count
+- need to adjust the weight to get it to the population count
 - we will cover setting up the sample design object later
 
 ---
@@ -257,13 +289,13 @@ anes_des <- anes %>%
 - Produces weighted counts and variance of your choice of those counts
 ```{r survey_count_syn, eval=FALSE, tidy=FALSE}
 survey_count(
-  x,
-  ...,
-  wt = NULL,
-  sort = FALSE,
-  name = "n",
-  .drop = dplyr::group_by_drop_default(x),
-  vartype = c("se", "ci", "var", "cv")
+   x,
+   ...,
+   wt = NULL,
+   sort = FALSE,
+   name = "n",
+   .drop = dplyr::group_by_drop_default(x),
+   vartype = c("se", "ci", "var", "cv")
 )
 ```
 ???
@@ -276,7 +308,7 @@ survey_count(
 - Cross-tab of population in each age group and gender
 ```{r survey_count_ex}
 anes_des %>%
-  survey_count(AgeGroup, name="N")
+   survey_count(AgeGroup, Gender, name="N")
 
 ```
 ???
@@ -289,8 +321,39 @@ anes_des %>%
 ## `survey_mean` and `survey_total` within `summarize`
 - Specify the sample design,
 - then specify the crosstab in `group_by`,
-- then `survey_mean` used with no x (variable) calculates a proportion of groups within `summarize`, or
+- then `survey_mean` or `survey_prop` used with no x (variable) calculates a proportion of groups within `summarize`, or
 - `survey_total` used with no x (variable) calculates a population count estimate within `summarize`
+
+---
+## `survey_mean` and `survey_prop` Syntax
+
+```{r survey_mean_syn, eval=FALSE}
+survey_mean(
+   x,
+   na.rm = FALSE,
+   vartype = c("se", "ci", "var", "cv"),
+   level = 0.95,
+   proportion = FALSE,
+   prop_method = c("logit", "likelihood", "asin", "beta", "mean"),
+   deff = FALSE,
+   df = NULL,
+   ...
+)
+
+survey_prop(
+  vartype = c("se", "ci", "var", "cv"),
+  level = 0.95,
+  proportion = FALSE,
+  prop_method = c("logit", "likelihood", "asin", "beta", "mean"),
+  deff = FALSE,
+  df = NULL,
+  ...
+)
+```
+
+???
+- `proportion`/ `prop_method` impact the CI only
+
 
 ---
 ## `survey_mean` and `survey_total` Examples
@@ -298,13 +361,14 @@ anes_des %>%
 Looking at population by age group as done with `survey_count`.
 ```{r survey_p_ex1}
 anes_des %>%
-  group_by(AgeGroup) %>%
-  summarize(
-    p=survey_mean(),
-    N=survey_total(),
-    n=unweighted(n()), # this gets unweighted counts aka sample sizes
-    .groups="drop" # summarize option to remove groups
-  )
+   group_by(AgeGroup) %>%
+   summarize(
+      p1=survey_mean(),
+      p2=survey_prop(),
+      N=survey_total(),
+      n=unweighted(n()), # this gets unweighted counts aka sample sizes
+      .groups="drop" # summarize option to remove groups
+   )
 ```
 ???
 - to get proportions we use `group_by` and `survey_mean`
@@ -314,39 +378,39 @@ anes_des %>%
 ## Conditional proportions with more than one group
 
 - Specifying more than one group calculates conditional proportions
-- Example: people voting in 2012 and 2016
+- Example: people voting in 2016 and 2020
 
 ```{r survey_p_cond, tidy=FALSE}
 anes_des %>%
-  filter(!is.na(VotedPres2012), !is.na(VotedPres2016)) %>%
-  group_by(VotedPres2012, VotedPres2016) %>%
-  summarize(
-    p=survey_mean(),
-    N=survey_total(),
-    n=unweighted(n()), 
-    .groups="drop"
-  )
+   filter(!is.na(VotedPres2016), !is.na(VotedPres2020)) %>%
+   group_by(VotedPres2016, VotedPres2020) %>%
+   summarize(
+      p=survey_mean(),
+      N=survey_total(),
+      n=unweighted(n()), 
+      .groups="drop"
+   )
 ```
 ???
 - We will talk more about this next time but filter after creating design object to subset data
-- Note that this is the proportion of voting in 2016 by whether people voted in 2012
+- Note that this is the proportion of voting in 2020 by whether people voted in 2016
 - What if we don't want conditional proportions?
 
 ---
 ## Joint proportions with more than one group
 
 - Specify an interaction to get joint distribution - use `interact` within `group_by`
-- Example: people voting in 2012 and 2016
+- Example: people voting in 2016 and 2020
 
 ```{r survey_p_joint}
 anes_des %>%
-  filter(!is.na(VotedPres2012), !is.na(VotedPres2016)) %>%
-  group_by(interact(VotedPres2016, VotedPres2012)) %>% #<<
-  summarize(
-    p=survey_mean(),
-    N=survey_total(),
-    .groups="drop"
-  )
+   filter(!is.na(VotedPres2020), !is.na(VotedPres2016)) %>%
+   group_by(interact(VotedPres2016, VotedPres2020)) %>% #<<
+   summarize(
+      p=survey_mean(),
+      N=survey_total(),
+      .groups="drop"
+   )
 ```
 ???
 - We add an interaction for the groups
@@ -357,15 +421,36 @@ anes_des %>%
 
 ```{r survey_p_deff}
 anes_des %>%
-  filter(!is.na(VotedPres2012), !is.na(VotedPres2016)) %>%
-  group_by(VotedPres2012, VotedPres2016) %>%
-  summarize(
-    p=survey_mean(deff=TRUE),
-    N=survey_total()
-  )
+   filter(!is.na(VotedPres2016), !is.na(VotedPres2020)) %>%
+   group_by(interact(VotedPres2016, VotedPres2020)) %>% 
+   summarize(
+      p=survey_mean(deff=TRUE), #<<
+      N=survey_total()
+   )
 ```
 ???
 - Use `deff=TRUE` option in the `survey_mean` function
+
+---
+## Proportions: confidence intervals
+
+```{r survey_p_ci, eval=FALSE}
+anes_des %>%
+   group_by(interact(Income7, VotedPres2016, VotedPres2020)) %>% 
+   summarize(
+      pd=survey_prop(vartype="ci") %>% round(4),
+      pl=survey_prop(proportion = TRUE, prop_method="logit", vartype="ci") %>% round(4),
+      px=survey_prop(proportion = TRUE, prop_method="likelihood", vartype="ci") %>% round(4)
+   ) %>% select(Income7, VotedPres2016, VotedPres2020, contains("_")) %>%
+   DT::datatable(fillContainer = FALSE, options = list(pageLength = 4))
+```
+
+---
+## Proportions: confidence intervals (results)
+
+```{r survey_p_ci_print, ref.label="survey_p_ci", eval=TRUE, echo=FALSE}
+```
+
 
 ---
 ## Practice on your own
@@ -391,7 +476,7 @@ svychisq(formula,
          statistic = c("F",  "Chisq", "Wald", "adjWald", "lincom", "saddlepoint"),
          na.rm=TRUE,
          ...)
-                       
+
 ```
 ???
 - when we want to test categorical distributions we use `svychisq`
@@ -446,9 +531,9 @@ I |`I(X-Z)`| as-as: include a new variable which is the difference of these vari
 ## Formula notation - knowledge check
 
 I want to model the following:
-   
+
 $$mpg_i=\beta_0+\beta_1cyl_{i}+\beta_2disp_{i}+\beta_3hp_{i}+\beta_4cyl_{i}disp_{i}+\beta_5cyl_{i}hp_{i}+\beta_6disp_{i}hp_{i}+\epsilon_i$$
-      
+
 How can you write this formula? Select all that apply:
 
 1. `mpg~cyl:disp:hp`
@@ -461,9 +546,9 @@ How can you write this formula? Select all that apply:
 ## Formula notation - knowledge check (solution)
 
 I want to model the following:
-   
+
 $$mpg_i=\beta_0+\beta_1cyl_{i}+\beta_2disp_{i}+\beta_3hp_{i}+\beta_4cyl_{i}disp_{i}+\beta_5cyl_{i}hp_{i}+\beta_6disp_{i}hp_{i}+\epsilon_i$$
-      
+
 How can you write this formula? Select all that apply:
 
 1. `mpg~cyl:disp:hp` - no, this only has the interactions
@@ -494,8 +579,8 @@ svyglm(formula, # response ~ terms
 ```{r logisticexamp}
 filter(anes_des, Weight>0) %>%
    svyglm(design=.,
-            formula=TrustGovernment~ VotedPres2016_selection,
-            family = quasibinomial) %>%
+          formula=TrustGovernment~ VotedPres2016_selection,
+          family = quasibinomial) %>%
    summary()
 ```
 
@@ -515,7 +600,7 @@ class: inverse center middle
 - https://cran.r-project.org/web/packages/srvyr/vignettes/srvyr-vs-survey.html
 
 - https://r-survey.r-forge.r-project.org/survey/ 
-  - Includes more advanced modeling
+- Includes more advanced modeling
 
 
 ---
@@ -540,3 +625,19 @@ Please let us know if you have any feedback on this workshop. All feedback is we
 - <font size="3">Greg Freedman Ellis and Ben Schneider (2020). srvyr: 'dplyr'-Like Syntax for Summary Statistics of Survey Data. R package version 1.0.0. https://CRAN.R-project.org/package=srvyr </font>
 
 - <font size="3">Hadley Wickham, Romain François, Lionel Henry and Kirill Müller (2021). dplyr: A Grammar of Data Manipulation. R package version 1.0.5. https://CRAN.R-project.org/package=dplyr </font>
+
+
+---
+## Session info - platform
+
+```{r si, echo=FALSE}
+j <- devtools::session_info(pkgs="attached")
+print(j$platform)
+```
+
+---
+## Session info - packages
+
+```{r sipack1, echo=FALSE}
+print(j$packages)
+```
