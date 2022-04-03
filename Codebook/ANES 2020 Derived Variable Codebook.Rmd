@@ -1,6 +1,12 @@
 ---
 title: "ANES 2020 Derived Variable Codebook"
 output:
+  html_document:
+     css: "style.css"
+     toc: true
+     toc_depth: 4
+     toc_float: true
+     self_contained: true
   github_document:
      toc: true
 always_allow_html: true
