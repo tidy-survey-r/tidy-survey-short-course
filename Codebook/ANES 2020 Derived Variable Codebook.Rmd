@@ -1,12 +1,6 @@
 ---
 title: "ANES 2020 Derived Variable Codebook"
 output:
-  html_document:
-     css: "style.css"
-     toc: true
-     toc_depth: 4
-     toc_float: true
-     self_contained: true
   github_document:
      toc: true
 always_allow_html: true
@@ -112,6 +106,9 @@ anes_2020 %>%
 Variables used: V201231x
 
 ## Education
+
+What is the highest level of school you have completed or the
+highest degree you have received?
 
 ```{r variable-Education}
 anes_2020 %>%
@@ -256,14 +253,18 @@ anes_2020 %>%
    kable_minimal()
 ```
 
+Variables used: V202073
+
 ## EarlyVote2020 / VotedPres2020
 
 PRE: SUMMARY: REGISTRATION AND EARLY VOTE STATUS
 
 ```{r variable-EarlyVote2020}
 anes_2020 %>%
-   count(V201025x, VotedPres2020, EarlyVote2020) %>% 
+   count(V201025x, V202109x, VotedPres2020, EarlyVote2020) %>% 
    mutate(`Unweighted Freq` = round(n / sum(n), 3)) %>%
    kbl() %>%
    kable_minimal()
 ```
+
+Variables used: V201025x, V202109x
