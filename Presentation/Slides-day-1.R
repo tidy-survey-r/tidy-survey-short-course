@@ -1,5 +1,5 @@
 #' ---
-#' title: "Tidy Survey Analysis in R using the srvyr Package"
+#' title: "Tidy Survey Analysis in R Using the srvyr Package"
 #' subtitle: "Workshop Day 1 - Categorical Data"
 #' author:
 #'    - Stephanie Zimmer, Abt Associates
@@ -25,7 +25,6 @@ knitr::opts_chunk$set(echo = TRUE, message = FALSE, tidy = FALSE)
 #' # Introduction
 #' 
 #' ---
-#' 
 #' 
 ## .small .remark-code { /*Change made here*/
 
@@ -55,10 +54,76 @@ knitr::opts_chunk$set(echo = TRUE, message = FALSE, tidy = FALSE)
 #'    - Survival analysis
 #'    - Nonlinear models
 #' 
+#' ---
 #' 
+#' ## About Us
+#' 
+#' <div class="row">
+#' <div class="column">
+#' <center>
+## ---- echo=FALSE, out.width="200px"-------------------------------------------------------------------------------------------------------------------
+knitr::include_graphics('http://www.mapor.org/wp-content/uploads/2022/03/StephanieZimmer_Headshot.jpeg')
+
+#' <br>
+#' <b>Stephanie Zimmer</b>
+#' <br>
+#' Abt Associates
+#' </center>
+#' </div>
+#' 
+#' <div class="column">
+#' <center>
+## ---- echo=FALSE, out.width="200px"-------------------------------------------------------------------------------------------------------------------
+knitr::include_graphics('http://www.mapor.org/wp-content/uploads/2020/03/Powell_Rebecca_image-e1584649023839.jpg')
+
+#' <br>
+#' <b>Rebecca Powell</b>
+#' <br>
+#' RTI International
+#' </center>
+#' </div>
+#' 
+#' <div class="column">
+#' <center>
+## ---- echo=FALSE, out.width="200px"-------------------------------------------------------------------------------------------------------------------
+knitr::include_graphics('http://www.mapor.org/wp-content/uploads/2022/03/IsabellaVelasquez_Headshot.jpeg')
+
+#' 
+#' <br>
+#' <b>Isabella Velásquez</b>
+#' <br>
+#' RStudio
+#' </center>
+#' </div>
+#' 
+#' </div>
 #' 
 #' ---
-#' ## Overview: Workshop Series Roadmap
+#' 
+#' ## About This Workshop
+#' 
+#' - Hosted by Midwest Association for Public Opinion Research (MAPOR), a regional chapter of the American Association for Public Opinion Research (AAPOR).
+#' 
+#' - Originally delivered at AAPOR Conference in May 2021
+#' 
+#' ---
+#' 
+#' ## Upcoming Work
+#' 
+#' - Book on analyzing survey data in R, published by CRC, Taylor & Francis Group
+#' 
+#' - We would love your help! After each course, we will send out a survey to gather your feedback on the material, organization, etc.
+#' 
+#' - Keep updated by following our project on GitHub: [https://github.com/tidy-survey-r](https://github.com/tidy-survey-r)
+#' 
+#' ---
+#' class: inverse center middle
+#' 
+#' # Workshop Overview
+#' 
+#' ---
+#' 
+#' ## Workshop Series Roadmap
 #' 
 #' - Get familiar with RStudio Cloud with a warm-up exercise using the tidyverse (today)
 #' 
@@ -78,6 +143,7 @@ knitr::opts_chunk$set(echo = TRUE, message = FALSE, tidy = FALSE)
 #' 
 #' - Sign-up for a free RStudio Cloud account (https://rstudio.cloud/)
 #' - Access the project and files via link in email and Zoom chat
+#' 
 #' - Click "START" to open the project and get started
 #' - RStudio Cloud has the same features and appearance as RStudio for ease of use
 #' 
@@ -234,14 +300,15 @@ penguins %>%
 #' 
 #' <b>Note: We will be teaching this in the reverse order!!!</b>
 #' ---
+#' 
 #' ## Weighted Analysis for Categorical Variable
 #' 
 #' - Functions to use within `summarize` after `group_by`
-#' - survey_mean/survey_prop
-#' - survey_total
+#'   - survey_mean/survey_prop
+#'   - survey_total
 #' 
 #' - Functions to get counts
-#' - survey_count
+#'   - survey_count
 #' 
 #' ???
 #' 
