@@ -10,7 +10,7 @@ First, let's make sure you have everything you need for the course. Run the foll
 
 ```{r setup}
 # install.packages("tidyverse")
-# remotes::install_github("bschneidr/survey", ref = "c217689")
+# remotes::install_github("bschneidr/r-forge-survey-mirror")
 # install.packages("srvyr")
 # install.packages("here")
 # install.packages("palmerpenguins")
@@ -40,6 +40,18 @@ How many penguins of each species and sex are there? Hint: use `count`
 
 ```
 
+
+What is the proportion of each species of penguins? Hint: use `count` then `mutate` 
+
+```{r speciestabp}
+
+```
+
+What is the proportion of each sex of penguins within species? Hint: use `count` then `group_by` and `mutate` 
+
+```{r speciessextabp}
+
+```
 # Warm-up exercises for Day 2
 
 What is the mean length of flipper by species? Hint: use `group_by` and `summarise`
