@@ -1,0 +1,412 @@
+---
+title: "Tidy Survey Analysis in R using the srvyr Package"
+subtitle: "Workshop Day 1 - Categorical Data"
+author:
+   - Stephanie Zimmer, Abt Associates
+   - Rebecca Powell, RTI International
+   - Isabella Velásquez, RStudio
+date: "April 29, 2022"
+output:
+  xaringan::moon_reader:
+    css: xaringan-themer-mod.css
+    nature:
+      slideNumberFormat: "%current%"
+      highlightStyle: github
+      highlightLines: true
+      ratio: 16:9
+      countIncrementalSlides: true
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE, message = FALSE, tidy = FALSE)
+```
+
+class: inverse center middle
+# Introduction
+
+---
+
+
+```{css sizesetup, echo = FALSE}
+.small .remark-code { /*Change made here*/
+  font-size: 80% !important;
+}
+.smaller .remark-code { /*Change made here*/
+  font-size: 70% !important;
+}
+```
+
+## Overview
+
+- At the end of this workshop series, you should be able to 
+  - Calculate point estimates and their standard errors with survey data 
+      - Proportions, totals, and counts
+      - Means, quantiles, and ratios
+  - Perform t-tests and chi-squared tests
+  - Fit regression models
+  - Specify a survey design in R to create a survey object
+  
+- We will not be going over the following but provide some resources at the end
+  - Weighting (calibration, post-stratification, raking, etc.)
+  - Survival analysis
+  - Nonlinear models
+
+
+
+---
+## Overview: Workshop Series Roadmap
+
+- Get familiar with RStudio Cloud with a warm-up exercise using the tidyverse (day 1)
+
+- Introduce the survey data we'll be using in the workshop (day 1)
+
+- Analysis of categorical data with time for practice (day 1)
+
+- Analysis of continuous data with time for practice (day 2)
+
+- Survey design objects, constructing replicate weights, and creating derived variables (today)
+
+
+---
+## Logistics
+
+- We will be using RStudio Cloud today to ensure everyone has access
+
+    - Sign-up for a free RStudio Cloud account 
+    - Access the project and files via link in email and Zoom chat
+    - Click "START" to open the project and get started
+    - Rstudio Cloud has the same features and appearance as RStudio for ease of use
+
+- All slides and code are available on GitHub: https://github.com/tidy-survey-r/tidy-survey-short-course
+
+???
+Github repo is for future reference, all material on RStudio cloud
+
+# Specifying sample design objects
+---
+## Overview of Survey Analysis using `srvyr` Package
+
+Discussing step 1! Steps 2-3 discussed in prior workshops
+
+1. Create a `tbl_svy` object using: `as_survey_design` or `as_survey_rep`
+
+2. Subset data (if needed) using `filter` (subpopulations)
+
+3. Specify domains of analysis using `group_by` 
+
+4. Within `summarize`, specify variables to calculate including means, totals, proportions, quantiles and more
+
+---
+## Review of sampling designs
+
+These features can be combined to form one design
+
+- Simple random sampling: every unit has the same chance of being selected
+   - Without replacement: units can only be selected once
+   - With replacement: units can be selected more than once
+
+- Systematic sampling: sample $n$ individuals from a ordered list and sampling individuals at an interval with a random starting point
+
+- Probability proportional to size: probability of selection is proportional to "size"
+
+- Stratified sampling: divide population into mutually exclusive subgroups (strata). Randomly sample within each stratum
+
+- Clustered sampling: divide population into mutually exclusive subgroups (clusters). Randomly sample clusters and then individuals within clusters
+
+???
+- If $N$ is big enough then treat as with replacement. If $N$ is not too big and WOR, need FPC
+- PPS - size is possibly related to outcome. Several methods (not discussed today)
+- Stratified clustered design are very common in population surveys
+
+---
+## Determining the design
+
+- Look at documentation associated with the analysis file
+
+- Keywords to look for: methodology, design, analysis guide, technical documentation
+
+- Documentation will indicate the variables needed to specify the design. Look for:
+   - weight (almost always)
+   - strata and/or clusters/PSUs. Sometimes pseudo-strata and pseudo-cluster OR
+   - replicate weights (this is used instead of strata/clusters for analysis)
+   - might also see finite population correction or population sizes
+
+- Documentation may include syntax for SAS, SUDAAN, Stata and/or R!
+
+---
+## Example: 2020 ANES
+
+- https://electionstudies.org/data-center/2020-time-series-study/
+
+- Opened the file "User Guide and Codebook"
+
+- Section "Data Analysis, Weights, and Variance Estimation": Page 8-12 includes information on weights and strata/cluster variables
+
+> For analysis of the complete set of cases using pre-election data only, including all
+> cases and representative of the 2020 electorate, use the full sample pre-election
+> weight, V200010a. For analysis including post-election data for the complete set of
+> participants (i.e., analysis of post-election data only or a combination of pre- and
+> post-election data), use the full sample post-election weight, V200010b.
+> Additional weights are provided for analysis of subsets of the data...
+
+For weight | Use variance unit/PSU/cluster | and use variance stratum
+-----------|-------------------------------|-------------------------
+V200010a| V200010c| V200010d
+V200010b| V200010c| V200010d
+
+---
+## Example: RECS 2015
+
+- https://www.eia.gov/consumption/residential/data/2015/index.php?view=microdata
+
+- Opened the file "Using the 2015 microdata file to compute estimates and standard errors (RSEs)"
+
+- Page 4:
+
+> The following instructions are examples for calculating any RECS estimate using the final weights
+> (NWEIGHT) and the associated RSE using the replicate weights (BRRWT1 – BRRWT96).
+
+> Let $\epsilon$ be the Fay coefficent ... and $\epsilon=0.5$
+   
+- Page 9: Syntax given for survey package which is similar to srvyr (as we will see)
+
+```{r recsexamp, eval=FALSE}
+library(survey)
+RECS15 <- read.csv(file='< location where file is stored >', header=TRUE, sep=",")
+sampweights <- RECS15$NWEIGHT
+brrwts <- RECS15[, grepl(“^BRRWT”, names(RECS15))]
+des <- svrepdesign(weights=sampweights, repweights=brrwts, type="Fay",
+                   rho=0.5, mse=TRUE, data=RECS15)
+```
+
+---
+## Specify the sampling design: no replicate weights provided
+
+- Specifying the sampling design when you don't have replicate weights
+
+- This creates a `tbl_svy` object that then correctly calculates weighted estimates and SEs using methods from Workshop 1 and 2
+
+```{r sd_tsl_syn, eval=FALSE}
+as_survey_design(
+  .data,
+  ids = NULL,#cluster IDs/PSUs
+  strata = NULL,#strata variables
+  variables = NULL,#defaults to all in .data
+  fpc = NULL,#variables defining the fpc
+  nest = FALSE,#TRUE/FALSE - relabel clusters to nest within strata
+  check_strata = !nest, #check that clusters are nested in strata
+  weights = NULL,# weight variable
+  ...
+)
+```
+
+---
+## Syntax for common designs
+
+```{r sd_tsl_gen_ex, eval=FALSE}
+# simple random sample (SRS)
+apisrs %>% as_survey_design(fpc = fpc)
+
+# stratified sample
+apistrat %>% as_survey_design(strata = stype, weights = pw)
+
+# one-stage cluster sample
+apiclus1 %>% as_survey_design(ids = dnum, weights = pw, fpc = fpc)
+
+# two-stage cluster sample, weights computed from pop size
+apiclus2 %>% as_survey_design(ids = c(dnum, snum), fpc = c(fpc1, fpc2))
+
+# stratified, cluster design
+apistrat %>% as_survey_design(ids = dnum, strata = stype, weights =pw, nest = TRUE)
+
+```
+
+- examples from `srvyr` help documentation
+
+---
+## ANES Example
+
+For weight | Use variance unit/PSU/cluster | and use variance stratum
+-----------|-------------------------------|-------------------------
+V200010b| V200010c| V200010d
+
+```{r anesdatin, eval=FALSE}
+options(width=130)
+library(tidyverse) # for tidyverse
+library(here) # for file paths
+library(srvyr) # for tidy survey analysis
+anes <- read_rds(here("Data", "anes_2020.rds")) %>%
+   mutate(Weight=V200010b/sum(V200010b)*231592693) 
+
+anes_des <- anes %>%
+   as_survey_design(weights = Weight,
+                    strata = V200010d,
+                    ids = V200010c,
+                    nest = TRUE)
+summary(anes_des)
+```
+
+---
+## ANES Example (cont'd)
+.smaller[
+```{r anesprint, ref.label="anesdatin", echo=FALSE}
+```
+]
+
+---
+## RECS Example
+
+- Final weights: NWEIGHT
+Replicate weights: BRRWT1 – BRRWT96
+
+```{r recsin, eval=FALSE}
+recs <- read_rds(here("Data", "recs.rds"))
+
+recs_des <- recs %>%
+   as_survey_rep(weights=NWEIGHT,
+                 repweights=starts_with("BRRWT"),
+                 type="Fay",
+                 rho=0.5,
+                 mse=TRUE)
+
+summary(recs_des)
+```
+
+
+---
+## RECS Example (cont'd)
+.smaller[
+```{r recsprint, ref.label="recsin", echo=FALSE}
+```
+]
+
+
+---
+## Create Survey Design Object for ACS
+
+Fill in the blanks
+- Analysis weight: PWGTP
+- replicate weights: PWGTP1-PWGTP180
+- jackknife with scale adjustment of 4/80
+```{r sd_acs_fib, eval=FALSE}
+acs_des <- acs_pums %>%
+  as_survey_rep(
+    weights=___________,
+    repweights=___________,
+    type=___________,
+    scale=_________
+  )
+```
+--
+
+```{r sd_acs_fib_sol, eval=FALSE}
+acs_des <- acs_pums %>%
+   as_survey_rep(
+      weights=PWGTP,
+      repweights=stringr::str_c("PWGTP", 1:80),
+      type="JK1",
+      scale=4/80
+   )
+
+```
+---
+## Create Survey Design Object for CPS 2011 Supplement
+
+Fill in the blanks
+- Analysis weight: wtsupp
+- replicate weights: repwtp1 -repwtp160
+- BRR
+```{r sd_cps_fib, eval=FALSE}
+cps_des <- cps %>%
+  as_survey_rep(
+    weights=___________,
+    repweights=___________,
+    type=___________
+  )
+```
+--
+```{r sd_cps_fib_sol, eval=FALSE}
+cps_des <- cps %>%
+  as_survey_rep(
+    weights=wtsupp,
+    repweights=starts_with("repwtp"),
+    type="BRR"
+  )
+```
+---
+## Create Survey Design Object for NHANES
+
+Fill in the blanks
+- Analysis weight: WTINT2YR
+- Variance Stratum: SDMVSTRA
+- Variance Primary Sampling Unit: VPSU
+```{r sd_nhanes_fib, eval=FALSE}
+nhanes_des <- nhanes %>%
+  as_survey_design(
+    weights=___________,
+    ids=___________,
+    strata=___________,
+    fpc=___________
+  )
+```
+--
+```{r sd_nhanes_fib_sol, eval=FALSE}
+nhanes_des <- nhanes %>%
+  as_survey_design(
+    weights=WTINT2YR,
+    ids=VPSU,
+    strata=SDMVSTRA,
+    fpc=NULL
+  )
+```
+---
+## Create Survey Design Object for LEMAS 2016
+
+Fill in the blanks
+- Analysis weight: ANALYSISWEIGHT
+- Variance Stratum: STRATA
+- FPC: FRAMESIZE
+```{r sd_lemas_fib, eval=FALSE}
+lemas_des <- lemas %>%
+  as_survey_design(
+    weights=___________,
+    ids=___________,
+    strata=___________,
+    fpc=___________
+  )
+```
+--
+
+```{r sd_lemas_fib_sol, eval=FALSE}
+lemas_des <- lemas %>%
+  as_survey_design(
+    weights=ANALYSISWEIGHT,
+    ids=1,
+    strata=STRATA,
+    fpc=FRAMESIZE
+  )
+```
+
+
+
+
+
+
+
+
+---
+## Session info - platform
+
+```{r si, echo=FALSE}
+library(xaringan)
+library(knitr)
+j <- devtools::session_info(pkgs="attached")
+print(j$platform)
+```
+
+---
+## Session info - packages
+
+```{r sipack1, echo=FALSE}
+print(j$packages)
+```
