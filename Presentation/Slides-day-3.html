@@ -34,27 +34,27 @@ class: inverse center middle
 
 &lt;style type="text/css"&gt;
 .small .remark-code { /*Change made here*/
-  font-size: 80% !important;
+font-size: 80% !important;
 }
 .smaller .remark-code { /*Change made here*/
-  font-size: 70% !important;
+font-size: 70% !important;
 }
 &lt;/style&gt;
 
 ## Overview
 
 - At the end of this workshop series, you should be able to 
-   - Calculate point estimates and their standard errors with survey data 
-      - Proportions, totals, and counts
-      - Means, quantiles, and ratios
-   - Perform t-tests and chi-squared tests
-   - Fit regression models
-   - Specify a survey design in R to create a survey object
+- Calculate point estimates and their standard errors with survey data 
+- Proportions, totals, and counts
+- Means, quantiles, and ratios
+- Perform t-tests and chi-squared tests
+- Fit regression models
+- Specify a survey design in R to create a survey object
 
 - We will not be going over the following but provide some resources at the end
-   - Weighting (calibration, post-stratification, raking, etc.)
-   - Survival analysis
-   - Nonlinear models
+- Weighting (calibration, post-stratification, raking, etc.)
+- Survival analysis
+- Nonlinear models
 
 ---
 
@@ -139,10 +139,10 @@ class: inverse center middle
 
 - We will be using RStudio Cloud today to ensure everyone has access
 
-    - Sign-up for a free RStudio Cloud account 
-    - Access the project and files via link in email and Zoom chat
-    - Click "START" to open the project and get started
-    - Rstudio Cloud has the same features and appearance as RStudio for ease of use
+- Sign-up for a free RStudio Cloud account 
+- Access the project and files via link in email and Zoom chat
+- Click "START" to open the project and get started
+- Rstudio Cloud has the same features and appearance as RStudio for ease of use
 
 - All slides and code are available on GitHub: https://github.com/tidy-survey-r/tidy-survey-short-course
 
@@ -173,8 +173,8 @@ Discussing step 1! Steps 2-3 discussed in prior workshops
 These features can be combined to form one design
 
 - Simple random sampling: every unit has the same chance of being selected
-   - Without replacement: units can only be selected once
-   - With replacement: units can be selected more than once
+- Without replacement: units can only be selected once
+- With replacement: units can be selected more than once
 
 - Systematic sampling: sample `\(n\)` individuals from a ordered list and sampling individuals at an interval with a random starting point
 
@@ -197,10 +197,10 @@ These features can be combined to form one design
 - Keywords to look for: methodology, design, analysis guide, technical documentation
 
 - Documentation will indicate the variables needed to specify the design. Look for:
-   - weight (almost always)
-   - strata and/or clusters/PSUs. Sometimes pseudo-strata and pseudo-cluster OR
-   - replicate weights (this is used instead of strata/clusters for analysis)
-   - might also see finite population correction or population sizes
+- weight (almost always)
+- strata and/or clusters/PSUs. Sometimes pseudo-strata and pseudo-cluster OR
+- replicate weights (this is used instead of strata/clusters for analysis)
+- might also see finite population correction or population sizes
 
 - Documentation may include syntax for SAS, SUDAAN, Stata and/or R!
 
@@ -238,7 +238,7 @@ V200010b| V200010c| V200010d
 &gt; (NWEIGHT) and the associated RSE using the replicate weights (BRRWT1 – BRRWT96).
 
 &gt; Let `\(\epsilon\)` be the Fay coefficent ... and `\(\epsilon=0.5\)`
-   
+
 - Page 9: Syntax given for survey package which is similar to srvyr (as we will see)
 
 
@@ -261,15 +261,15 @@ des &lt;- svrepdesign(weights=sampweights, repweights=brrwts, type="Fay",
 
 ```r
 as_survey_design(
-  .data,
-  ids = NULL,#cluster IDs/PSUs
-  strata = NULL,#strata variables
-  variables = NULL,#defaults to all in .data
-  fpc = NULL,#variables defining the fpc
-  nest = FALSE,#TRUE/FALSE - relabel clusters to nest within strata
-  check_strata = !nest, #check that clusters are nested in strata
-  weights = NULL,# weight variable
-  ...
+   .data,
+   ids = NULL,#cluster IDs/PSUs
+   strata = NULL,#strata variables
+   variables = NULL,#defaults to all in .data
+   fpc = NULL,#variables defining the fpc
+   nest = FALSE,#TRUE/FALSE - relabel clusters to nest within strata
+   check_strata = !nest, #check that clusters are nested in strata
+   weights = NULL,# weight variable
+   ...
 )
 ```
 
@@ -448,12 +448,12 @@ Fill in the blanks
 
 ```r
 acs_des &lt;- acs_pums %&gt;%
-  as_survey_rep(
-    weights=___________,
-    repweights=___________,
-    type=___________,
-    scale=_________
-  )
+   as_survey_rep(
+      weights=___________,
+      repweights=___________,
+      type=___________,
+      scale=_________
+   )
 ```
 --
 
@@ -477,21 +477,21 @@ Fill in the blanks
 
 ```r
 cps_des &lt;- cps %&gt;%
-  as_survey_rep(
-    weights=___________,
-    repweights=___________,
-    type=___________
-  )
+   as_survey_rep(
+      weights=___________,
+      repweights=___________,
+      type=___________
+   )
 ```
 --
 
 ```r
 cps_des &lt;- cps %&gt;%
-  as_survey_rep(
-    weights=wtsupp,
-    repweights=starts_with("repwtp"),
-    type="BRR"
-  )
+   as_survey_rep(
+      weights=wtsupp,
+      repweights=starts_with("repwtp"),
+      type="BRR"
+   )
 ```
 ---
 ## Create Survey Design Object for NHANES
@@ -503,23 +503,23 @@ Fill in the blanks
 
 ```r
 nhanes_des &lt;- nhanes %&gt;%
-  as_survey_design(
-    weights=___________,
-    ids=___________,
-    strata=___________,
-    fpc=___________
-  )
+   as_survey_design(
+      weights=___________,
+      ids=___________,
+      strata=___________,
+      fpc=___________
+   )
 ```
 --
 
 ```r
 nhanes_des &lt;- nhanes %&gt;%
-  as_survey_design(
-    weights=WTINT2YR,
-    ids=VPSU,
-    strata=SDMVSTRA,
-    fpc=NULL
-  )
+   as_survey_design(
+      weights=WTINT2YR,
+      ids=VPSU,
+      strata=SDMVSTRA,
+      fpc=NULL
+   )
 ```
 ---
 ## Create Survey Design Object for LEMAS 2016
@@ -531,24 +531,24 @@ Fill in the blanks
 
 ```r
 lemas_des &lt;- lemas %&gt;%
-  as_survey_design(
-    weights=___________,
-    ids=___________,
-    strata=___________,
-    fpc=___________
-  )
+   as_survey_design(
+      weights=___________,
+      ids=___________,
+      strata=___________,
+      fpc=___________
+   )
 ```
 --
 
 
 ```r
 lemas_des &lt;- lemas %&gt;%
-  as_survey_design(
-    weights=ANALYSISWEIGHT,
-    ids=1,
-    strata=STRATA,
-    fpc=FRAMESIZE
-  )
+   as_survey_design(
+      weights=ANALYSISWEIGHT,
+      ids=1,
+      strata=STRATA,
+      fpc=FRAMESIZE
+   )
 ```
 
 ---
@@ -569,8 +569,8 @@ class: inverse center middle
 ```r
 tsl_des %&gt;%
    as_survey_rep(
-        type = c("auto", "JK1", "JKn", "BRR", "bootstrap", "subbootstrap", "mrbbootstrap", "Fay"),
-        ...
+      type = c("auto", "JK1", "JKn", "BRR", "bootstrap", "subbootstrap", "mrbbootstrap", "Fay"),
+      ...
    )
 ```
 
@@ -634,16 +634,218 @@ summary(bclus1)
 ```
 ]
 
+---
+class: inverse center middle
+
+# Creating analysis variables
+## Best practices
+
+---
+## Overview
+
+- Terminology: Analysis variable, constructed variable, derived variable, recoded variables
+
+- Variables created from other variables
+
+- Examples
+
+- Creating a categorical variable from a continuous variable: Creating a categorical income variable from a continuous variable
+
+- Collapsing levels of a categorical variable: Collapsing a 5-level party identification variable into 3 levels
+
+- Creating a construct one or more variables: Binge drinking is defined as men who consumer 5 or more drinks in one sitting OR women who consume 4 or more drinks in one sitting.
+
+- Best practice to create code to check your variable was created as intend
+
+---
+## Code example - creating categorical variable
+
+V201507x is respondent age: -9=Refused
 
 
 
 
 
+```r
+anes_age &lt;- anes_in %&gt;%
+   mutate(
+      Age = if_else(V201507x &gt; 0, as.numeric(V201507x), NA_real_),
+      AgeGroup = cut(Age, c(17, 29, 39, 49, 59, 69, 200),
+                     labels = c("18-29", "30-39", "40-49", "50-59", "60-69", "70 or older")))
+
+anes_age %&gt;%
+   group_by(AgeGroup) %&gt;%
+   summarise(
+      minAge = min(Age),
+      maxAge = max(Age),
+      minV = min(V201507x),
+      maxV = max(V201507x),
+      NAV= sum(is.na(V201507x)),
+      NAAge=sum(is.na(Age)),
+      N=n()
+   )
+```
+
+
+---
+## Code example - creating categorical variable: output
+
+
+```
+## # A tibble: 7 x 8
+##   AgeGroup    minAge maxAge             minV                     maxV   NAV NAAge     N
+##   &lt;fct&gt;        &lt;dbl&gt;  &lt;dbl&gt;        &lt;dbl+lbl&gt;                &lt;dbl+lbl&gt; &lt;int&gt; &lt;int&gt; &lt;int&gt;
+## 1 18-29           18     29 18               29                           0     0   871
+## 2 30-39           30     39 30               39                           0     0  1241
+## 3 40-49           40     49 40               49                           0     0  1081
+## 4 50-59           50     59 50               59                           0     0  1200
+## 5 60-69           60     69 60               69                           0     0  1436
+## 6 70 or older     70     80 70               80 [80. Age 80 or older]     0     0  1330
+## 7 &lt;NA&gt;            NA     NA -9 [-9. Refused] -9 [-9. Refused]             0   294   294
+```
+
+---
+## Code example - collapsing levels
+V202073 indicates who the person voted for
+
+
+```r
+count(anes_in, V202073)
+```
+
+```
+## # A tibble: 12 x 2
+##                                       V202073     n
+##                                     &lt;dbl+lbl&gt; &lt;int&gt;
+##  1 -9 [-9. Refused]                              53
+##  2 -6 [-6. No post-election interview]            4
+##  3 -1 [-1. Inapplicable]                       1497
+##  4  1 [1. Joe Biden]                           3267
+##  5  2 [2. Donald Trump]                        2462
+##  6  3 [3. Jo Jorgensen]                          69
+##  7  4 [4. Howie Hawkins]                         23
+##  8  5 [5. Other candidate {SPECIFY}]             56
+##  9  7 [7. Specified as Republican candidate]      1
+## 10  8 [8. Specified as Libertarian candidate]     3
+## 11 11 [11. Specified as don't know]               2
+## 12 12 [12. Specified as refused]                 16
+```
+
+---
+## Code example - collapsing levels
+Recode V202073 as Biden, Trump, Other, and missing for unknown/no one
+
+
+```r
+anes_vote &lt;- anes_in %&gt;%
+   mutate(VotedPres2020_selection = factor(
+      case_when(
+         V202073 == 1 ~ "Biden",
+         V202073 == 2 ~ "Trump",
+         V202073 &gt;= 3 &amp; V202073 &lt;= 8~ "Other",
+         V202073 == 11 ~ NA_character_,
+         V202073 == 12 ~ NA_character_,
+         TRUE ~ NA_character_
+      ),
+      levels = c("Biden", "Trump", "Other")))
+
+anes_vote %&gt;% count(VotedPres2020_selection, V202073)
+```
+
+---
+## Code example - collapsing levels: output
+
+```
+## # A tibble: 12 x 3
+##    VotedPres2020_selection                                    V202073     n
+##    &lt;fct&gt;                                                    &lt;dbl+lbl&gt; &lt;int&gt;
+##  1 Biden                    1 [1. Joe Biden]                           3267
+##  2 Trump                    2 [2. Donald Trump]                        2462
+##  3 Other                    3 [3. Jo Jorgensen]                          69
+##  4 Other                    4 [4. Howie Hawkins]                         23
+##  5 Other                    5 [5. Other candidate {SPECIFY}]             56
+##  6 Other                    7 [7. Specified as Republican candidate]      1
+##  7 Other                    8 [8. Specified as Libertarian candidate]     3
+##  8 &lt;NA&gt;                    -9 [-9. Refused]                              53
+##  9 &lt;NA&gt;                    -6 [-6. No post-election interview]            4
+## 10 &lt;NA&gt;                    -1 [-1. Inapplicable]                       1497
+## 11 &lt;NA&gt;                    11 [11. Specified as don't know]               2
+## 12 &lt;NA&gt;                    12 [12. Specified as refused]                 16
+```
+
+---
+## Code example - creating construct
 
 
 
+- Creating poverty level indicator from household size and income for Durham County, NC
+
+- Data source: 2019 1-year ACS microdata
+
+- In NC (and most states), poverty guideline is as follows:
+
+Persons in Household|Poverty guideline
+--------------------|---------------
+1|$12,490
+2|$16,910
+3|$21,330
+4|$25,750
+5|$30,170
+6|$34,590
+7|$39,010
+8|$43,430
+9+|Add $4,420 for each additional person
+
+---
+## Code example - creating construct
+NP is the number of persons in a household, HINCP is the household income
 
 
+```r
+dat19_pov &lt;- dat19_in %&gt;%
+   mutate(PovGuide=case_when(
+      NP==1~12490,
+      NP==2~16910,
+      NP==3~21330,
+      NP==4~25750,
+      NP==5~30170,
+      NP==6~34590,
+      NP==7~39010,
+      NP==8~43430,
+      NP&gt;=9~43430+(NP-8)*4420
+   ),
+   FPL=HINCP&lt;=PovGuide
+   )
+
+dat19_pov %&gt;%
+   count(NP, PovGuide)
+
+p &lt;- dat19_pov %&gt;% ggplot(aes(x=HINCP, y=NP, colour=FPL)) + 
+   facet_wrap(~NP) + geom_point() + geom_vline(aes(xintercept=PovGuide))
+```
+
+---
+## Code example - creating construct: output
+
+
+```
+## # A tibble: 9 x 3
+##      NP PovGuide     n
+##   &lt;dbl&gt;    &lt;dbl&gt; &lt;int&gt;
+## 1     1    12490   363
+## 2     2    16910   367
+## 3     3    21330   152
+## 4     4    25750    96
+## 5     5    30170    35
+## 6     6    34590    13
+## 7     7    39010     1
+## 8     8    43430     1
+## 9     9    47850     1
+```
+
+---
+## Code example - creating construct: output
+![](Slides-day-3_files/figure-html/der3c-1.png)&lt;!-- --&gt;
 
 
 
@@ -661,7 +863,7 @@ summary(bclus1)
 ##  collate  English_United States.1252
 ##  ctype    English_United States.1252
 ##  tz       America/New_York
-##  date     2022-04-04
+##  date     2022-04-05
 ##  pandoc   2.17.1.1 @ C:/Program Files/RStudio/bin/quarto/bin/ (via rmarkdown)
 ```
 
