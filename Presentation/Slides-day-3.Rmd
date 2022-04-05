@@ -19,6 +19,9 @@ output:
 
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = TRUE, message = FALSE, tidy = FALSE)
+library(survey)
+library(srvyr)
+library(tidyverse)
 ```
 
 class: inverse center middle
@@ -39,22 +42,88 @@ class: inverse center middle
 ## Overview
 
 - At the end of this workshop series, you should be able to 
-  - Calculate point estimates and their standard errors with survey data 
+   - Calculate point estimates and their standard errors with survey data 
       - Proportions, totals, and counts
       - Means, quantiles, and ratios
-  - Perform t-tests and chi-squared tests
-  - Fit regression models
-  - Specify a survey design in R to create a survey object
-  
+   - Perform t-tests and chi-squared tests
+   - Fit regression models
+   - Specify a survey design in R to create a survey object
+
 - We will not be going over the following but provide some resources at the end
-  - Weighting (calibration, post-stratification, raking, etc.)
-  - Survival analysis
-  - Nonlinear models
-
-
+   - Weighting (calibration, post-stratification, raking, etc.)
+   - Survival analysis
+   - Nonlinear models
 
 ---
-## Overview: Workshop Series Roadmap
+
+## About Us
+
+<div class="row">
+<div class="column">
+<center>
+```{r, echo=FALSE, out.width="200px"}
+knitr::include_graphics('http://www.mapor.org/wp-content/uploads/2022/03/StephanieZimmer_Headshot.jpeg')
+```
+<br>
+<b>Stephanie Zimmer</b>
+<br>
+Abt Associates
+</center>
+</div>
+
+<div class="column">
+<center>
+```{r, echo=FALSE, out.width="200px"}
+knitr::include_graphics('http://www.mapor.org/wp-content/uploads/2020/03/Powell_Rebecca_image-e1584649023839.jpg')
+```
+<br>
+<b>Rebecca Powell</b>
+<br>
+RTI International
+</center>
+</div>
+
+<div class="column">
+<center>
+```{r, echo=FALSE, out.width="200px"}
+knitr::include_graphics('http://www.mapor.org/wp-content/uploads/2022/03/IsabellaVelasquez_Headshot.jpeg')
+```
+
+<br>
+<b>Isabella Velásquez</b>
+<br>
+RStudio
+</center>
+</div>
+
+</div>
+
+---
+
+## About This Workshop
+
+- Hosted by Midwest Association for Public Opinion Research (MAPOR), a regional chapter of the American Association for Public Opinion Research (AAPOR).
+
+- Originally delivered at AAPOR Conference in May 2021
+
+---
+
+## Upcoming Work
+
+- Book on analyzing survey data in R, published by CRC, Taylor & Francis Group
+
+- We would love your help! After each course, we will send out a survey to gather your feedback on the material, organization, etc.
+
+- Keep updated by following our project on GitHub: [https://github.com/tidy-survey-r](https://github.com/tidy-survey-r)
+
+---
+class: inverse center middle
+
+# Workshop Overview
+
+---
+
+## Workshop Series Roadmap
 
 - Get familiar with RStudio Cloud with a warm-up exercise using the tidyverse (day 1)
 
@@ -65,6 +134,8 @@ class: inverse center middle
 - Analysis of continuous data with time for practice (day 2)
 
 - Survey design objects, constructing replicate weights, and creating derived variables (today)
+
+
 
 
 ---
@@ -82,7 +153,11 @@ class: inverse center middle
 ???
 Github repo is for future reference, all material on RStudio cloud
 
+---
+class: inverse center middle
+
 # Specifying sample design objects
+
 ---
 ## Overview of Survey Analysis using `srvyr` Package
 
@@ -260,6 +335,7 @@ summary(anes_des)
 Replicate weights: BRRWT1 – BRRWT96
 
 ```{r recsin, eval=FALSE}
+options(width=130)
 recs <- read_rds(here("Data", "recs.rds"))
 
 recs_des <- recs %>%
@@ -386,6 +462,64 @@ lemas_des <- lemas %>%
     fpc=FRAMESIZE
   )
 ```
+
+---
+class: inverse center middle
+
+# Creating replicate weights
+
+---
+## Creating replicate weights syntax
+
+- Begin with a design object (e.g. `tsl_des`) and then create replicate weights
+
+- "auto" uses JKn for stratified, JK1 for unstratified designs
+
+- See help file for `survey::svrepdesign` for more information on replicate weight types
+
+```{r repsyn, eval=FALSE}
+tsl_des %>%
+   as_survey_rep(
+        type = c("auto", "JK1", "JKn", "BRR", "bootstrap", "subbootstrap", "mrbbootstrap", "Fay"),
+        ...
+   )
+```
+
+???
+- Not covering the types of replicate weights and when to use today, just syntax
+
+---
+## Create Replicate Weights: example 1 (jackknife)
+
+- Since this is not stratified, automatically used JK1
+
+.smaller[
+```{r sd_create_rep}
+data(api)
+dclus1 <- apiclus1 %>% as_survey_design(ids = dnum, weights = pw, fpc = fpc)
+rclus1 <- as_survey_rep(dclus1)
+summary(rclus1)
+
+```
+]
+---
+## Create Replicate Weights: example 2 (bootstrap)
+
+- Specifying bootstrap weights
+
+.smaller[
+```{r sd_create_boot}
+bclus1 <- as_survey_rep(dclus1, type="bootstrap", replicates=100)
+summary(bclus1)
+
+```
+]
+
+
+
+
+
+
 
 
 
