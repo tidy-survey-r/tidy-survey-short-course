@@ -1,0 +1,70 @@
+---
+title: "Design objects and derived variables exercise solutions"
+output:
+  html_document:
+    df_print: paged
+---
+
+# Course set-up
+
+First, let's make sure you have everything you need for the course. Run the following library statements. If something is not installed, install it.
+
+```{r setup}
+# install.packages("tidyverse")
+# remotes::install_github("bschneidr/r-forge-survey-mirror")
+# install.packages("srvyr")
+# install.packages("here")
+# install.packages("palmerpenguins")
+# install.packages("remotes")
+
+library(tidyverse) # for tidyverse
+library(here) # for file paths
+library(srvyr)
+
+
+```
+
+# Part 1 - Design Objects
+
+In these exercises, you will be given a study and assume you have the data. How would you create the design object?
+
+1.  California Health Interview Survey - 2019-2020
+    -   Note that you can do this with design variables aka Taylor's series or replicate weights.
+    -   Useful links:
+        -   <https://healthpolicy.ucla.edu/chis/design/Pages/methodology.aspx>
+        -   <https://healthpolicy.ucla.edu/chis/analyze/Pages/sample-code.aspx>
+        -   <https://healthpolicy.ucla.edu/chis/analyze/Pages/weighting.aspx>
+    -   Assume you have the Public Use File for **adults** already read into R and the dataframe is called `chis19_adult`.
+
+```{r chis, eval=FALSE}
+
+chis19_adult <- haven::read_sas(here::here("RawData", "adult_2019_sas", "adult.sas7bdat"))
+
+des_rep <- chis19_adult %>%
+   as_survey_rep(weights=RAKEDW0, repweights=stringr::str_c("RAKEDW", 1:80),
+                 type="JKn", rscales=1)
+
+des_tsl <- chis19_adult %>%
+   as_survey_design(weights=RAKEDW0, strata=TSVARSTR, ids=1)
+
+# or
+des_tsl <- chis19_adult %>%
+   as_survey_design(weights=RAKEDW0, strata=TSVARSTR, ids=0)
+
+
+```
+
+2.  National Survey on Drug Use and Health - 2019
+    -   Useful links:
+        -   <https://www.datafiles.samhsa.gov/dataset/national-survey-drug-use-and-health-2019-nsduh-2019-ds0001>
+        -   <https://www.datafiles.samhsa.gov/dataset/national-survey-drug-use-and-health-2019-nsduh-2019-ds0001>
+    -   Assume you have the Public Use File for already read into R and the dataframe is called `nsduh19`.
+
+```{r nsduh, eval=FALSE}
+nsduh19 <- haven::read_sav(here::here("RawData", "NSDUH_2019", "NSDUH_2019.SAV"))
+des_nsduh <- nsduh19 %>%
+   as_survey_design(weights=ANALWT_C, strata=VESTR, ids=VEREP, nest=TRUE)
+
+```
+
+
