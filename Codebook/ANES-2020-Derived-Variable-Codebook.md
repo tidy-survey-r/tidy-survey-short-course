@@ -586,6 +586,9 @@ Variables used: V201231x
 
 ## Education
 
+What is the highest level of school you have completed or the highest
+degree you have received?
+
 <table class=" lightable-minimal" style="font-family: &quot;Trebuchet MS&quot;, verdana, sans-serif; margin-left: auto; margin-right: auto;">
 <thead>
 <tr>
@@ -2129,6 +2132,8 @@ NA
 </tbody>
 </table>
 
+Variables used: V202073
+
 ## EarlyVote2020 / VotedPres2020
 
 PRE: SUMMARY: REGISTRATION AND EARLY VOTE STATUS
@@ -2138,6 +2143,9 @@ PRE: SUMMARY: REGISTRATION AND EARLY VOTE STATUS
 <tr>
 <th style="text-align:right;">
 V201025x
+</th>
+<th style="text-align:right;">
+V202109x
 </th>
 <th style="text-align:left;">
 VotedPres2020
@@ -2158,6 +2166,9 @@ Unweighted Freq
 <td style="text-align:right;">
 -4
 </td>
+<td style="text-align:right;">
+1
+</td>
 <td style="text-align:left;">
 Yes
 </td>
@@ -2175,14 +2186,17 @@ NA
 <td style="text-align:right;">
 1
 </td>
-<td style="text-align:left;">
-Yes
+<td style="text-align:right;">
+-2
 </td>
 <td style="text-align:left;">
-No
+NA
+</td>
+<td style="text-align:left;">
+NA
 </td>
 <td style="text-align:right;">
-35
+3
 </td>
 <td style="text-align:right;">
 0.005
@@ -2191,6 +2205,9 @@ No
 <tr>
 <td style="text-align:right;">
 1
+</td>
+<td style="text-align:right;">
+0
 </td>
 <td style="text-align:left;">
 No
@@ -2223,19 +2240,6 @@ NA
 </td>
 </tr>
 <tr>
-<td style="text-align:right;">
-2
-</td>
-<td style="text-align:left;">
-Yes
-</td>
-<td style="text-align:left;">
-No
-</td>
-<td style="text-align:right;">
-109
-</td>
-<td style="text-align:right;">
 0.015
 </td>
 </tr>
@@ -2243,14 +2247,17 @@ No
 <td style="text-align:right;">
 2
 </td>
+<td style="text-align:right;">
+-2
+</td>
 <td style="text-align:left;">
-No
+NA
 </td>
 <td style="text-align:left;">
 NA
 </td>
 <td style="text-align:right;">
-180
+1
 </td>
 <td style="text-align:right;">
 0.024
@@ -2260,8 +2267,11 @@ NA
 <td style="text-align:right;">
 2
 </td>
+<td style="text-align:right;">
+0
+</td>
 <td style="text-align:left;">
-NA
+No
 </td>
 <td style="text-align:left;">
 NA
@@ -2275,7 +2285,10 @@ NA
 </tr>
 <tr>
 <td style="text-align:right;">
-3
+2
+</td>
+<td style="text-align:right;">
+1
 </td>
 <td style="text-align:left;">
 Yes
@@ -2284,7 +2297,7 @@ Yes
 No
 </td>
 <td style="text-align:right;">
-5891
+109
 </td>
 <td style="text-align:right;">
 0.790
@@ -2294,14 +2307,17 @@ No
 <td style="text-align:right;">
 3
 </td>
+<td style="text-align:right;">
+-2
+</td>
 <td style="text-align:left;">
-No
+NA
 </td>
 <td style="text-align:left;">
 NA
 </td>
 <td style="text-align:right;">
-558
+3
 </td>
 <td style="text-align:right;">
 0.075
@@ -2311,8 +2327,11 @@ NA
 <td style="text-align:right;">
 3
 </td>
+<td style="text-align:right;">
+0
+</td>
 <td style="text-align:left;">
-NA
+No
 </td>
 <td style="text-align:left;">
 NA
@@ -2326,7 +2345,30 @@ NA
 </tr>
 <tr>
 <td style="text-align:right;">
+3
+</td>
+<td style="text-align:right;">
+1
+</td>
+<td style="text-align:left;">
+Yes
+</td>
+<td style="text-align:left;">
+No
+</td>
+<td style="text-align:right;">
+371
+</td>
+<td style="text-align:right;">
+0.790
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
 4
+</td>
+<td style="text-align:right;">
+1
 </td>
 <td style="text-align:left;">
 Yes
@@ -2343,3 +2385,5 @@ Yes
 </tr>
 </tbody>
 </table>
+
+Variables used: V201025x, V202109x
