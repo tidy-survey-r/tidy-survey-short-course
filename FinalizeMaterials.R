@@ -36,3 +36,17 @@ mypurl("Exercises", "WarmUpExercises_solutions")
 # mypurl("Exercises", "ContinuousExercises")
 # mypurl("Exercises", "ContinuousExercises_solutions")
 
+
+# Day 3 processing
+
+mypurl("Presentation", "Slides-day-3")
+xaringanBuilder::build_pdf(
+   input=here("Presentation", "Slides-day-3.html"),
+   output_file=here("Presentation", "Slides-day-3.pdf"),
+   partial_slides= TRUE)
+xaringanBuilder::build_pptx(
+   input=here("Presentation", "Slides-day-3.pdf"),
+   output_file=here("Presentation", "Slides-day-3.pptx"),
+   partial_slides= TRUE)
+mypurl("Exercises", "DesignDerivedVariablesExercises")
+mypurl("Exercises", "DesignDerivedVariablesExercises_solutions")
