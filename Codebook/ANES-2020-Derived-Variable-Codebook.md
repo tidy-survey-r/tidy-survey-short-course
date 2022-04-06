@@ -21,7 +21,7 @@ ANES 2020 Derived Variable Codebook
 -   [VotedPres2020_selection](#votedpres2020_selection)
 -   [EarlyVote2020 / VotedPres2020](#earlyvote2020--votedpres2020)
 
-The full codebook with the original variables is available on
+The full codebook with the original variables is available at
 <a href="https://electionstudies.org/wp-content/uploads/2022/02/anes_timeseries_2020_userguidecodebook_20220210.pdf" target="_blank">electionstudies.org</a>.
 
 ## Weighting variables
@@ -68,10 +68,10 @@ Unweighted Freq
 Video
 </td>
 <td style="text-align:right;">
-359
+274
 </td>
 <td style="text-align:right;">
-0.043
+0.037
 </td>
 </tr>
 <tr>
@@ -82,10 +82,10 @@ Video
 Telephone
 </td>
 <td style="text-align:right;">
-139
+115
 </td>
 <td style="text-align:right;">
-0.017
+0.015
 </td>
 </tr>
 <tr>
@@ -96,10 +96,10 @@ Telephone
 Web
 </td>
 <td style="text-align:right;">
-7782
+7064
 </td>
 <td style="text-align:right;">
-0.940
+0.948
 </td>
 </tr>
 <tr>
@@ -110,7 +110,7 @@ Total
 
 -   </td>
     <td style="text-align:right;">
-    8280
+    7453
     </td>
     <td style="text-align:right;">
     1.000
@@ -144,10 +144,10 @@ Unweighted Freq
 18-29
 </td>
 <td style="text-align:right;">
-1003
+871
 </td>
 <td style="text-align:right;">
-0.121
+0.117
 </td>
 </tr>
 <tr>
@@ -155,7 +155,7 @@ Unweighted Freq
 30-39
 </td>
 <td style="text-align:right;">
-1381
+1241
 </td>
 <td style="text-align:right;">
 0.167
@@ -166,7 +166,7 @@ Unweighted Freq
 40-49
 </td>
 <td style="text-align:right;">
-1199
+1081
 </td>
 <td style="text-align:right;">
 0.145
@@ -177,7 +177,7 @@ Unweighted Freq
 50-59
 </td>
 <td style="text-align:right;">
-1335
+1200
 </td>
 <td style="text-align:right;">
 0.161
@@ -188,10 +188,10 @@ Unweighted Freq
 60-69
 </td>
 <td style="text-align:right;">
-1562
+1436
 </td>
 <td style="text-align:right;">
-0.189
+0.193
 </td>
 </tr>
 <tr>
@@ -199,10 +199,10 @@ Unweighted Freq
 70 or older
 </td>
 <td style="text-align:right;">
-1452
+1330
 </td>
 <td style="text-align:right;">
-0.175
+0.178
 </td>
 </tr>
 <tr>
@@ -210,10 +210,10 @@ Unweighted Freq
 NA
 </td>
 <td style="text-align:right;">
-348
+294
 </td>
 <td style="text-align:right;">
-0.042
+0.039
 </td>
 </tr>
 </tbody>
@@ -253,10 +253,10 @@ Unweighted Freq
 NA
 </td>
 <td style="text-align:right;">
-67
+51
 </td>
 <td style="text-align:right;">
-0.008
+0.007
 </td>
 </tr>
 <tr>
@@ -267,10 +267,10 @@ NA
 Male
 </td>
 <td style="text-align:right;">
-3763
+3375
 </td>
 <td style="text-align:right;">
-0.454
+0.453
 </td>
 </tr>
 <tr>
@@ -281,10 +281,10 @@ Male
 Female
 </td>
 <td style="text-align:right;">
-4450
+4027
 </td>
 <td style="text-align:right;">
-0.537
+0.540
 </td>
 </tr>
 </tbody>
@@ -322,10 +322,10 @@ Unweighted Freq
 NA
 </td>
 <td style="text-align:right;">
-96
+75
 </td>
 <td style="text-align:right;">
-0.012
+0.010
 </td>
 </tr>
 <tr>
@@ -350,10 +350,10 @@ NA
 White
 </td>
 <td style="text-align:right;">
-5963
+5420
 </td>
 <td style="text-align:right;">
-0.720
+0.727
 </td>
 </tr>
 <tr>
@@ -364,10 +364,10 @@ White
 Black
 </td>
 <td style="text-align:right;">
-726
+650
 </td>
 <td style="text-align:right;">
-0.088
+0.087
 </td>
 </tr>
 <tr>
@@ -378,10 +378,10 @@ Black
 Hispanic
 </td>
 <td style="text-align:right;">
-762
+662
 </td>
 <td style="text-align:right;">
-0.092
+0.089
 </td>
 </tr>
 <tr>
@@ -392,10 +392,10 @@ Hispanic
 Asian, NH/PI
 </td>
 <td style="text-align:right;">
-284
+248
 </td>
 <td style="text-align:right;">
-0.034
+0.033
 </td>
 </tr>
 <tr>
@@ -406,7 +406,7 @@ Asian, NH/PI
 AI/AN
 </td>
 <td style="text-align:right;">
-172
+155
 </td>
 <td style="text-align:right;">
 0.021
@@ -420,10 +420,10 @@ AI/AN
 Other/multiple race
 </td>
 <td style="text-align:right;">
-271
+237
 </td>
 <td style="text-align:right;">
-0.033
+0.032
 </td>
 </tr>
 </tbody>
@@ -461,10 +461,10 @@ Unweighted Freq
 NA
 </td>
 <td style="text-align:right;">
-31
+23
 </td>
 <td style="text-align:right;">
-0.004
+0.003
 </td>
 </tr>
 <tr>
@@ -475,7 +475,7 @@ NA
 NA
 </td>
 <td style="text-align:right;">
-4
+2
 </td>
 <td style="text-align:right;">
 0.000
@@ -489,10 +489,10 @@ NA
 Strong democrat
 </td>
 <td style="text-align:right;">
-1961
+1796
 </td>
 <td style="text-align:right;">
-0.237
+0.241
 </td>
 </tr>
 <tr>
@@ -503,10 +503,10 @@ Strong democrat
 Not very strong democrat
 </td>
 <td style="text-align:right;">
-900
+790
 </td>
 <td style="text-align:right;">
-0.109
+0.106
 </td>
 </tr>
 <tr>
@@ -517,7 +517,7 @@ Not very strong democrat
 Independent-democrat
 </td>
 <td style="text-align:right;">
-975
+881
 </td>
 <td style="text-align:right;">
 0.118
@@ -531,10 +531,10 @@ Independent-democrat
 Independent
 </td>
 <td style="text-align:right;">
-968
+876
 </td>
 <td style="text-align:right;">
-0.117
+0.118
 </td>
 </tr>
 <tr>
@@ -545,10 +545,10 @@ Independent
 Independent-republican
 </td>
 <td style="text-align:right;">
-879
+782
 </td>
 <td style="text-align:right;">
-0.106
+0.105
 </td>
 </tr>
 <tr>
@@ -559,10 +559,10 @@ Independent-republican
 Not very strong republican
 </td>
 <td style="text-align:right;">
-832
+758
 </td>
 <td style="text-align:right;">
-0.100
+0.102
 </td>
 </tr>
 <tr>
@@ -573,10 +573,10 @@ Not very strong republican
 Strong republican
 </td>
 <td style="text-align:right;">
-1730
+1545
 </td>
 <td style="text-align:right;">
-0.209
+0.207
 </td>
 </tr>
 </tbody>
@@ -612,10 +612,10 @@ Unweighted Freq
 NA
 </td>
 <td style="text-align:right;">
-33
+25
 </td>
 <td style="text-align:right;">
-0.004
+0.003
 </td>
 </tr>
 <tr>
@@ -640,10 +640,10 @@ NA
 Less than HS
 </td>
 <td style="text-align:right;">
-376
+312
 </td>
 <td style="text-align:right;">
-0.045
+0.042
 </td>
 </tr>
 <tr>
@@ -654,10 +654,10 @@ Less than HS
 High school
 </td>
 <td style="text-align:right;">
-1336
+1160
 </td>
 <td style="text-align:right;">
-0.161
+0.156
 </td>
 </tr>
 <tr>
@@ -668,10 +668,10 @@ High school
 Post HS
 </td>
 <td style="text-align:right;">
-1684
+1519
 </td>
 <td style="text-align:right;">
-0.203
+0.204
 </td>
 </tr>
 <tr>
@@ -682,7 +682,7 @@ Post HS
 Post HS
 </td>
 <td style="text-align:right;">
-615
+550
 </td>
 <td style="text-align:right;">
 0.074
@@ -696,10 +696,10 @@ Post HS
 Post HS
 </td>
 <td style="text-align:right;">
-491
+445
 </td>
 <td style="text-align:right;">
-0.059
+0.060
 </td>
 </tr>
 <tr>
@@ -710,10 +710,10 @@ Post HS
 Bachelor’s
 </td>
 <td style="text-align:right;">
-2055
+1877
 </td>
 <td style="text-align:right;">
-0.248
+0.252
 </td>
 </tr>
 <tr>
@@ -724,10 +724,10 @@ Bachelor’s
 Graduate
 </td>
 <td style="text-align:right;">
-1185
+1092
 </td>
 <td style="text-align:right;">
-0.143
+0.147
 </td>
 </tr>
 <tr>
@@ -738,10 +738,10 @@ Graduate
 Graduate
 </td>
 <td style="text-align:right;">
-407
+382
 </td>
 <td style="text-align:right;">
-0.049
+0.051
 </td>
 </tr>
 <tr>
@@ -752,7 +752,7 @@ Graduate
 NA
 </td>
 <td style="text-align:right;">
-97
+90
 </td>
 <td style="text-align:right;">
 0.012
@@ -793,10 +793,10 @@ Unweighted Freq
 NA
 </td>
 <td style="text-align:right;">
-584
+502
 </td>
 <td style="text-align:right;">
-0.071
+0.067
 </td>
 </tr>
 <tr>
@@ -807,10 +807,10 @@ NA
 NA
 </td>
 <td style="text-align:right;">
-32
+15
 </td>
 <td style="text-align:right;">
-0.004
+0.002
 </td>
 </tr>
 <tr>
@@ -821,7 +821,7 @@ NA
 Under $9,999
 </td>
 <td style="text-align:right;">
-719
+647
 </td>
 <td style="text-align:right;">
 0.087
@@ -835,10 +835,10 @@ Under $9,999
 $10,000-14,999
 </td>
 <td style="text-align:right;">
-282
+244
 </td>
 <td style="text-align:right;">
-0.034
+0.033
 </td>
 </tr>
 <tr>
@@ -849,7 +849,7 @@ $10,000-14,999
 $15,000-19,999
 </td>
 <td style="text-align:right;">
-210
+185
 </td>
 <td style="text-align:right;">
 0.025
@@ -863,10 +863,10 @@ $15,000-19,999
 $20,000-24,999
 </td>
 <td style="text-align:right;">
-325
+301
 </td>
 <td style="text-align:right;">
-0.039
+0.040
 </td>
 </tr>
 <tr>
@@ -877,10 +877,10 @@ $20,000-24,999
 $25,000-29,999
 </td>
 <td style="text-align:right;">
-263
+228
 </td>
 <td style="text-align:right;">
-0.032
+0.031
 </td>
 </tr>
 <tr>
@@ -891,10 +891,10 @@ $25,000-29,999
 $30,000-34,999
 </td>
 <td style="text-align:right;">
-327
+296
 </td>
 <td style="text-align:right;">
-0.039
+0.040
 </td>
 </tr>
 <tr>
@@ -905,10 +905,10 @@ $30,000-34,999
 $35,000-39,999
 </td>
 <td style="text-align:right;">
-242
+226
 </td>
 <td style="text-align:right;">
-0.029
+0.030
 </td>
 </tr>
 <tr>
@@ -919,10 +919,10 @@ $35,000-39,999
 $40,000-44,999
 </td>
 <td style="text-align:right;">
-321
+286
 </td>
 <td style="text-align:right;">
-0.039
+0.038
 </td>
 </tr>
 <tr>
@@ -933,10 +933,10 @@ $40,000-44,999
 $45,000-49,999
 </td>
 <td style="text-align:right;">
-230
+213
 </td>
 <td style="text-align:right;">
-0.028
+0.029
 </td>
 </tr>
 <tr>
@@ -947,10 +947,10 @@ $45,000-49,999
 $50,000-59,999
 </td>
 <td style="text-align:right;">
-546
+485
 </td>
 <td style="text-align:right;">
-0.066
+0.065
 </td>
 </tr>
 <tr>
@@ -961,7 +961,7 @@ $50,000-59,999
 $60,000-64,999
 </td>
 <td style="text-align:right;">
-325
+294
 </td>
 <td style="text-align:right;">
 0.039
@@ -975,10 +975,10 @@ $60,000-64,999
 $65,000-69,999
 </td>
 <td style="text-align:right;">
-182
+168
 </td>
 <td style="text-align:right;">
-0.022
+0.023
 </td>
 </tr>
 <tr>
@@ -989,10 +989,10 @@ $65,000-69,999
 $70,000-74,999
 </td>
 <td style="text-align:right;">
-264
+243
 </td>
 <td style="text-align:right;">
-0.032
+0.033
 </td>
 </tr>
 <tr>
@@ -1003,10 +1003,10 @@ $70,000-74,999
 $75,000-79,999
 </td>
 <td style="text-align:right;">
-233
+215
 </td>
 <td style="text-align:right;">
-0.028
+0.029
 </td>
 </tr>
 <tr>
@@ -1017,7 +1017,7 @@ $75,000-79,999
 $80,000-89,999
 </td>
 <td style="text-align:right;">
-426
+383
 </td>
 <td style="text-align:right;">
 0.051
@@ -1031,10 +1031,10 @@ $80,000-89,999
 $90,000-99,999
 </td>
 <td style="text-align:right;">
-304
+291
 </td>
 <td style="text-align:right;">
-0.037
+0.039
 </td>
 </tr>
 <tr>
@@ -1045,7 +1045,7 @@ $90,000-99,999
 $100,000-109,999
 </td>
 <td style="text-align:right;">
-506
+451
 </td>
 <td style="text-align:right;">
 0.061
@@ -1059,10 +1059,10 @@ $100,000-109,999
 $110,000-124,999
 </td>
 <td style="text-align:right;">
-343
+312
 </td>
 <td style="text-align:right;">
-0.041
+0.042
 </td>
 </tr>
 <tr>
@@ -1073,10 +1073,10 @@ $110,000-124,999
 $125,000-149,999
 </td>
 <td style="text-align:right;">
-347
+323
 </td>
 <td style="text-align:right;">
-0.042
+0.043
 </td>
 </tr>
 <tr>
@@ -1087,7 +1087,7 @@ $125,000-149,999
 $150,000-174,999
 </td>
 <td style="text-align:right;">
-404
+366
 </td>
 <td style="text-align:right;">
 0.049
@@ -1101,7 +1101,7 @@ $150,000-174,999
 $175,000-249,999
 </td>
 <td style="text-align:right;">
-416
+374
 </td>
 <td style="text-align:right;">
 0.050
@@ -1115,7 +1115,7 @@ $175,000-249,999
 $250,000 or more
 </td>
 <td style="text-align:right;">
-449
+405
 </td>
 <td style="text-align:right;">
 0.054
@@ -1143,10 +1143,10 @@ Unweighted Freq
 Under $20k
 </td>
 <td style="text-align:right;">
-1211
+1076
 </td>
 <td style="text-align:right;">
-0.146
+0.144
 </td>
 </tr>
 <tr>
@@ -1154,10 +1154,10 @@ Under $20k
 $20-40k
 </td>
 <td style="text-align:right;">
-1157
+1051
 </td>
 <td style="text-align:right;">
-0.140
+0.141
 </td>
 </tr>
 <tr>
@@ -1165,7 +1165,7 @@ $20-40k
 $40-60k
 </td>
 <td style="text-align:right;">
-1097
+984
 </td>
 <td style="text-align:right;">
 0.132
@@ -1176,10 +1176,10 @@ $40-60k
 $60-80k
 </td>
 <td style="text-align:right;">
-1004
+920
 </td>
 <td style="text-align:right;">
-0.121
+0.123
 </td>
 </tr>
 <tr>
@@ -1187,10 +1187,10 @@ $60-80k
 $80-100k
 </td>
 <td style="text-align:right;">
-730
+674
 </td>
 <td style="text-align:right;">
-0.088
+0.090
 </td>
 </tr>
 <tr>
@@ -1198,10 +1198,10 @@ $80-100k
 $100-125k
 </td>
 <td style="text-align:right;">
-849
+763
 </td>
 <td style="text-align:right;">
-0.103
+0.102
 </td>
 </tr>
 <tr>
@@ -1209,10 +1209,10 @@ $100-125k
 $125k or more
 </td>
 <td style="text-align:right;">
-1616
+1468
 </td>
 <td style="text-align:right;">
-0.195
+0.197
 </td>
 </tr>
 <tr>
@@ -1220,10 +1220,10 @@ $125k or more
 NA
 </td>
 <td style="text-align:right;">
-616
+517
 </td>
 <td style="text-align:right;">
-0.074
+0.069
 </td>
 </tr>
 </tbody>
@@ -1280,10 +1280,10 @@ NA
 Very much interested
 </td>
 <td style="text-align:right;">
-4320
+3940
 </td>
 <td style="text-align:right;">
-0.522
+0.529
 </td>
 </tr>
 <tr>
@@ -1294,10 +1294,10 @@ Very much interested
 Somewhat interested
 </td>
 <td style="text-align:right;">
-2890
+2569
 </td>
 <td style="text-align:right;">
-0.349
+0.345
 </td>
 </tr>
 <tr>
@@ -1308,10 +1308,10 @@ Somewhat interested
 Not much interested
 </td>
 <td style="text-align:right;">
-1069
+943
 </td>
 <td style="text-align:right;">
-0.129
+0.127
 </td>
 </tr>
 </tbody>
@@ -1353,10 +1353,10 @@ Unweighted Freq
 NA
 </td>
 <td style="text-align:right;">
-34
+26
 </td>
 <td style="text-align:right;">
-0.004
+0.003
 </td>
 </tr>
 <tr>
@@ -1381,7 +1381,7 @@ NA
 Always
 </td>
 <td style="text-align:right;">
-88
+80
 </td>
 <td style="text-align:right;">
 0.011
@@ -1395,10 +1395,10 @@ Always
 Most of the time
 </td>
 <td style="text-align:right;">
-1133
+1016
 </td>
 <td style="text-align:right;">
-0.137
+0.136
 </td>
 </tr>
 <tr>
@@ -1409,7 +1409,7 @@ Most of the time
 About half the time
 </td>
 <td style="text-align:right;">
-2569
+2313
 </td>
 <td style="text-align:right;">
 0.310
@@ -1423,10 +1423,10 @@ About half the time
 Some of the time
 </td>
 <td style="text-align:right;">
-3674
+3313
 </td>
 <td style="text-align:right;">
-0.444
+0.445
 </td>
 </tr>
 <tr>
@@ -1437,7 +1437,7 @@ Some of the time
 Never
 </td>
 <td style="text-align:right;">
-779
+702
 </td>
 <td style="text-align:right;">
 0.094
@@ -1480,7 +1480,7 @@ Unweighted Freq
 NA
 </td>
 <td style="text-align:right;">
-17
+12
 </td>
 <td style="text-align:right;">
 0.002
@@ -1494,7 +1494,7 @@ NA
 NA
 </td>
 <td style="text-align:right;">
-2
+1
 </td>
 <td style="text-align:right;">
 0.000
@@ -1508,7 +1508,7 @@ NA
 Always
 </td>
 <td style="text-align:right;">
-52
+48
 </td>
 <td style="text-align:right;">
 0.006
@@ -1522,10 +1522,10 @@ Always
 Most of the time
 </td>
 <td style="text-align:right;">
-3842
+3511
 </td>
 <td style="text-align:right;">
-0.464
+0.471
 </td>
 </tr>
 <tr>
@@ -1536,10 +1536,10 @@ Most of the time
 About half the time
 </td>
 <td style="text-align:right;">
-2265
+2020
 </td>
 <td style="text-align:right;">
-0.274
+0.271
 </td>
 </tr>
 <tr>
@@ -1550,10 +1550,10 @@ About half the time
 Some of the time
 </td>
 <td style="text-align:right;">
-1810
+1597
 </td>
 <td style="text-align:right;">
-0.219
+0.214
 </td>
 </tr>
 <tr>
@@ -1564,7 +1564,7 @@ Some of the time
 Never
 </td>
 <td style="text-align:right;">
-292
+264
 </td>
 <td style="text-align:right;">
 0.035
@@ -1624,7 +1624,7 @@ Unweighted Freq
 NA
 </td>
 <td style="text-align:right;">
-14
+13
 </td>
 <td style="text-align:right;">
 0.002
@@ -1641,7 +1641,7 @@ NA
 NA
 </td>
 <td style="text-align:right;">
-2
+1
 </td>
 <td style="text-align:right;">
 0.000
@@ -1658,7 +1658,7 @@ NA
 NA
 </td>
 <td style="text-align:right;">
-8
+6
 </td>
 <td style="text-align:right;">
 0.001
@@ -1675,7 +1675,7 @@ NA
 NA
 </td>
 <td style="text-align:right;">
-2
+1
 </td>
 <td style="text-align:right;">
 0.000
@@ -1692,10 +1692,10 @@ NA
 Yes
 </td>
 <td style="text-align:right;">
-3330
+3030
 </td>
 <td style="text-align:right;">
-0.402
+0.407
 </td>
 </tr>
 <tr>
@@ -1709,10 +1709,10 @@ Yes
 No
 </td>
 <td style="text-align:right;">
-853
+743
 </td>
 <td style="text-align:right;">
-0.103
+0.100
 </td>
 </tr>
 <tr>
@@ -1726,10 +1726,10 @@ No
 Yes
 </td>
 <td style="text-align:right;">
-3070
+2780
 </td>
 <td style="text-align:right;">
-0.371
+0.373
 </td>
 </tr>
 <tr>
@@ -1743,10 +1743,10 @@ Yes
 No
 </td>
 <td style="text-align:right;">
-1001
+879
 </td>
 <td style="text-align:right;">
-0.121
+0.118
 </td>
 </tr>
 </tbody>
@@ -1786,7 +1786,7 @@ Unweighted Freq
 NA
 </td>
 <td style="text-align:right;">
-48
+41
 </td>
 <td style="text-align:right;">
 0.006
@@ -1814,10 +1814,10 @@ NA
 NA
 </td>
 <td style="text-align:right;">
-1880
+1643
 </td>
 <td style="text-align:right;">
-0.227
+0.220
 </td>
 </tr>
 <tr>
@@ -1828,10 +1828,10 @@ NA
 Clinton
 </td>
 <td style="text-align:right;">
-3172
+2911
 </td>
 <td style="text-align:right;">
-0.383
+0.391
 </td>
 </tr>
 <tr>
@@ -1842,10 +1842,10 @@ Clinton
 Trump
 </td>
 <td style="text-align:right;">
-2746
+2466
 </td>
 <td style="text-align:right;">
-0.332
+0.331
 </td>
 </tr>
 <tr>
@@ -1856,7 +1856,7 @@ Trump
 Other
 </td>
 <td style="text-align:right;">
-432
+390
 </td>
 <td style="text-align:right;">
 0.052
@@ -1897,10 +1897,10 @@ Unweighted Freq
 NA
 </td>
 <td style="text-align:right;">
-791
+7
 </td>
 <td style="text-align:right;">
-0.096
+0.001
 </td>
 </tr>
 <tr>
@@ -1914,7 +1914,7 @@ No
 1039
 </td>
 <td style="text-align:right;">
-0.125
+0.139
 </td>
 </tr>
 <tr>
@@ -1925,10 +1925,10 @@ No
 Yes
 </td>
 <td style="text-align:right;">
-6450
+6407
 </td>
 <td style="text-align:right;">
-0.779
+0.860
 </td>
 </tr>
 </tbody>
@@ -1969,21 +1969,7 @@ NA
 53
 </td>
 <td style="text-align:right;">
-0.006
-</td>
-</tr>
-<tr>
-<td style="text-align:right;">
--7
-</td>
-<td style="text-align:left;">
-NA
-</td>
-<td style="text-align:right;">
-77
-</td>
-<td style="text-align:right;">
-0.009
+0.007
 </td>
 </tr>
 <tr>
@@ -1994,10 +1980,10 @@ NA
 NA
 </td>
 <td style="text-align:right;">
-754
+4
 </td>
 <td style="text-align:right;">
-0.091
+0.001
 </td>
 </tr>
 <tr>
@@ -2011,7 +1997,7 @@ NA
 1497
 </td>
 <td style="text-align:right;">
-0.181
+0.201
 </td>
 </tr>
 <tr>
@@ -2025,7 +2011,7 @@ Biden
 3267
 </td>
 <td style="text-align:right;">
-0.395
+0.438
 </td>
 </tr>
 <tr>
@@ -2039,7 +2025,7 @@ Trump
 2462
 </td>
 <td style="text-align:right;">
-0.297
+0.330
 </td>
 </tr>
 <tr>
@@ -2053,7 +2039,7 @@ Other
 69
 </td>
 <td style="text-align:right;">
-0.008
+0.009
 </td>
 </tr>
 <tr>
@@ -2081,7 +2067,7 @@ Other
 56
 </td>
 <td style="text-align:right;">
-0.007
+0.008
 </td>
 </tr>
 <tr>
@@ -2199,7 +2185,7 @@ No
 35
 </td>
 <td style="text-align:right;">
-0.004
+0.005
 </td>
 </tr>
 <tr>
@@ -2216,7 +2202,7 @@ NA
 301
 </td>
 <td style="text-align:right;">
-0.036
+0.040
 </td>
 </tr>
 <tr>
@@ -2230,10 +2216,10 @@ NA
 NA
 </td>
 <td style="text-align:right;">
-56
+3
 </td>
 <td style="text-align:right;">
-0.007
+0.000
 </td>
 </tr>
 <tr>
@@ -2250,7 +2236,7 @@ No
 109
 </td>
 <td style="text-align:right;">
-0.013
+0.015
 </td>
 </tr>
 <tr>
@@ -2267,7 +2253,7 @@ NA
 180
 </td>
 <td style="text-align:right;">
-0.022
+0.024
 </td>
 </tr>
 <tr>
@@ -2281,10 +2267,10 @@ NA
 NA
 </td>
 <td style="text-align:right;">
-47
+1
 </td>
 <td style="text-align:right;">
-0.006
+0.000
 </td>
 </tr>
 <tr>
@@ -2301,7 +2287,7 @@ No
 5891
 </td>
 <td style="text-align:right;">
-0.711
+0.790
 </td>
 </tr>
 <tr>
@@ -2318,7 +2304,7 @@ NA
 558
 </td>
 <td style="text-align:right;">
-0.067
+0.075
 </td>
 </tr>
 <tr>
@@ -2332,44 +2318,27 @@ NA
 NA
 </td>
 <td style="text-align:right;">
-687
-</td>
-<td style="text-align:right;">
-0.083
-</td>
-</tr>
-<tr>
-<td style="text-align:right;">
-4
-</td>
-<td style="text-align:left;">
-Yes
-</td>
-<td style="text-align:left;">
-Yes
-</td>
-<td style="text-align:right;">
-414
-</td>
-<td style="text-align:right;">
-0.050
-</td>
-</tr>
-<tr>
-<td style="text-align:right;">
-4
-</td>
-<td style="text-align:left;">
-NA
-</td>
-<td style="text-align:left;">
-Yes
-</td>
-<td style="text-align:right;">
-1
+3
 </td>
 <td style="text-align:right;">
 0.000
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+4
+</td>
+<td style="text-align:left;">
+Yes
+</td>
+<td style="text-align:left;">
+Yes
+</td>
+<td style="text-align:right;">
+371
+</td>
+<td style="text-align:right;">
+0.050
 </td>
 </tr>
 </tbody>
