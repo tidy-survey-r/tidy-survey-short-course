@@ -44,17 +44,17 @@ font-size: 70% !important;
 ## Overview
 
 - At the end of this workshop series, you should be able to 
-- Calculate point estimates and their standard errors with survey data 
-- Proportions, totals, and counts
-- Means, quantiles, and ratios
-- Perform t-tests and chi-squared tests
-- Fit regression models
-- Specify a survey design in R to create a survey object
+   - Calculate point estimates and their standard errors with survey data 
+      - Proportions, totals, and counts
+      - Means, quantiles, and ratios
+   - Perform t-tests and chi-squared tests
+   - Fit regression models
+   - Specify a survey design in R to create a survey object
 
 - We will not be going over the following but provide some resources at the end
-- Weighting (calibration, post-stratification, raking, etc.)
-- Survival analysis
-- Nonlinear models
+   - Weighting (calibration, post-stratification, raking, etc.)
+   - Survival analysis
+   - Nonlinear models
 
 ---
 
@@ -140,9 +140,9 @@ class: inverse center middle
 - We will be using RStudio Cloud today to ensure everyone has access
 
 - Sign-up for a free RStudio Cloud account 
-- Access the project and files via link in email and Zoom chat
-- Click "START" to open the project and get started
-- Rstudio Cloud has the same features and appearance as RStudio for ease of use
+   - Access the project and files via link in email and Zoom chat
+   - Click "START" to open the project and get started
+   - Rstudio Cloud has the same features and appearance as RStudio for ease of use
 
 - All slides and code are available on GitHub: https://github.com/tidy-survey-r/tidy-survey-short-course
 
@@ -173,8 +173,8 @@ Discussing step 1! Steps 2-3 discussed in prior workshops
 These features can be combined to form one design
 
 - Simple random sampling: every unit has the same chance of being selected
-- Without replacement: units can only be selected once
-- With replacement: units can be selected more than once
+   - Without replacement: units can only be selected once
+   - With replacement: units can be selected more than once
 
 - Systematic sampling: sample `\(n\)` individuals from a ordered list and sampling individuals at an interval with a random starting point
 
@@ -197,10 +197,10 @@ These features can be combined to form one design
 - Keywords to look for: methodology, design, analysis guide, technical documentation
 
 - Documentation will indicate the variables needed to specify the design. Look for:
-- weight (almost always)
-- strata and/or clusters/PSUs. Sometimes pseudo-strata and pseudo-cluster OR
-- replicate weights (this is used instead of strata/clusters for analysis)
-- might also see finite population correction or population sizes
+   - weight (almost always)
+   - strata and/or clusters/PSUs. Sometimes pseudo-strata and pseudo-cluster OR
+   - replicate weights (this is used instead of strata/clusters for analysis)
+   - might also see finite population correction or population sizes
 
 - Documentation may include syntax for SAS, SUDAAN, Stata and/or R!
 
@@ -550,6 +550,12 @@ lemas_des &lt;- lemas %&gt;%
       fpc=FRAMESIZE
    )
 ```
+---
+## Breakout rooms: Practice time
+
+- Open DesignDerivedVariablesExercises.Rmd and work on Part 1
+
+- We will take 15 minutes. Use this time for the exercises and questions.
 
 ---
 class: inverse center middle
@@ -647,13 +653,13 @@ class: inverse center middle
 
 - Variables created from other variables
 
-- Examples
+- Examples:
 
-- Creating a categorical variable from a continuous variable: Creating a categorical income variable from a continuous variable
-
-- Collapsing levels of a categorical variable: Collapsing a 5-level party identification variable into 3 levels
-
-- Creating a construct one or more variables: Binge drinking is defined as men who consumer 5 or more drinks in one sitting OR women who consume 4 or more drinks in one sitting.
+   - Creating a categorical variable from a continuous variable: Creating a categorical income variable from a continuous variable
+   
+   - Collapsing levels of a categorical variable: Collapsing a 5-level party identification variable into 3 levels
+   
+   - Creating a construct one or more variables: Binge drinking is defined as men who consumer 5 or more drinks in one sitting OR women who consume 4 or more drinks in one sitting.
 
 - Best practice to create code to check your variable was created as intend
 
@@ -847,6 +853,172 @@ p &lt;- dat19_pov %&gt;% ggplot(aes(x=HINCP, y=NP, colour=FPL)) +
 ## Code example - creating construct: output
 ![](Slides-day-3_files/figure-html/der3c-1.png)&lt;!-- --&gt;
 
+---
+## Breakout rooms: Practice time
+
+- Open DesignDerivedVariablesExercises.Rmd and work on Part 2
+
+- We will take 15 minutes. Use this time for the exercises and questions.
+
+---
+class: inverse center middle
+
+# Reproducible research
+
+---
+# Reproducible research overview
+
+Someone with the same data should be able to reproduce the same results
+
+- Tools to help this
+
+   - R projects
+   
+   - here package
+   
+   - R Markdown
+   
+- Processes to help this
+   - Batching code
+
+   - Be organized - create documentation and a clear folder structure
+   
+   - Version control
+   
+   
+???
+- Overview of tools, not exhaustive instruction
+   
+---
+# R projects and the here package
+- [R projects](https://r4ds.had.co.nz/workflow-projects.html#rstudio-projects) specify the root folder and other R options
+
+- Stop doing this: `setwd("C:\Users\zimmers\Documents\tidy-survey-short-course")`
+   
+- here package makes relative paths easy: Relative from where .Rproj file is or current file (if no project)
+
+- here package makes sure to create path correctly for OS (e.g. \ for Windows and / for Linux/Mac)
+
+- Example
+
+   
+   ```r
+   list.files(here())
+   ```
+   
+   ```
+   ##  [1] "Codebook"                       "Data"                           "DataCleaningScripts"           
+   ##  [4] "Exercises"                      "FinalizeMaterials.R"            "LICENSE"                       
+   ##  [7] "Presentation"                   "RawData"                        "README.md"                     
+   ## [10] "tidy-survey-short-course.Rproj" "xaringan-themer.css"
+   ```
+   
+   ```r
+   list.files(here("RawData", "RECS_2015"))
+   ```
+   
+   ```
+   ## [1] "2020_RECS-457A.pdf"     "codebook_publicv4.xlsx" "microdata_v3.pdf"       "README.md"              "recs2015_public_v4.csv"
+   ```
+???
+
+- this is default behavior
+
+---
+# R Markdown
+
+- R Markdown combines R code with text
+
+- Each time document is Knitted, a self-contained session is started. 
+
+   - Prevents problems with depending on something in your environment that aren't explicitly called out
+   
+- Knit to PDF, DOCX, HTML, PPTX, and more
+
+- Don't copy/paste output to your manuscript/report. Make your manuscript/report with R Markdown
+
+- Automatic table/figure numbering. If using Word, check out `officedown` and `officer`
+
+- Can create parameterized reports. Example: run an analysis for each state and each state gets a report
+
+- For beginners: https://rmarkdown.rstudio.com/lesson-1.html
+
+???
+- Example: Program did optimal sample allocation with tables of numbers. We got a bigger budget! I only had to change one thing and re-run and in seconds, I had a new report
+
+---
+# Batching R code
+
+OK, you want to stick with .R files. What can you do?
+
+- [Compiling R Scripts](https://rmarkdown.rstudio.com/articles_report_from_r_script.html)
+   - In RStudio, use the Compile Report feature under File menu. Create output from your code and code runs in self-contained session
+   
+   - In code, use `rmarkdown::render(filename.R)`
+
+- Batch from command line (Terminal)
+
+   - Linux: `R CMD BATCH filename.R &amp;`
+   
+   - Windows (something like): `"C:\Program Files\R\R-4.1.3\bin\R.exe CMD BATCH filename.R &amp;`
+   
+---
+# Documentation and organization
+
+- Create a README file
+
+- Set up folders in an easy to follow manner
+
+- Example set-up
+
+      ```
+      recs-analysis
+      └───Analysis
+          │   01_ProcessData.Rmd
+          |   01_ProcessData.html
+          │   02_EDA.Rmd
+          |   02_EDA.html
+      └───Data
+      │   └───Raw
+      │   │   codebook_publicv4.xlsx
+      │   │   microdata_v3.pdf
+      │   │   recs2015_public_v4.csv
+      │   └───Analysis
+      │       │   recs.rds
+      │   README.md
+      │   recs-analysis.Rproj
+      ```
+---
+# Version control
+
+- Version control is a process to track and manage changes in code
+
+- Common method (and has integration with RStudio) is GitHub
+
+- Document why you change analysis over time
+
+- Collaborate with others
+
+- Resource to **Git** started: https://happygitwithr.com/
+
+
+---
+class: inverse center middle
+# Closing
+
+---
+# General questions
+
+- Open floor for questions and discussion
+
+---
+## Thank You!
+
+### We hope you learned a lot in this session!
+
+Please let us know if you have any feedback on this workshop. All feedback is welcome!
+
+- You will be receiving a follow-up survey to share feedback about course
 
 
 ---
@@ -863,7 +1035,7 @@ p &lt;- dat19_pov %&gt;% ggplot(aes(x=HINCP, y=NP, colour=FPL)) +
 ##  collate  English_United States.1252
 ##  ctype    English_United States.1252
 ##  tz       America/New_York
-##  date     2022-04-05
+##  date     2022-04-06
 ##  pandoc   2.17.1.1 @ C:/Program Files/RStudio/bin/quarto/bin/ (via rmarkdown)
 ```
 
@@ -872,23 +1044,24 @@ p &lt;- dat19_pov %&gt;% ggplot(aes(x=HINCP, y=NP, colour=FPL)) +
 
 
 ```
-##  package   * version date (UTC) lib source
-##  dplyr     * 1.0.8   2022-02-08 [1] CRAN (R 4.1.2)
-##  forcats   * 0.5.1   2021-01-27 [1] CRAN (R 4.1.2)
-##  ggplot2   * 3.3.5   2021-06-25 [1] CRAN (R 4.1.2)
-##  here      * 1.0.1   2020-12-13 [1] CRAN (R 4.1.2)
-##  knitr     * 1.37    2021-12-16 [1] CRAN (R 4.1.2)
-##  Matrix    * 1.4-0   2021-12-08 [2] CRAN (R 4.1.3)
-##  purrr     * 0.3.4   2020-04-17 [1] CRAN (R 4.1.2)
-##  readr     * 2.1.2   2022-01-30 [1] CRAN (R 4.1.2)
-##  srvyr     * 1.1.1   2022-02-20 [1] CRAN (R 4.1.3)
-##  stringr   * 1.4.0   2019-02-10 [1] CRAN (R 4.1.2)
-##  survey    * 4.2     2022-03-31 [1] Github (bschneidr/r-forge-survey-mirror@69c62ff)
-##  survival  * 3.2-13  2021-08-24 [2] CRAN (R 4.1.3)
-##  tibble    * 3.1.6   2021-11-07 [1] CRAN (R 4.1.2)
-##  tidyr     * 1.2.0   2022-02-01 [1] CRAN (R 4.1.2)
-##  tidyverse * 1.3.1   2021-04-15 [1] CRAN (R 4.1.2)
-##  xaringan  * 0.23    2022-03-08 [1] CRAN (R 4.1.3)
+##  package    * version date (UTC) lib source
+##  dplyr      * 1.0.8   2022-02-08 [1] CRAN (R 4.1.2)
+##  forcats    * 0.5.1   2021-01-27 [1] CRAN (R 4.1.2)
+##  ggplot2    * 3.3.5   2021-06-25 [1] CRAN (R 4.1.2)
+##  here       * 1.0.1   2020-12-13 [1] CRAN (R 4.1.2)
+##  knitr      * 1.37    2021-12-16 [1] CRAN (R 4.1.2)
+##  Matrix     * 1.4-0   2021-12-08 [2] CRAN (R 4.1.3)
+##  purrr      * 0.3.4   2020-04-17 [1] CRAN (R 4.1.2)
+##  readr      * 2.1.2   2022-01-30 [1] CRAN (R 4.1.2)
+##  srvyr      * 1.1.1   2022-02-20 [1] CRAN (R 4.1.3)
+##  stringr    * 1.4.0   2019-02-10 [1] CRAN (R 4.1.2)
+##  survey     * 4.2     2022-03-31 [1] Github (bschneidr/r-forge-survey-mirror@69c62ff)
+##  survival   * 3.2-13  2021-08-24 [2] CRAN (R 4.1.3)
+##  tibble     * 3.1.6   2021-11-07 [1] CRAN (R 4.1.2)
+##  tidycensus * 1.1     2021-09-23 [1] CRAN (R 4.1.2)
+##  tidyr      * 1.2.0   2022-02-01 [1] CRAN (R 4.1.2)
+##  tidyverse  * 1.3.1   2021-04-15 [1] CRAN (R 4.1.2)
+##  xaringan   * 0.23    2022-03-08 [1] CRAN (R 4.1.3)
 ## 
 ##  [1] D:/Users/zimmers/Documents/R/win-library/4.1
 ##  [2] C:/Program Files/R/R-4.1.3/library
