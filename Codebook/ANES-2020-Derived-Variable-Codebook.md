@@ -2199,7 +2199,7 @@ NA
 3
 </td>
 <td style="text-align:right;">
-0.005
+0.000
 </td>
 </tr>
 <tr>
@@ -2226,21 +2226,20 @@ NA
 <td style="text-align:right;">
 1
 </td>
-<td style="text-align:left;">
-NA
+<td style="text-align:right;">
+1
 </td>
 <td style="text-align:left;">
-NA
+Yes
+</td>
+<td style="text-align:left;">
+No
 </td>
 <td style="text-align:right;">
-3
+35
 </td>
 <td style="text-align:right;">
-0.000
-</td>
-</tr>
-<tr>
-0.015
+0.005
 </td>
 </tr>
 <tr>
@@ -2260,7 +2259,7 @@ NA
 1
 </td>
 <td style="text-align:right;">
-0.024
+0.000
 </td>
 </tr>
 <tr>
@@ -2277,10 +2276,10 @@ No
 NA
 </td>
 <td style="text-align:right;">
-1
+180
 </td>
 <td style="text-align:right;">
-0.000
+0.024
 </td>
 </tr>
 <tr>
@@ -2300,7 +2299,7 @@ No
 109
 </td>
 <td style="text-align:right;">
-0.790
+0.015
 </td>
 </tr>
 <tr>
@@ -2320,7 +2319,7 @@ NA
 3
 </td>
 <td style="text-align:right;">
-0.075
+0.000
 </td>
 </tr>
 <tr>
@@ -2337,10 +2336,10 @@ No
 NA
 </td>
 <td style="text-align:right;">
-3
+558
 </td>
 <td style="text-align:right;">
-0.000
+0.075
 </td>
 </tr>
 <tr>
@@ -2357,7 +2356,7 @@ Yes
 No
 </td>
 <td style="text-align:right;">
-371
+5891
 </td>
 <td style="text-align:right;">
 0.790
