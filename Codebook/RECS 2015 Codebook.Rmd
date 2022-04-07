@@ -1,0 +1,575 @@
+---
+title: "RECS 2015 Codebook"
+output:
+  html_document:
+     css: "style.css"
+     toc: true
+     toc_depth: 4
+     toc_float: true
+     self_contained: true
+  github_document:
+     toc: true
+always_allow_html: true
+---
+
+```{r setup, include = FALSE}
+knitr::opts_chunk$set(echo = FALSE)
+library(dplyr)
+library(janitor)
+library(kableExtra)
+library(knitr)
+
+recs <- readRDS(here::here("Data", "recs.rds")) %>% 
+   haven::zap_labels()
+```
+
+The full codebook with the original variables is available at <a href="https://www.eia.gov/consumption/residential/data/2015/index.php?view=microdata" target = "_blank">eia.gov</a>.
+
+## Weighting variables
+
+### DOEID
+
+Unique identifier for each respondent
+
+### NWEIGHT
+
+Final sample weight
+
+### BRRWT
+
+Replicate weights
+
+## Categorical 
+
+### Region
+
+```{r variable-Region}
+recs %>%
+   count(Region) %>%
+   mutate(`Unweighted Freq` = round(n / sum(n), 3)) %>%
+   kbl() %>%
+   kable_minimal()
+```
+Variables used: REGIONC
+
+### Division
+
+```{r variable-Division}
+recs %>%
+   count(Division) %>%
+   mutate(`Unweighted Freq` = round(n / sum(n), 3)) %>%
+   kbl() %>%
+   kable_minimal()
+```
+Variables used: DIVISION
+
+### MSAStatus
+
+```{r variable-MSAStatus}
+recs %>%
+   count(MSAStatus) %>%
+   mutate(`Unweighted Freq` = round(n / sum(n), 3)) %>%
+   kbl() %>%
+   kable_minimal()
+```
+Variables used: METROMICRO
+
+### Urbanicity
+
+```{r variable-Urbanicity}
+recs %>%
+   count(Urbanicity) %>%
+   mutate(`Unweighted Freq` = round(n / sum(n), 3)) %>%
+   kbl() %>%
+   kable_minimal()
+```
+
+Variables used: UATYP10
+
+### HousingUnitType
+
+```{r variable-HousingUnitType}
+recs %>%
+   count(HousingUnitType) %>%
+   mutate(`Unweighted Freq` = round(n / sum(n), 3)) %>%
+   kbl() %>%
+   kable_minimal()
+```
+
+Variables used: TYPEHUQ
+
+### YearMade
+
+```{r variable-YearMade}
+recs %>%
+   count(YearMade) %>%
+   mutate(`Unweighted Freq` = round(n / sum(n), 3)) %>%
+   kbl() %>%
+   kable_minimal()
+```
+
+Variables used: YEARMADERANGE
+
+### YearMade
+
+```{r variable-SpaceHeatingUsed}
+recs %>%
+   count(SpaceHeatingUsed) %>%
+   mutate(`Unweighted Freq` = round(n / sum(n), 3)) %>%
+   kbl() %>%
+   kable_minimal()
+```
+
+Variables used: HEATHOME
+
+### HeatingBehavior
+
+```{r variable-HeatingBehavior}
+recs %>%
+   count(HeatingBehavior) %>%
+   mutate(`Unweighted Freq` = round(n / sum(n), 3)) %>%
+   kbl() %>%
+   kable_minimal()
+```
+
+Variables used: EQUIPMUSE
+
+### ACUsed
+
+```{r variable-ACUsed}
+recs %>%
+   count(ACUsed) %>%
+   mutate(`Unweighted Freq` = round(n / sum(n), 3)) %>%
+   kbl() %>%
+   kable_minimal()
+```
+
+Variables used: AIRCOND
+
+### ACBehavior
+
+```{r variable-ACBehavior}
+recs %>%
+   count(ACBehavior) %>%
+   mutate(`Unweighted Freq` = round(n / sum(n), 3)) %>%
+   kbl() %>%
+   kable_minimal()
+```
+
+Variables used: USECENAC
+
+### ClimateRegion_BA
+
+```{r variable-ClimateRegion_BA}
+recs %>%
+   count(ClimateRegion_BA) %>%
+   mutate(`Unweighted Freq` = round(n / sum(n), 3)) %>%
+   kbl() %>%
+   kable_minimal()
+```
+
+Variables used: CLIMATE_REGION_PUB
+
+### ClimateRegion_IECC
+
+```{r variable-ClimateRegion_IECC}
+recs %>%
+   count(ClimateRegion_IECC) %>%
+   mutate(`Unweighted Freq` = round(n / sum(n), 3)) %>%
+   kbl() %>%
+   kable_minimal()
+```
+
+Variables used: IECC_CLIMATE_PUB
+
+## Continuous
+
+### WinterTempDay
+
+```{r variable-WinterTempDay}
+recs %>%
+   summarize(Minimum = min(WinterTempDay, na.rm = TRUE),
+             Median = median(WinterTempDay, na.rm = TRUE),
+             Maximum = max(WinterTempDay, na.rm = TRUE)) %>%
+   kbl() %>%
+   kable_minimal()
+```
+
+Variables used: TEMPHOME
+
+### WinterTempAway
+
+```{r variable-WinterTempAway}
+recs %>%
+   summarize(Minimum = min(WinterTempAway, na.rm = TRUE),
+             Median = median(WinterTempAway, na.rm = TRUE),
+             Maximum = max(WinterTempAway, na.rm = TRUE)) %>%
+   kbl() %>%
+   kable_minimal()
+```
+
+Variables used: TEMPGONE
+
+### WinterTempNight
+
+```{r variable-WinterTempNight}
+recs %>%
+   summarize(Minimum = min(WinterTempNight, na.rm = TRUE),
+             Median = median(WinterTempNight, na.rm = TRUE),
+             Maximum = max(WinterTempNight, na.rm = TRUE)) %>%
+   kbl() %>%
+   kable_minimal()
+```
+
+Variables used: TEMPNITE
+
+### SummerTempDay
+
+```{r variable-SummerTempDay}
+recs %>%
+   summarize(Minimum = min(SummerTempDay, na.rm = TRUE),
+             Median = median(SummerTempDay, na.rm = TRUE),
+             Maximum = max(SummerTempDay, na.rm = TRUE)) %>%
+   kbl() %>%
+   kable_minimal()
+```
+
+Variables used: TEMPHOMEAC
+
+### SummerTempAway
+
+```{r variable-SummerTempAway}
+recs %>%
+   summarize(Minimum = min(SummerTempAway, na.rm = TRUE),
+             Median = median(SummerTempAway, na.rm = TRUE),
+             Maximum = max(SummerTempAway, na.rm = TRUE)) %>%
+   kbl() %>%
+   kable_minimal()
+```
+
+Variables used: TEMPGONEAC
+
+### SummerTempNight
+
+```{r variable-SummerTempNight}
+recs %>%
+   summarize(Minimum = min(SummerTempNight, na.rm = TRUE),
+             Median = median(SummerTempNight, na.rm = TRUE),
+             Maximum = max(SummerTempNight, na.rm = TRUE)) %>%
+   kbl() %>%
+   kable_minimal()
+```
+
+Variables used: TEMPNITEAC
+
+### TOTCSQFT
+
+Total cooled square footage
+
+```{r variable-TOTCSQFT}
+recs %>%
+   summarize(Minimum = min(TOTCSQFT, na.rm = TRUE),
+             Median = median(TOTCSQFT, na.rm = TRUE),
+             Maximum = max(TOTCSQFT, na.rm = TRUE)) %>%
+   kbl() %>%
+   kable_minimal()
+```
+
+### TOTHSQFT
+
+Total heated square footage
+
+```{r variable-TOTHSQFT}
+recs %>%
+   summarize(Minimum = min(TOTHSQFT, na.rm = TRUE),
+             Median = median(TOTHSQFT, na.rm = TRUE),
+             Maximum = max(TOTHSQFT, na.rm = TRUE)) %>%
+   kbl() %>%
+   kable_minimal()
+```
+
+### TOTSQFT_EN
+
+Total square footage (used for publication)
+
+```{r variable-TOTSQFT_EN}
+recs %>%
+   summarize(Minimum = min(TOTSQFT_EN, na.rm = TRUE),
+             Median = median(TOTSQFT_EN, na.rm = TRUE),
+             Maximum = max(TOTSQFT_EN, na.rm = TRUE)) %>%
+   kbl() %>%
+   kable_minimal()
+```
+
+### TOTUCSQFT
+
+Total uncooled square footage
+
+```{r variable-TOTUCSQFT}
+recs %>%
+   summarize(Minimum = min(TOTUCSQFT, na.rm = TRUE),
+             Median = median(TOTUCSQFT, na.rm = TRUE),
+             Maximum = max(TOTUCSQFT, na.rm = TRUE)) %>%
+   kbl() %>%
+   kable_minimal()
+```
+
+### TOTUSQFT
+
+Total unheated square footage
+
+```{r variable-TOTUSQFT}
+recs %>%
+   summarize(Minimum = min(TOTUSQFT, na.rm = TRUE),
+             Median = median(TOTUSQFT, na.rm = TRUE),
+             Maximum = max(TOTUSQFT, na.rm = TRUE)) %>%
+   kbl() %>%
+   kable_minimal()
+```
+
+### CDD30YR
+
+Cooling degree days, 30-year average 1981-2010, base temperature 65F
+
+```{r variable-CDD30YR}
+recs %>%
+   summarize(Minimum = min(CDD30YR, na.rm = TRUE),
+             Median = median(CDD30YR, na.rm = TRUE),
+             Maximum = max(CDD30YR, na.rm = TRUE)) %>%
+   kbl() %>%
+   kable_minimal()
+```
+
+### CDD65
+
+Cooling degree days in 2015, base temperature 65F
+
+```{r variable-CDD65}
+recs %>%
+   summarize(Minimum = min(CDD65, na.rm = TRUE),
+             Median = median(CDD65, na.rm = TRUE),
+             Maximum = max(CDD65, na.rm = TRUE)) %>%
+   kbl() %>%
+   kable_minimal()
+```
+
+### CDD80
+
+Cooling degree days in 2015, base temperature 80F (used for garage cooling load estimation only)
+
+```{r variable-CDD80}
+recs %>%
+   summarize(Minimum = min(CDD80, na.rm = TRUE),
+             Median = median(CDD80, na.rm = TRUE),
+             Maximum = max(CDD80, na.rm = TRUE)) %>%
+   kbl() %>%
+   kable_minimal()
+```
+
+### HDD30YR
+
+Heating degree days, 30-year average 1981-2010, base temperature 65F
+
+```{r variable-HDD30YR}
+recs %>%
+   summarize(Minimum = min(HDD30YR, na.rm = TRUE),
+             Median = median(HDD30YR, na.rm = TRUE),
+             Maximum = max(HDD30YR, na.rm = TRUE)) %>%
+   kbl() %>%
+   kable_minimal()
+```
+
+### HDD65
+
+Heating degree days in 2015, base temperature 65F
+
+```{r variable-HDD65}
+recs %>%
+   summarize(Minimum = min(HDD65, na.rm = TRUE),
+             Median = median(HDD65, na.rm = TRUE),
+             Maximum = max(HDD65, na.rm = TRUE)) %>%
+   kbl() %>%
+   kable_minimal()
+```
+
+### HDD50
+
+Heating degree days in 2015, base temperature 50F (used for garage heating load estimation only)
+
+```{r variable-HDD50}
+recs %>%
+   summarize(Minimum = min(HDD50, na.rm = TRUE),
+             Median = median(HDD50, na.rm = TRUE),
+             Maximum = max(HDD50, na.rm = TRUE)) %>%
+   kbl() %>%
+   kable_minimal()
+```
+
+### GNDHDD65
+
+Heating degree days of ground temperature in 2015, base temperature 65F
+
+```{r variable-GNDHDD65}
+recs %>%
+   summarize(Minimum = min(GNDHDD65, na.rm = TRUE),
+             Median = median(GNDHDD65, na.rm = TRUE),
+             Maximum = max(GNDHDD65, na.rm = TRUE)) %>%
+   kbl() %>%
+   kable_minimal()
+```
+
+### BTUEL
+
+Total site electricity usage, in thousand Btu, 2015
+
+```{r variable-BTUEL}
+recs %>%
+   summarize(Minimum = min(BTUEL, na.rm = TRUE),
+             Median = median(BTUEL, na.rm = TRUE),
+             Maximum = max(BTUEL, na.rm = TRUE)) %>%
+   kbl() %>%
+   kable_minimal()
+```
+
+### DOLLAREL
+
+Total electricity cost, in dollars, 2015
+
+```{r variable-DOLLAREL}
+recs %>%
+   summarize(Minimum = min(DOLLAREL, na.rm = TRUE),
+             Median = median(DOLLAREL, na.rm = TRUE),
+             Maximum = max(DOLLAREL, na.rm = TRUE)) %>%
+   kbl() %>%
+   kable_minimal()
+```
+
+### BTUNG
+
+Total natural gas usage, in thousand Btu, 2015
+
+```{r variable-BTUNG}
+recs %>%
+   summarize(Minimum = min(BTUNG, na.rm = TRUE),
+             Median = median(BTUNG, na.rm = TRUE),
+             Maximum = max(BTUNG, na.rm = TRUE)) %>%
+   kbl() %>%
+   kable_minimal()
+```
+
+### DOLLARNG
+
+Total natural gas cost, in dollars, 2015
+
+```{r variable-DOLLARNG}
+recs %>%
+   summarize(Minimum = min(DOLLARNG, na.rm = TRUE),
+             Median = median(DOLLARNG, na.rmx = TRUE),
+             Maximum = max(DOLLARNG, na.rm = TRUE)) %>%
+   kbl() %>%
+   kable_minimal()
+```
+
+### BTULP
+
+Total propane usage, in thousand Btu, 2015
+
+```{r variable-BTULP}
+recs %>%
+   summarize(Minimum = min(BTULP, na.rm = TRUE),
+             Median = median(BTULP, na.rm = TRUE),
+             Maximum = max(BTULP, na.rm = TRUE)) %>%
+   kbl() %>%
+   kable_minimal()
+```
+
+### DOLLARLP
+
+Total cost of propane, in dollars, 2015
+
+```{r variable-DOLLARLP}
+recs %>%
+   summarize(Minimum = min(DOLLARLP, na.rm = TRUE),
+             Median = median(DOLLARLP, na.rm = TRUE),
+             Maximum = max(DOLLARLP, na.rm = TRUE)) %>%
+   kbl() %>%
+   kable_minimal()
+```
+
+### BTUFO
+
+Total fuel oil/kerosene usage, in thousand Btu, 2015
+
+```{r variable-BTUFO}
+recs %>%
+   summarize(Minimum = min(BTUFO, na.rm = TRUE),
+             Median = median(BTUFO, na.rm = TRUE),
+             Maximum = max(BTUFO, na.rm = TRUE)) %>%
+   kbl() %>%
+   kable_minimal()
+```
+
+### DOLLARFO
+
+Total cost of fuel oil/kerosene, in dollars, 2015
+
+```{r variable-DOLLARFO}
+recs %>%
+   summarize(Minimum = min(DOLLARFO, na.rm = TRUE),
+             Median = median(DOLLARFO, na.rm = TRUE),
+             Maximum = max(DOLLARFO, na.rm = TRUE)) %>%
+   kbl() %>%
+   kable_minimal()
+```
+
+### TOTALBTU
+
+Total usage, in thousand Btu, 2015
+
+```{r variable-TOTALBTU}
+recs %>%
+   summarize(Minimum = min(TOTALBTU, na.rm = TRUE),
+             Median = median(TOTALBTU, na.rm = TRUE),
+             Maximum = max(TOTALBTU, na.rm = TRUE)) %>%
+   kbl() %>%
+   kable_minimal()
+```
+
+### TOTALDOL
+
+Total usage, in thousand Btu, 2015
+
+```{r variable-TOTALDOL}
+recs %>%
+   summarize(Minimum = min(TOTALDOL, na.rm = TRUE),
+             Median = median(TOTALDOL, na.rm = TRUE),
+             Maximum = max(TOTALDOL, na.rm = TRUE)) %>%
+   kbl() %>%
+   kable_minimal()
+```
+
+### BTUWOOD
+
+Total cordwood usage, in thousand Btu, 2015 (Wood consumption is not included in TOTALBTU or TOTALDOL)
+
+```{r variable-BTUWOOD}
+recs %>%
+   summarize(Minimum = min(BTUWOOD, na.rm = TRUE),
+             Median = median(BTUWOOD, na.rm = TRUE),
+             Maximum = max(BTUWOOD, na.rm = TRUE)) %>%
+   kbl() %>%
+   kable_minimal()
+```
+
+### BTUPELLET
+
+Total wood pellet usage, in thousand Btu, 2015 (Wood consumption is not included in TOTALBTU or TOTALDOL)
+
+```{r variable-BTUPELLET}
+recs %>%
+   summarize(Minimum = min(BTUPELLET, na.rm = TRUE),
+             Median = median(BTUPELLET, na.rm = TRUE),
+             Maximum = max(BTUPELLET, na.rm = TRUE)) %>%
+   kbl() %>%
+   kable_minimal()
+```

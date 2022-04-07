@@ -254,11 +254,17 @@ div.tocify {
 <p>The full codebook with the original variables is available at <a href="https://www.eia.gov/consumption/residential/data/2015/index.php?view=microdata" target="_blank">eia.gov</a>.</p>
 <div id="weighting-variables" class="section level2">
 <h2>Weighting variables</h2>
+<div id="doeid" class="section level3">
+<h3>DOEID</h3>
+<p>Unique identifier for each respondent</p>
+</div>
 <div id="nweight" class="section level3">
 <h3>NWEIGHT</h3>
+<p>Final sample weight</p>
 </div>
 <div id="brrwt" class="section level3">
 <h3>BRRWT</h3>
+<p>Replicate weights</p>
 </div>
 </div>
 <div id="categorical" class="section level2">
@@ -1435,6 +1441,774 @@ Maximum
 </tbody>
 </table>
 <p>Variables used: TEMPNITEAC</p>
+</div>
+<div id="totcsqft" class="section level3">
+<h3>TOTCSQFT</h3>
+<p>Total cooled square footage</p>
+<table class=" lightable-minimal" style="font-family: &quot;Trebuchet MS&quot;, verdana, sans-serif; margin-left: auto; margin-right: auto;">
+<thead>
+<tr>
+<th style="text-align:right;">
+Minimum
+</th>
+<th style="text-align:right;">
+Median
+</th>
+<th style="text-align:right;">
+Maximum
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:right;">
+0
+</td>
+<td style="text-align:right;">
+1218.5
+</td>
+<td style="text-align:right;">
+8066
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div id="tothsqft" class="section level3">
+<h3>TOTHSQFT</h3>
+<p>Total heated square footage</p>
+<table class=" lightable-minimal" style="font-family: &quot;Trebuchet MS&quot;, verdana, sans-serif; margin-left: auto; margin-right: auto;">
+<thead>
+<tr>
+<th style="text-align:right;">
+Minimum
+</th>
+<th style="text-align:right;">
+Median
+</th>
+<th style="text-align:right;">
+Maximum
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:right;">
+0
+</td>
+<td style="text-align:right;">
+1559
+</td>
+<td style="text-align:right;">
+8066
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div id="totsqft_en" class="section level3">
+<h3>TOTSQFT_EN</h3>
+<p>Total square footage (used for publication)</p>
+<table class=" lightable-minimal" style="font-family: &quot;Trebuchet MS&quot;, verdana, sans-serif; margin-left: auto; margin-right: auto;">
+<thead>
+<tr>
+<th style="text-align:right;">
+Minimum
+</th>
+<th style="text-align:right;">
+Median
+</th>
+<th style="text-align:right;">
+Maximum
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:right;">
+221
+</td>
+<td style="text-align:right;">
+1773.5
+</td>
+<td style="text-align:right;">
+8501
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div id="totucsqft" class="section level3">
+<h3>TOTUCSQFT</h3>
+<p>Total uncooled square footage</p>
+<table class=" lightable-minimal" style="font-family: &quot;Trebuchet MS&quot;, verdana, sans-serif; margin-left: auto; margin-right: auto;">
+<thead>
+<tr>
+<th style="text-align:right;">
+Minimum
+</th>
+<th style="text-align:right;">
+Median
+</th>
+<th style="text-align:right;">
+Maximum
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:right;">
+0
+</td>
+<td style="text-align:right;">
+400
+</td>
+<td style="text-align:right;">
+7986
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div id="totusqft" class="section level3">
+<h3>TOTUSQFT</h3>
+<p>Total unheated square footage</p>
+<table class=" lightable-minimal" style="font-family: &quot;Trebuchet MS&quot;, verdana, sans-serif; margin-left: auto; margin-right: auto;">
+<thead>
+<tr>
+<th style="text-align:right;">
+Minimum
+</th>
+<th style="text-align:right;">
+Median
+</th>
+<th style="text-align:right;">
+Maximum
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:right;">
+0
+</td>
+<td style="text-align:right;">
+250
+</td>
+<td style="text-align:right;">
+6660
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div id="cdd30yr" class="section level3">
+<h3>CDD30YR</h3>
+<p>Cooling degree days, 30-year average 1981-2010, base temperature 65F</p>
+<table class=" lightable-minimal" style="font-family: &quot;Trebuchet MS&quot;, verdana, sans-serif; margin-left: auto; margin-right: auto;">
+<thead>
+<tr>
+<th style="text-align:right;">
+Minimum
+</th>
+<th style="text-align:right;">
+Median
+</th>
+<th style="text-align:right;">
+Maximum
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:right;">
+0
+</td>
+<td style="text-align:right;">
+1150.5
+</td>
+<td style="text-align:right;">
+5792
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div id="cdd65" class="section level3">
+<h3>CDD65</h3>
+<p>Cooling degree days in 2015, base temperature 65F</p>
+<table class=" lightable-minimal" style="font-family: &quot;Trebuchet MS&quot;, verdana, sans-serif; margin-left: auto; margin-right: auto;">
+<thead>
+<tr>
+<th style="text-align:right;">
+Minimum
+</th>
+<th style="text-align:right;">
+Median
+</th>
+<th style="text-align:right;">
+Maximum
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:right;">
+0
+</td>
+<td style="text-align:right;">
+1378
+</td>
+<td style="text-align:right;">
+6607
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div id="cdd80" class="section level3">
+<h3>CDD80</h3>
+<p>Cooling degree days in 2015, base temperature 80F (used for garage cooling load estimation only)</p>
+<table class=" lightable-minimal" style="font-family: &quot;Trebuchet MS&quot;, verdana, sans-serif; margin-left: auto; margin-right: auto;">
+<thead>
+<tr>
+<th style="text-align:right;">
+Minimum
+</th>
+<th style="text-align:right;">
+Median
+</th>
+<th style="text-align:right;">
+Maximum
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:right;">
+0
+</td>
+<td style="text-align:right;">
+60
+</td>
+<td style="text-align:right;">
+2297
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div id="hdd30yr" class="section level3">
+<h3>HDD30YR</h3>
+<p>Heating degree days, 30-year average 1981-2010, base temperature 65F</p>
+<table class=" lightable-minimal" style="font-family: &quot;Trebuchet MS&quot;, verdana, sans-serif; margin-left: auto; margin-right: auto;">
+<thead>
+<tr>
+<th style="text-align:right;">
+Minimum
+</th>
+<th style="text-align:right;">
+Median
+</th>
+<th style="text-align:right;">
+Maximum
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:right;">
+0
+</td>
+<td style="text-align:right;">
+4353
+</td>
+<td style="text-align:right;">
+12184
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div id="hdd65" class="section level3">
+<h3>HDD65</h3>
+<p>Heating degree days in 2015, base temperature 65F</p>
+<table class=" lightable-minimal" style="font-family: &quot;Trebuchet MS&quot;, verdana, sans-serif; margin-left: auto; margin-right: auto;">
+<thead>
+<tr>
+<th style="text-align:right;">
+Minimum
+</th>
+<th style="text-align:right;">
+Median
+</th>
+<th style="text-align:right;">
+Maximum
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:right;">
+0
+</td>
+<td style="text-align:right;">
+3877.5
+</td>
+<td style="text-align:right;">
+9843
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div id="hdd50" class="section level3">
+<h3>HDD50</h3>
+<p>Heating degree days in 2015, base temperature 50F (used for garage heating load estimation only)</p>
+<table class=" lightable-minimal" style="font-family: &quot;Trebuchet MS&quot;, verdana, sans-serif; margin-left: auto; margin-right: auto;">
+<thead>
+<tr>
+<th style="text-align:right;">
+Minimum
+</th>
+<th style="text-align:right;">
+Median
+</th>
+<th style="text-align:right;">
+Maximum
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:right;">
+0
+</td>
+<td style="text-align:right;">
+1260
+</td>
+<td style="text-align:right;">
+4956
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div id="gndhdd65" class="section level3">
+<h3>GNDHDD65</h3>
+<p>Heating degree days of ground temperature in 2015, base temperature 65F</p>
+<table class=" lightable-minimal" style="font-family: &quot;Trebuchet MS&quot;, verdana, sans-serif; margin-left: auto; margin-right: auto;">
+<thead>
+<tr>
+<th style="text-align:right;">
+Minimum
+</th>
+<th style="text-align:right;">
+Median
+</th>
+<th style="text-align:right;">
+Maximum
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:right;">
+0
+</td>
+<td style="text-align:right;">
+3704.305
+</td>
+<td style="text-align:right;">
+11850.55
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div id="btuel" class="section level3">
+<h3>BTUEL</h3>
+<p>Total site electricity usage, in thousand Btu, 2015</p>
+<table class=" lightable-minimal" style="font-family: &quot;Trebuchet MS&quot;, verdana, sans-serif; margin-left: auto; margin-right: auto;">
+<thead>
+<tr>
+<th style="text-align:right;">
+Minimum
+</th>
+<th style="text-align:right;">
+Median
+</th>
+<th style="text-align:right;">
+Maximum
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:right;">
+201.574
+</td>
+<td style="text-align:right;">
+32582.39
+</td>
+<td style="text-align:right;">
+215695.7
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div id="dollarel" class="section level3">
+<h3>DOLLAREL</h3>
+<p>Total electricity cost, in dollars, 2015</p>
+<table class=" lightable-minimal" style="font-family: &quot;Trebuchet MS&quot;, verdana, sans-serif; margin-left: auto; margin-right: auto;">
+<thead>
+<tr>
+<th style="text-align:right;">
+Minimum
+</th>
+<th style="text-align:right;">
+Median
+</th>
+<th style="text-align:right;">
+Maximum
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:right;">
+18.72
+</td>
+<td style="text-align:right;">
+1253.015
+</td>
+<td style="text-align:right;">
+8121.56
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div id="btung" class="section level3">
+<h3>BTUNG</h3>
+<p>Total natural gas usage, in thousand Btu, 2015</p>
+<table class=" lightable-minimal" style="font-family: &quot;Trebuchet MS&quot;, verdana, sans-serif; margin-left: auto; margin-right: auto;">
+<thead>
+<tr>
+<th style="text-align:right;">
+Minimum
+</th>
+<th style="text-align:right;">
+Median
+</th>
+<th style="text-align:right;">
+Maximum
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:right;">
+0
+</td>
+<td style="text-align:right;">
+17961.36
+</td>
+<td style="text-align:right;">
+306594.2
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div id="dollarng" class="section level3">
+<h3>DOLLARNG</h3>
+<p>Total natural gas cost, in dollars, 2015</p>
+<table class=" lightable-minimal" style="font-family: &quot;Trebuchet MS&quot;, verdana, sans-serif; margin-left: auto; margin-right: auto;">
+<thead>
+<tr>
+<th style="text-align:right;">
+Minimum
+</th>
+<th style="text-align:right;">
+Median
+</th>
+<th style="text-align:right;">
+Maximum
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:right;">
+0
+</td>
+<td style="text-align:right;">
+231.8
+</td>
+<td style="text-align:right;">
+2789.84
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div id="btulp" class="section level3">
+<h3>BTULP</h3>
+<p>Total propane usage, in thousand Btu, 2015</p>
+<table class=" lightable-minimal" style="font-family: &quot;Trebuchet MS&quot;, verdana, sans-serif; margin-left: auto; margin-right: auto;">
+<thead>
+<tr>
+<th style="text-align:right;">
+Minimum
+</th>
+<th style="text-align:right;">
+Median
+</th>
+<th style="text-align:right;">
+Maximum
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:right;">
+0
+</td>
+<td style="text-align:right;">
+0
+</td>
+<td style="text-align:right;">
+220435.3
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div id="dollarlp" class="section level3">
+<h3>DOLLARLP</h3>
+<p>Total cost of propane, in dollars, 2015</p>
+<table class=" lightable-minimal" style="font-family: &quot;Trebuchet MS&quot;, verdana, sans-serif; margin-left: auto; margin-right: auto;">
+<thead>
+<tr>
+<th style="text-align:right;">
+Minimum
+</th>
+<th style="text-align:right;">
+Median
+</th>
+<th style="text-align:right;">
+Maximum
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:right;">
+0
+</td>
+<td style="text-align:right;">
+0
+</td>
+<td style="text-align:right;">
+5121.27
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div id="btufo" class="section level3">
+<h3>BTUFO</h3>
+<p>Total fuel oil/kerosene usage, in thousand Btu, 2015</p>
+<table class=" lightable-minimal" style="font-family: &quot;Trebuchet MS&quot;, verdana, sans-serif; margin-left: auto; margin-right: auto;">
+<thead>
+<tr>
+<th style="text-align:right;">
+Minimum
+</th>
+<th style="text-align:right;">
+Median
+</th>
+<th style="text-align:right;">
+Maximum
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:right;">
+0
+</td>
+<td style="text-align:right;">
+0
+</td>
+<td style="text-align:right;">
+273608.2
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div id="dollarfo" class="section level3">
+<h3>DOLLARFO</h3>
+<p>Total cost of fuel oil/kerosene, in dollars, 2015</p>
+<table class=" lightable-minimal" style="font-family: &quot;Trebuchet MS&quot;, verdana, sans-serif; margin-left: auto; margin-right: auto;">
+<thead>
+<tr>
+<th style="text-align:right;">
+Minimum
+</th>
+<th style="text-align:right;">
+Median
+</th>
+<th style="text-align:right;">
+Maximum
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:right;">
+0
+</td>
+<td style="text-align:right;">
+0
+</td>
+<td style="text-align:right;">
+4700.03
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div id="totalbtu" class="section level3">
+<h3>TOTALBTU</h3>
+<p>Total usage, in thousand Btu, 2015</p>
+<table class=" lightable-minimal" style="font-family: &quot;Trebuchet MS&quot;, verdana, sans-serif; margin-left: auto; margin-right: auto;">
+<thead>
+<tr>
+<th style="text-align:right;">
+Minimum
+</th>
+<th style="text-align:right;">
+Median
+</th>
+<th style="text-align:right;">
+Maximum
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:right;">
+201.574
+</td>
+<td style="text-align:right;">
+68663.35
+</td>
+<td style="text-align:right;">
+490187.4
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div id="totaldol" class="section level3">
+<h3>TOTALDOL</h3>
+<p>Total usage, in thousand Btu, 2015</p>
+<table class=" lightable-minimal" style="font-family: &quot;Trebuchet MS&quot;, verdana, sans-serif; margin-left: auto; margin-right: auto;">
+<thead>
+<tr>
+<th style="text-align:right;">
+Minimum
+</th>
+<th style="text-align:right;">
+Median
+</th>
+<th style="text-align:right;">
+Maximum
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:right;">
+60.46
+</td>
+<td style="text-align:right;">
+1724.595
+</td>
+<td style="text-align:right;">
+10135.99
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div id="btuwood" class="section level3">
+<h3>BTUWOOD</h3>
+<p>Total cordwood usage, in thousand Btu, 2015 (Wood consumption is not included in TOTALBTU or TOTALDOL)</p>
+<table class=" lightable-minimal" style="font-family: &quot;Trebuchet MS&quot;, verdana, sans-serif; margin-left: auto; margin-right: auto;">
+<thead>
+<tr>
+<th style="text-align:right;">
+Minimum
+</th>
+<th style="text-align:right;">
+Median
+</th>
+<th style="text-align:right;">
+Maximum
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:right;">
+0
+</td>
+<td style="text-align:right;">
+0
+</td>
+<td style="text-align:right;">
+295475.8
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div id="btupellet" class="section level3">
+<h3>BTUPELLET</h3>
+<p>Total wood pellet usage, in thousand Btu, 2015 (Wood consumption is not included in TOTALBTU or TOTALDOL)</p>
+<table class=" lightable-minimal" style="font-family: &quot;Trebuchet MS&quot;, verdana, sans-serif; margin-left: auto; margin-right: auto;">
+<thead>
+<tr>
+<th style="text-align:right;">
+Minimum
+</th>
+<th style="text-align:right;">
+Median
+</th>
+<th style="text-align:right;">
+Maximum
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:right;">
+0
+</td>
+<td style="text-align:right;">
+0
+</td>
+<td style="text-align:right;">
+115500
+</td>
+</tr>
+</tbody>
+</table>
 </div>
 </div>
 
