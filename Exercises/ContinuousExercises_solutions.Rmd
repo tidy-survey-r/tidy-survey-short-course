@@ -26,8 +26,8 @@ recs_des <- recs %>%
 
 1. Find the average square footage of housing units (TOTSQFT_EN) with a 90% confidence interval.
 
-```{r}
-recs_des %>%
+```{r ex1_1}
+avg_sqci<-recs_des %>%
    summarize(
       SF_HU=survey_mean(TOTSQFT_EN,
                           vartype = "ci",
@@ -35,10 +35,13 @@ recs_des %>%
    )
 ```
 
+On average US households have `r formatC(pull(avg_sqci, SF_HU), format="d", big.mark=",")` square feet, with a 90% CI of (`r formatC(pull(avg_sqci, SF_HU_low), format="d", big.mark=",")` sq ft, `r formatC(pull(avg_sqci, SF_HU_upp), format="d", big.mark=",")` sq ft).
+
+
 2. Estimate the ratio of cooled square footage to total square footage (TOTCSQFT) to the total square footage of housing units (TOTSQFT_EN) with its standard error.
 
-```{r}
-recs_des %>%
+```{r ex1_2}
+cool_totratio<-recs_des %>%
    summarize(
       PropCooled=survey_ratio(
          numerator = TOTCSQFT,
@@ -47,40 +50,50 @@ recs_des %>%
    )
 ```
 
+On average US households have a ratio of `r round(pull(cool_totratio, PropCooled), 2)` square feet cooled per total square feet.
+
+
 3. Estimate the median temperature housing units are set to during the night in the winter (WinterTempNight) using the `survey_median` function.
 
-```{r}
-recs_des %>%
+```{r ex1_3}
+med_wintertemp<-recs_des %>%
    summarize(
-      WinterNightTemp=survey_median(WinterTempNight,
+      temp_winter=survey_median(WinterTempNight,
                      vartype = "se",
                      na.rm = TRUE)
    )
 ```
 
+The median temperature housing units are set to during the night in the winter is `r round(pull(med_wintertemp, temp_winter), 2)` degrees Fahrenheit.
+
+
 4. Estimate the median temperature housing units are set to during the night in the winter (WinterTempNight) using the `survey_quantile` function.
 
-```{r}
+```{r ex1_4}
 recs_des %>%
    summarize(
-      WinterNightTemp=survey_median(WinterTempNight,
-                            quantiles = "0.5",
+      WinterNightTemp=survey_quantile(WinterTempNight,
+                            quantiles = 0.5,
                             vartype = "se",
                             na.rm = TRUE)
    )
 ```
 
+The 50th percentile (median) temperature housing units are set to during the night in the winter is `r round(pull(med_wintertemp, temp_winter), 2)` degrees Fahrenheit.
+
+
 # Part 2
 
 1. Estimate the total average energy cost (TOTALDOL) by region, division, and urbanicity.
 
-```{r}
+```{r ex2_1}
 # option 1
 recs_des %>%
    group_by(Region, Division, Urbanicity) %>%
    cascade(
       EnergyCost=survey_mean(TOTALDOL)
    )
+
 # option 2
 # one way
 recs_des %>%
@@ -92,8 +105,8 @@ recs_des %>%
 
 2. What is the median electric cost (DOLLAREL) for housing units in the South Region? What is the 95% confidence interval?
 
-```{r}
-recs_des %>%
+```{r ex2_2}
+med_billsouth<-recs_des %>%
    filter(Region=="South") %>%
    summarize(
       MedElBill=survey_median(DOLLAREL,
@@ -101,18 +114,24 @@ recs_des %>%
    )
 ```
 
+The median electric cost for housing units in the South is \$`r formatC(pull(med_billsouth, MedElBill), format="d", big.mark=",")` (\$`r formatC(pull(med_billsouth, MedElBill_low), format="d", big.mark=",")`, \$`r formatC(pull(med_billsouth, MedElBill_upp), format="d", big.mark=",")`).
+
+
 3. Test whether daytime winter and daytime summer temperatures of homes are set the same.
 
-```{r}
-recs_des %>%
+```{r ex2_3}
+daytemp_ttest<-recs_des %>%
    svyttest(design=.,
             formula = I(WinterTempDay-SummerTempDay)~0,
             na.rm = TRUE)
 ```
 
+On average housing units have set the temperature lower in the winter than the summer,  p-value=`r pluck(daytemp_ttest, "p.value") %>% round(5)`.
+
+
 4. Test whether average electric bill (DOLLAREL) varies by region (Region).
 
-```{r}
+```{r ex2_4}
 m1 <- recs_des %>%
    svyglm(design=.,
           formula=DOLLAREL~Region,
@@ -120,9 +139,12 @@ m1 <- recs_des %>%
 summary(m1)
 ```
 
+Yes, there is evidence that the average electric bill varies by region. 
+
+
 5. Fit a regression between the cooled square footage of a housing unit (TOTCSQFT) and the total amount spent on energy (TOTALDOL).
 
-```{r}
+```{r ex2_5}
 m2 <- recs_des %>%
    svyglm(design=.,
           formula=TOTALDOL~TOTCSQFT,
@@ -130,3 +152,4 @@ m2 <- recs_des %>%
 summary(m2)
 ```
 
+For each additional cooled square foot, the total energy cost increases by \$`r round(pluck(m2$coefficients,"TOTCSQFT"),2)`.

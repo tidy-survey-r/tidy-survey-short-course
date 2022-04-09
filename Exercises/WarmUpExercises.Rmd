@@ -52,31 +52,31 @@ What is the proportion of each sex of penguins within species? Hint: use `count`
 ```{r speciessextabp}
 
 ```
+
+
 # Warm-up exercises for Day 2
 
-What is the mean length of flipper by species? Hint: use `group_by` and `summarise`
-```{r fliplengthspecies}
+What is the mean body mass in grams of all penguins? Hint: use `summarize` and remove missing data
+
+```{r peng_meanmass}
 
 ```
 
+What is the mean length of flipper by species? Hint: use `group_by`
 
-What is the mean flipper length by species and sex? Hint: use `group_by` and `summarise`
-```{r fliplengthspecsex}
+```{r peng_meanflip_species}
 
 ```
 
-# Advanced warm-up exercises for Day 2
+What is the mean flipper length by species and sex?
+
+```{r peng_meanflip_speciessex}
+
+```
 
 Fit a simple linear regression between body mass and flipper length.
 
-```{r massfliplength}
-
-```
-
-
-Test whether the average flipper length is significantly different between male and female penguins. Use t-test, lm, or glm
-
-```{r lensexrelshp}
+```{r pengLM}
 
 ```
 

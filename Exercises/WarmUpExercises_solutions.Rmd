@@ -67,47 +67,49 @@ penguins %>%
 
 # Warm-up exercises for Day 2
 
-What is the mean length of flipper by species? Hint: use `group_by` and `summarise`
-```{r fliplengthspecies}
+What is the mean body mass in grams of all penguins? Hint: use `summarize` and remove missing data
+
+```{r peng_meanmass}
+penguins %>%
+   summarize(
+     MeanBodyMass=mean(body_mass_g, 
+                       na.rm=TRUE)
+     )
+```
+
+What is the mean length of flipper by species? Hint: use `group_by`
+
+```{r peng_meanflip_species}
 penguins %>%
    group_by(species) %>%
+   summarize(
+     MeanFlipperLength=mean(flipper_length_mm, 
+                            na.rm=TRUE)
+     )
+```
+
+What is the mean flipper length by species and sex?
+
+```{r peng_meanflip_speciessex}
+penguins %>%
+   group_by(species,sex) %>%
    summarize(
      MeanFlipperLength=mean(flipper_length_mm, 
                             na.rm=TRUE))
 ```
 
-
-What is the mean flipper length by species and sex? Hint: use `group_by` and `summarise`
-```{r fliplengthspecsex}
-penguins %>%
-   group_by(species, sex) %>%
-   summarize(
-     MeanFlipperLength=mean(flipper_length_mm,
-                            na.rm=TRUE))
-```
-
-# Advanced warm-up exercises for Day 2
-
 Fit a simple linear regression between body mass and flipper length.
 
-```{r massfliplength}
-mod1 <- lm(body_mass_g ~ flipper_length_mm,
-           data=penguins)
+```{r pengLM}
+#Option 1
+mod1 <- lm(body_mass_g ~ flipper_length_mm, data=penguins)
 summary(mod1)
+
+#Option 2
+mod2 <- glm(body_mass_g ~ flipper_length_mm, data=penguins)
+summary(mod2)
 ```
 
-
-Test whether the average flipper length is significantly different between male and female penguins. Use t-test, lm, or glm
-
-```{r lensexrelshp}
-t.test(flipper_length_mm ~ sex, data=penguins)
-
-mod3 <- lm(flipper_length_mm ~ sex, data=penguins)
-summary(mod3)
-
-mod4 <- glm(flipper_length_mm ~ sex, data=penguins)
-summary(mod4)
-```
 
 # Session information
 
