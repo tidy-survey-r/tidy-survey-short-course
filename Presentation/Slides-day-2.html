@@ -29,7 +29,6 @@ class: center, middle, inverse, title-slide
 
 class: inverse center middle
 # Introduction
-
 ---
 
 &lt;style type="text/css"&gt;
@@ -44,15 +43,17 @@ class: inverse center middle
 ## Overview
 
 - Last week we introduced how to do survey analysis in R with categorical data
+
 - Today we focus on continuous data
 - At the end of today, you should be able to 
   - Calculate means and quantiles with their standard errors 
+  
   - Perform t-tests 
   - Fit linear regression models
 
 
 ---
-## Overview: Workshop Roadmap
+## Overview: Workshop 2 Roadmap
 
 - Quick refresh of RStudio Cloud with a warm-up exercise using the tidyverse
 
@@ -70,8 +71,11 @@ class: inverse center middle
 - We will be using RStudio Cloud today to ensure everyone has access
 
 - Sign-up for a free RStudio Cloud account (https://rstudio.cloud/)
+
 - Access the project and files via link in email and Zoom chat
+
 - Click "START" to open the project and get started
+
 - RStudio Cloud has the same features and appearance as RStudio for ease of use
 
 - All slides and code are available on GitHub: https://github.com/tidy-survey-r/tidy-survey-short-course
@@ -134,12 +138,15 @@ glimpse(penguins)
 
 - &lt;b&gt;Let's open RStudio cloud and do some warm-up examples&lt;/b&gt;
 
-- Take 8 minutes to do these exercises in breakout rooms. We will then go over together
+- Take 8 minutes to do these exercises in breakout rooms.
 
 - Explore the penguins data
    - What is the mean body mass in grams of all penguins? Hint: use `summarize` and remove missing data
+   
    - What is the mean length of flipper by species? Hint: use `group_by`
+   
    - What is the mean flipper length by species and sex? 
+   
    - Fit a simple linear regression between body mass and flipper length.
 
 
@@ -576,16 +583,16 @@ recs_des %&gt;%
    mutate(Quantile=paste0(str_sub(varname,8,9),"th Quantile"),
           type=case_when(str_detect(varname,"_low")~"Lower_Bound",
                          str_detect(varname,"_upp")~"Upper_Bound",
-                         TRUE~"Mean")) %&gt;% 
+                         TRUE~"Estimate")) %&gt;% 
    pivot_wider(id_cols=Quantile,names_from=type,values_from=value)
 ```
 
 ```
 ## # A tibble: 2 × 4
-##   Quantile       Mean Lower_Bound Upper_Bound
-##   &lt;chr&gt;         &lt;dbl&gt;       &lt;dbl&gt;       &lt;dbl&gt;
-## 1 25th Quantile 1153.       1124.       1179.
-## 2 75th Quantile 2353.       2310.       2400.
+##   Quantile      Estimate Lower_Bound Upper_Bound
+##   &lt;chr&gt;            &lt;dbl&gt;       &lt;dbl&gt;       &lt;dbl&gt;
+## 1 25th Quantile    1153.       1124.       1179.
+## 2 75th Quantile    2353.       2310.       2400.
 ```
 
 
@@ -610,7 +617,7 @@ survey_ratio(
 
 
 ---
-## `survey_ratio` Example: What is the average mean dollars per BTU spent on energy?
+## `survey_ratio` Example: What is the average dollar per BTU spent on energy?
 
 
 ```r
@@ -634,7 +641,7 @@ recs_des %&gt;%
 - BTU (British Thermal Units)
 
 ---
-## Practice on your own
+## Breakout rooms: Practice time
 
 - Open ContinuousExercises.Rmd and work through Part 1
 
@@ -745,10 +752,10 @@ data %&gt;%
 ```
 
 ???
-- The difference in these two methods occurs when the subpopulation doesn't occur in all strata or PSUs
+- Required to ensure correct calculation when sub-population is not in all strata or PSUs
 
 ---
-## Subpopulation Example 1: Average electric cost of single family homes
+## Subpopulation Example: Average electric cost of single family homes
 
 
 ```r
@@ -768,6 +775,10 @@ recs_des %&gt;%
 ## 1  1542.      17.2
 ```
 
+???
+- Filter goes AFTER the design object
+- Previous syntax showed the creation of the design object, but with this example, we already created it
+
 ---
 ## Comparisons with t-tests: `svyttest` Syntax
 
@@ -786,6 +797,37 @@ svyttest(formula, # outcome~group for two-sample, outcome~0 for one-sample
 - will go over examples of 1-sample, 2-sample, and paired t-test
 
 ---
+## `svyttest` Syntax with `%&gt;%`
+
+
+```r
+recs_des %&gt;%
+   svyttest(formula=,
+*           design=.,
+            na.rm=TRUE)
+```
+
+???
+- To use in tidyverse need the "dot" notation as highlighted here
+- Pipe then puts the design object in the correct placement
+
+
+---
+## `svyttest` Syntax with `%&gt;%`
+
+
+```r
+recs_des %&gt;%
+*  svyttest(design=.,
+            formula=,
+            na.rm=TRUE)
+```
+
+???
+- Order doesn't matter for the arguments when you use the "dot" notation
+
+
+---
 ## `svyttest` Example 1: One-sample t-test
 
 - I keep my house at 68 degrees at night during the summer. Is this different from the national average?
@@ -794,7 +836,7 @@ svyttest(formula, # outcome~group for two-sample, outcome~0 for one-sample
 ```r
 recs_des %&gt;%
    svyttest(design=.,
-            formula=I(SummerTempNight-68)~0,
+*           formula=I(SummerTempNight-68)~0,
             na.rm=TRUE)
 ```
 
@@ -845,6 +887,7 @@ recs_des %&gt;%
 ???
 - this is a paired t-test
 - testing whether the difference is 0 for each household
+
 ---
 ## `svyttest` Example 3: Two-sample t-test
 
@@ -1004,13 +1047,16 @@ recs_des %&gt;%
 ```r
 p &lt;- recs %&gt;%
   ggplot(aes(x=TOTSQFT_EN, y=DOLLAREL, weight=NWEIGHT)) +
-  geom_hex() + 
-  theme(legend.position="right") +
-  guides(fill=guide_legend(title="HUs"))
+  geom_hex(color="white") + 
+  scale_fill_gradient(guide="colourbar",name="Count of Housing Units",labels=comma)
 ```
+
+???
+- When using the original data, make sure you include the weight variable
+
 ---
 ## `svyglm` Example 2: Linear Model
-
+&lt;img src="Slides-day-2_files/figure-html/plot_sf_elbill_disp-1.png" width="90%" style="display: block; margin: auto;" /&gt;
 
 
 ---
@@ -1047,13 +1093,13 @@ summary(m_electric_sqft)
 ]
 
 ???
-- for every square foot bigger, on average 24.6c more in electric
+- for every additional square foot, the electricity cost is on average 24.6 cents more
 ---
-## Practice on your own
+## Breakout rooms: Practice time
 
 - Open ContinuousExercises.Rmd and work through Part 2
 
-- We will take 15 minutes. Use this time for the exercises and a break
+- We will take 15 minutes. Use this time for the exercises and questions.
 
 ---
 class: inverse center middle
@@ -1104,7 +1150,7 @@ Please let us know if you have any feedback on this workshop. All feedback is we
 ##  collate  en_US.UTF-8
 ##  ctype    en_US.UTF-8
 ##  tz       America/New_York
-##  date     2022-04-03
+##  date     2022-04-09
 ##  rstudio  2021.09.2+382 Ghost Orchid (desktop)
 ##  pandoc   2.14.0.3 @ /Applications/RStudio.app/Contents/MacOS/pandoc/ (via rmarkdown)
 ```
@@ -1119,12 +1165,14 @@ Please let us know if you have any feedback on this workshop. All feedback is we
 ##  forcats        * 0.5.1   2021-01-27 [1] CRAN (R 4.1.1)
 ##  ggplot2        * 3.3.5   2021-06-25 [1] CRAN (R 4.1.1)
 ##  here           * 1.0.1   2020-12-13 [1] CRAN (R 4.1.0)
+##  hexbin         * 1.28.2  2021-01-08 [1] CRAN (R 4.1.0)
 ##  knitr          * 1.37    2021-12-16 [1] CRAN (R 4.1.1)
 ##  Matrix         * 1.3-4   2021-06-01 [1] CRAN (R 4.1.2)
 ##  palmerpenguins * 0.1.0   2020-07-23 [1] CRAN (R 4.1.0)
 ##  purrr          * 0.3.4   2020-04-17 [1] CRAN (R 4.1.0)
 ##  readr          * 2.1.2   2022-01-30 [1] CRAN (R 4.1.1)
 ##  remotes        * 2.4.2   2021-11-30 [1] CRAN (R 4.1.1)
+##  scales         * 1.1.1   2020-05-11 [1] CRAN (R 4.1.0)
 ##  srvyr          * 1.1.1   2022-02-20 [1] CRAN (R 4.1.1)
 ##  stringr        * 1.4.0   2019-02-10 [1] CRAN (R 4.1.1)
 ##  survey         * 4.2     2022-04-03 [1] Github (bschneidr/r-forge-survey-mirror@5e003fb)
@@ -1133,6 +1181,7 @@ Please let us know if you have any feedback on this workshop. All feedback is we
 ##  tidyr          * 1.2.0   2022-02-01 [1] CRAN (R 4.1.1)
 ##  tidyverse      * 1.3.1   2021-04-15 [1] CRAN (R 4.1.0)
 ##  xaringan       * 0.23    2022-03-08 [1] CRAN (R 4.1.1)
+##  xaringanthemer * 0.4.1   2021-11-21 [1] CRAN (R 4.1.1)
 ## 
 ##  [1] /Library/Frameworks/R.framework/Versions/4.1-arm64/Resources/library
 ```

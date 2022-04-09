@@ -20,11 +20,19 @@ output:
 
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = TRUE, message = FALSE, tidy = FALSE)
+
+if(!require(scales)) {
+   install.packages("scales")
+   library(scales)
+}
+if(!require(hexbin)){
+   install.packages("hexbin")
+   library(hexbin)
+}
 ```
 
 class: inverse center middle
 # Introduction
-
 ---
 
 ```{css, echo = FALSE}
@@ -39,15 +47,17 @@ class: inverse center middle
 ## Overview
 
 - Last week we introduced how to do survey analysis in R with categorical data
+
 - Today we focus on continuous data
 - At the end of today, you should be able to 
   - Calculate means and quantiles with their standard errors 
+  
   - Perform t-tests 
   - Fit linear regression models
 
 
 ---
-## Overview: Workshop Roadmap
+## Overview: Workshop 2 Roadmap
 
 - Quick refresh of RStudio Cloud with a warm-up exercise using the tidyverse
 
@@ -65,8 +75,11 @@ class: inverse center middle
 - We will be using RStudio Cloud today to ensure everyone has access
 
 - Sign-up for a free RStudio Cloud account (https://rstudio.cloud/)
+
 - Access the project and files via link in email and Zoom chat
+
 - Click "START" to open the project and get started
+
 - RStudio Cloud has the same features and appearance as RStudio for ease of use
 
 - All slides and code are available on GitHub: https://github.com/tidy-survey-r/tidy-survey-short-course
@@ -114,12 +127,15 @@ glimpse(penguins)
 
 - <b>Let's open RStudio cloud and do some warm-up examples</b>
 
-- Take 8 minutes to do these exercises in breakout rooms. We will then go over together
+- Take 8 minutes to do these exercises in breakout rooms.
 
 - Explore the penguins data
    - What is the mean body mass in grams of all penguins? Hint: use `summarize` and remove missing data
+   
    - What is the mean length of flipper by species? Hint: use `group_by`
+   
    - What is the mean flipper length by species and sex? 
+   
    - Fit a simple linear regression between body mass and flipper length.
 
 
@@ -443,7 +459,7 @@ recs_des %>%
    mutate(Quantile=paste0(str_sub(varname,8,9),"th Quantile"),
           type=case_when(str_detect(varname,"_low")~"Lower_Bound",
                          str_detect(varname,"_upp")~"Upper_Bound",
-                         TRUE~"Mean")) %>% 
+                         TRUE~"Estimate")) %>% 
    pivot_wider(id_cols=Quantile,names_from=type,values_from=value)
 ```
 
@@ -468,7 +484,7 @@ survey_ratio(
 
 
 ---
-## `survey_ratio` Example: What is the average mean dollars per BTU spent on energy?
+## `survey_ratio` Example: What is the average dollar per BTU spent on energy?
 
 ```{r survey_ratio_ex}
 recs_des %>%
@@ -484,7 +500,7 @@ recs_des %>%
 - BTU (British Thermal Units)
 
 ---
-## Practice on your own
+## Breakout rooms: Practice time
 
 - Open ContinuousExercises.Rmd and work through Part 1
 
@@ -566,10 +582,10 @@ data %>%
 ```
 
 ???
-- The difference in these two methods occurs when the subpopulation doesn't occur in all strata or PSUs
+- Required to ensure correct calculation when sub-population is not in all strata or PSUs
 
 ---
-## Subpopulation Example 1: Average electric cost of single family homes
+## Subpopulation Example: Average electric cost of single family homes
 
 ```{r subpop1}
 recs_des %>%
@@ -581,12 +597,16 @@ recs_des %>%
   )
 ```
 
+???
+- Filter goes AFTER the design object
+- Previous syntax showed the creation of the design object, but with this example, we already created it
+
 ---
 ## Comparisons with t-tests: `svyttest` Syntax
 
 - t-tests are done in the package `survey` not `srvyr` but you can use the same design object
 
-```{r ttest_syn, eval=FALSE}
+```{r ttest_syn1, eval=FALSE}
 svyttest(formula, # outcome~group for two-sample, outcome~0 for one-sample
          design,
          na.rm = FALSE
@@ -598,6 +618,35 @@ svyttest(formula, # outcome~group for two-sample, outcome~0 for one-sample
 - will go over examples of 1-sample, 2-sample, and paired t-test
 
 ---
+## `svyttest` Syntax with `%>%`
+
+```{r ttest_syn2, eval=FALSE}
+recs_des %>%
+   svyttest(formula=,
+            design=., #<<
+            na.rm=TRUE)
+```
+
+???
+- To use in tidyverse need the "dot" notation as highlighted here
+- Pipe then puts the design object in the correct placement
+
+
+---
+## `svyttest` Syntax with `%>%`
+
+```{r ttest_syn3, eval=FALSE}
+recs_des %>%
+   svyttest(design=., #<<
+            formula=,
+            na.rm=TRUE)
+```
+
+???
+- Order doesn't matter for the arguments when you use the "dot" notation
+
+
+---
 ## `svyttest` Example 1: One-sample t-test
 
 - I keep my house at 68 degrees at night during the summer. Is this different from the national average?
@@ -605,7 +654,7 @@ svyttest(formula, # outcome~group for two-sample, outcome~0 for one-sample
 ```{r ttest_ex1}
 recs_des %>%
    svyttest(design=.,
-            formula=I(SummerTempNight-68)~0,
+            formula=I(SummerTempNight-68)~0, #<<
             na.rm=TRUE)
 ```
 
@@ -627,6 +676,7 @@ recs_des %>%
 ???
 - this is a paired t-test
 - testing whether the difference is 0 for each household
+
 ---
 ## `svyttest` Example 3: Two-sample t-test
 
@@ -724,15 +774,19 @@ recs_des %>%
 ```{r plot_sf_elbill}
 p <- recs %>%
   ggplot(aes(x=TOTSQFT_EN, y=DOLLAREL, weight=NWEIGHT)) +
-  geom_hex() + 
-  theme(legend.position="right") +
-  guides(fill=guide_legend(title="HUs"))
+  geom_hex(color="white") + 
+  scale_fill_gradient(guide="colourbar",name="Count of Housing Units",labels=comma)
+
 ```
+
+???
+- When using the original data, make sure you include the weight variable
+
 ---
 ## `svyglm` Example 2: Linear Model
 ```{r plot_sf_elbill_disp, echo=FALSE, fig.asp=9/16, fig.align="center", out.width="90%", dpi=300}
-#p +
-#   theme_xaringan() 
+p +
+  theme_bw() 
 ```
 
 
@@ -749,13 +803,13 @@ summary(m_electric_sqft)
 ]
 
 ???
-- for every square foot bigger, on average 24.6c more in electric
+- for every additional square foot, the electricity cost is on average 24.6 cents more
 ---
-## Practice on your own
+## Breakout rooms: Practice time
 
 - Open ContinuousExercises.Rmd and work through Part 2
 
-- We will take 15 minutes. Use this time for the exercises and a break
+- We will take 15 minutes. Use this time for the exercises and questions.
 
 ---
 class: inverse center middle
