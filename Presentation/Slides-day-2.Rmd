@@ -31,6 +31,7 @@ if(!require(hexbin)){
 }
 ```
 
+
 class: inverse center middle
 # Introduction
 ---
@@ -46,6 +47,84 @@ class: inverse center middle
 
 ## Overview
 
+- At the end of this workshop series, you should be able to 
+   - Calculate point estimates and their standard errors with survey data 
+      - Proportions, totals, and counts
+      - Means, quantiles, and ratios
+   - Perform t-tests and chi-squared tests
+   - Fit regression models
+   - Specify a survey design in R to create a survey object
+
+- We will not be going over the following but provide some resources at the end
+   - Weighting (calibration, post-stratification, raking, etc.)
+   - Survival analysis
+   - Nonlinear models
+---
+
+## About Us
+
+<div class="row">
+<div class="column">
+<center>
+```{r, echo=FALSE, out.width="200px"}
+knitr::include_graphics('http://www.mapor.org/wp-content/uploads/2022/03/StephanieZimmer_Headshot.jpeg')
+```
+<br>
+<b>Stephanie Zimmer</b>
+<br>
+Abt Associates
+</center>
+</div>
+
+<div class="column">
+<center>
+```{r, echo=FALSE, out.width="200px"}
+knitr::include_graphics('http://www.mapor.org/wp-content/uploads/2020/03/Powell_Rebecca_image-e1584649023839.jpg')
+```
+<br>
+<b>Rebecca Powell</b>
+<br>
+RTI International
+</center>
+</div>
+
+<div class="column">
+<center>
+```{r, echo=FALSE, out.width="200px"}
+knitr::include_graphics('http://www.mapor.org/wp-content/uploads/2022/03/IsabellaVelasquez_Headshot.jpeg')
+```
+
+<br>
+<b>Isabella Velásquez</b>
+<br>
+RStudio
+</center>
+</div>
+
+</div>
+
+---
+
+## About This Workshop
+
+- Hosted by Midwest Association for Public Opinion Research (MAPOR), a regional chapter of the American Association for Public Opinion Research (AAPOR).
+
+- Originally delivered at AAPOR Conference in May 2021
+
+---
+
+## Upcoming Work
+
+- Book on analyzing survey data in R, published by CRC, Taylor & Francis Group
+
+- We would love your help! After each course, we will send out a survey to gather your feedback on the material, organization, etc.
+
+- Keep updated by following our project on GitHub: [https://github.com/tidy-survey-r](https://github.com/tidy-survey-r)
+
+---
+
+## Overview
+
 - Last week we introduced how to do survey analysis in R with categorical data
 
 - Today we focus on continuous data
@@ -55,6 +134,11 @@ class: inverse center middle
   - Perform t-tests 
   - Fit linear regression models
 
+- Next week, we will discuss
+   - Specifying a survey design object
+   - Creating replicate weights
+   - Creating derived/analysis/recoded variables
+   - Reproducibility
 
 ---
 ## Overview: Workshop 2 Roadmap
