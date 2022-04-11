@@ -110,7 +110,7 @@ recs %>%
 
 Variables used: YEARMADERANGE
 
-### YearMade
+### SpaceHeatingUsed
 
 ```{r variable-SpaceHeatingUsed}
 recs %>%
