@@ -61,9 +61,7 @@ font-size: 70% !important;
 <div class="row">
 <div class="column">
 <center>
-```{r, echo=FALSE, out.width="200px"}
-knitr::include_graphics('http://www.mapor.org/wp-content/uploads/2022/03/StephanieZimmer_Headshot.jpeg')
-```
+<img src="/Presentation/Images/StephanieZimmer_Headshot.jpeg">
 <br>
 <b>Stephanie Zimmer</b>
 <br>
@@ -73,9 +71,7 @@ Abt Associates
 
 <div class="column">
 <center>
-```{r, echo=FALSE, out.width="200px"}
-knitr::include_graphics('http://www.mapor.org/wp-content/uploads/2020/03/Powell_Rebecca_image-e1584649023839.jpg')
-```
+<img src="/Presentation/Images/RebeccaPowell_Headshot.jpeg">
 <br>
 <b>Rebecca Powell</b>
 <br>
@@ -85,9 +81,7 @@ RTI International
 
 <div class="column">
 <center>
-```{r, echo=FALSE, out.width="200px"}
-knitr::include_graphics('http://www.mapor.org/wp-content/uploads/2022/03/IsabellaVelasquez_Headshot.jpeg')
-```
+<img src="/Presentation/Images/IsabellaVelasquez_Headshot.jpeg">
 
 <br>
 <b>Isabella Velásquez</b>
