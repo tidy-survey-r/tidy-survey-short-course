@@ -1,0 +1,108 @@
+---
+title: "Design objects and derived variables exercise"
+output:
+  html_document:
+    df_print: paged
+---
+
+# Course set-up
+
+First, let's make sure you have everything you need for the course. Run the following library statements. If something is not installed, install it.
+
+```{r setup}
+# install.packages("tidyverse")
+# remotes::install_github("bschneidr/r-forge-survey-mirror")
+# install.packages("srvyr")
+# install.packages("here")
+# install.packages("palmerpenguins")
+# install.packages("remotes")
+
+library(tidyverse) # for tidyverse
+library(here) # for file paths
+library(srvyr)
+
+
+```
+
+# Part 1 - Design Objects
+
+In these exercises, you will be given a study and assume you have the data. How would you create the design object?
+
+1.  California Health Interview Survey - 2019-2020
+    -   Note that you can do this with design variables aka Taylor's series or replicate weights.
+    -   Useful links:
+        -   <https://healthpolicy.ucla.edu/chis/design/Pages/methodology.aspx>
+        -   <https://healthpolicy.ucla.edu/chis/analyze/Pages/sample-code.aspx>
+        -   <https://healthpolicy.ucla.edu/chis/analyze/Pages/weighting.aspx>
+    -   Assume you have the Public Use File for **adults** already read into R and the dataframe is called `chis19_adult`.
+
+```{r chis, eval=FALSE}
+chis19_adult <- haven::read_sas(here::here("RawData", "adult_2019_sas", "adult.sas7bdat"))
+
+```
+
+2.  National Survey on Drug Use and Health - 2019
+    -   Useful links:
+        -   <https://www.datafiles.samhsa.gov/dataset/national-survey-drug-use-and-health-2019-nsduh-2019-ds0001>
+        -   <https://www.datafiles.samhsa.gov/dataset/national-survey-drug-use-and-health-2019-nsduh-2019-ds0001>
+    -   Assume you have the Public Use File for already read into R and the dataframe is called `nsduh19`.
+
+```{r nsduh, eval=FALSE}
+nsduh19 <- haven::read_sav(here::here("RawData", "NSDUH_2019", "NSDUH_2019.SAV"))
+
+```
+
+
+# Part 2 - Derived variables
+
+Before exercises, read the data in
+```{r datin, cache=TRUE}
+anes <- read_rds(here("Data", "anes_2020.rds"))
+recs_in <- read_csv(here("RawData", "RECS_2015", "recs2015_public_v4.csv"))
+```
+
+In these exercises, you will be given specifications for a derived variable. Create the variable and check your work. Useful resources:
+
+- [ANES Codebook Raw Variables](https://electionstudies.org/wp-content/uploads/2022/02/anes_timeseries_2020_userguidecodebook_20220210.pdf)
+- [ANES Codebook Exiting Derived Variables](https://github.com/tidy-survey-r/tidy-survey-short-course/blob/main/Codebook/ANES-2020-Derived-Variable-Codebook.md)
+- [RECS Codebook Raw Variables](https://www.eia.gov/consumption/residential/data/2015/xls/codebook_publicv4.xlsx) - Note this will download a spreadsheet
+
+1. ANES: Create a 5-level income variable as described below. For cases where the income is refused or the interview was a breakoff, this derived variable should be `NA`. The variable should be created such that "Under $25,000" comes first and so on. Hint: Use the variable `V201617x`
+
+   - Under $25,000
+   - $25,000-49,999
+   - $50,000-74,999
+   - $75,000-99,999
+   - $100,000 or more
+   
+```{r income5}
+
+```
+   
+2. ANES: Create a 5-level age variable as described below. For the cases where age is refused, this derived variable should be `NA`. Hint: use variable `V201507x`
+
+   - 18-24
+   - 25-44
+   - 45-64
+   - 65-74
+   - 75 or older
+   
+   
+```{r age5}
+
+```
+
+3. RECS: Create a logical variable indicating whether there was any household energy insecurity. Household energy insecurity is defined as households that have any of the following occur at least once:
+
+- Reducing or forgoing basic necesseties to pay energy costs (SCALEB)
+- Leaving home at unhealthy temperature (SCALEG)
+- Receiving disconnect or delivery stop notice (SCALEE)
+- Unable to use heating equipment (NOHEATBROKE, NOHEATEL, NOHEATNG, NOHEATBULK)
+- Unable to use cooling equipment (NOACBROKE, NOACEL)
+
+The relevant variables that should be used are included in parentheses.
+
+```{r energyinsec}
+
+```
+
