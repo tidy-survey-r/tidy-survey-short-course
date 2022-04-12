@@ -21,7 +21,7 @@ ANES 2020 Derived Variable Codebook
 -   [VotedPres2020_selection](#votedpres2020_selection)
 -   [EarlyVote2020 / VotedPres2020](#earlyvote2020--votedpres2020)
 
-The full codebook with the original variables is available on
+The full codebook with the original variables is available at
 <a href="https://electionstudies.org/wp-content/uploads/2022/02/anes_timeseries_2020_userguidecodebook_20220210.pdf" target="_blank">electionstudies.org</a>.
 
 ## Weighting variables
