@@ -80,7 +80,7 @@ recs_in <- read_csv(here("RawData", "RECS_2015", "recs2015_public_v4.csv"))
 #' 
 #' - [ANES Codebook Raw Variables](https://electionstudies.org/wp-content/uploads/2022/02/anes_timeseries_2020_userguidecodebook_20220210.pdf)
 #' - [ANES Codebook Exiting Derived Variables](https://github.com/tidy-survey-r/tidy-survey-short-course/blob/main/Codebook/ANES-2020-Derived-Variable-Codebook.md)
-#' - [RECS Codebook Raw Variables](https://www.eia.gov/consumption/residential/data/2015/xls/codebook_publicv4.xlsx) - Note this will down a spreadsheet
+#' - [RECS Codebook Raw Variables](https://www.eia.gov/consumption/residential/data/2015/xls/codebook_publicv4.xlsx) - Note this will download a spreadsheet
 #' 
 #' 1. ANES: Create a 5-level income variable as described below. For cases where the income is refused or the interview was a breakoff, this derived variable should be `NA`. The variable should be created such that "Under $25,000" comes first and so on. Hint: Use the variable `V201617x`
 #' 

@@ -161,7 +161,7 @@ class: inverse center middle
 ---
 ## Overview of Survey Analysis using `srvyr` Package
 
-Discussing step 1! Steps 2-3 discussed in prior workshops
+Discussing step 1! Steps 2-4 discussed in prior workshops
 
 1. Create a `tbl_svy` object using: `as_survey_design` or `as_survey_rep`
 
@@ -771,12 +771,16 @@ OK, you want to stick with .R files. What can you do?
    - In RStudio, use the Compile Report feature under File menu. Create output from your code and code runs in self-contained session
    
    - In code, use `rmarkdown::render(filename.R)`
+   
+   - Creates HTML, PDF, or Word document with your code, console output, and plots
 
 - Batch from command line (Terminal)
 
-   - Linux: `R CMD BATCH filename.R &`
+   - Linux: `R CMD BATCH --no-save filename.R &`
    
-   - Windows (something like): `"C:\Program Files\R\R-4.1.3\bin\R.exe CMD BATCH filename.R &`
+   - Windows (something like): `"C:\Program Files\R\R-4.1.3\bin\R.exe CMD BATCH --no-save filename.R &`
+   
+   - Creates a .Rout file with your console output, timing information, and plots in PDFs (unless saved another way). .Rout file can be viewed in a text editor of your choice or Word
    
 ---
 # Documentation and organization
