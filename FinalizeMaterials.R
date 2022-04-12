@@ -28,13 +28,24 @@ xaringanBuilder::build_pptx(
    partial_slides= TRUE)
 mypurl("Exercises", "CategorialExercises")
 mypurl("Exercises", "CategorialExercises_solutions")
+
+# Day 1/2 processing
 mypurl("Exercises", "WarmUpExercises")
 mypurl("Exercises", "WarmUpExercises_solutions")
 
 # Day 2 processing
+mypurl("Presentation", "Slides-day-2")
+xaringanBuilder::build_pdf(
+   input=here("Presentation", "Slides-day-2.html"),
+   output_file=here("Presentation", "Slides-day-2.pdf"),
+   partial_slides= TRUE)
+xaringanBuilder::build_pptx(
+   input=here("Presentation", "Slides-day-2.pdf"),
+   output_file=here("Presentation", "Slides-day-2.pptx"),
+   partial_slides= TRUE)
+mypurl("Exercises", "ContinuousExercises")
+mypurl("Exercises", "ContinuousExercises_solutions")
 
-# mypurl("Exercises", "ContinuousExercises")
-# mypurl("Exercises", "ContinuousExercises_solutions")
 
 
 # Day 3 processing
