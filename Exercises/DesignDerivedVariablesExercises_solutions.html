@@ -1690,15 +1690,15 @@ already read into R and the dataframe is called
 </ol>
 <pre class="r"><code>chis19_adult &lt;- haven::read_sas(here::here(&quot;RawData&quot;, &quot;adult_2019_sas&quot;, &quot;adult.sas7bdat&quot;))
 
-des_rep &lt;- chis19_adult %&gt;%
+rep_des &lt;- chis19_adult %&gt;%
    as_survey_rep(weights=RAKEDW0, repweights=stringr::str_c(&quot;RAKEDW&quot;, 1:80),
                  type=&quot;JKn&quot;, rscales=1)
 
-des_tsl &lt;- chis19_adult %&gt;%
+tsl_des &lt;- chis19_adult %&gt;%
    as_survey_design(weights=RAKEDW0, strata=TSVARSTR, ids=1)
 
 # or
-des_tsl &lt;- chis19_adult %&gt;%
+tsl_des &lt;- chis19_adult %&gt;%
    as_survey_design(weights=RAKEDW0, strata=TSVARSTR, ids=0)</code></pre>
 <ol start="2" style="list-style-type: decimal">
 <li>National Survey on Drug Use and Health - 2019
@@ -1713,7 +1713,7 @@ dataframe is called <code>nsduh19</code>.</li>
 </ul></li>
 </ol>
 <pre class="r"><code>nsduh19 &lt;- haven::read_sav(here::here(&quot;RawData&quot;, &quot;NSDUH_2019&quot;, &quot;NSDUH_2019.SAV&quot;))
-des_nsduh &lt;- nsduh19 %&gt;%
+nsduh_des &lt;- nsduh19 %&gt;%
    as_survey_design(weights=ANALWT_C, strata=VESTR, ids=VEREP, nest=TRUE)</code></pre>
 </div>
 <div id="part-2---derived-variables" class="section level1">

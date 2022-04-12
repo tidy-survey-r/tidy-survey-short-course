@@ -1,6 +1,6 @@
 #' ---
 #' title: "Tidy Survey Analysis in R using the srvyr Package"
-#' subtitle: "Workshop Day 1 - Categorical Data"
+#' subtitle: "Workshop Day 3 - Design Objects, Variables, and Process"
 #' author:
 #'    - Stephanie Zimmer, Abt Associates
 #'    - Rebecca Powell, RTI International
@@ -605,9 +605,7 @@ count(anes_in, V202073)
 ##       case_when(
 ##          V202073 == 1 ~ "Biden",
 ##          V202073 == 2 ~ "Trump",
-##          V202073 >= 3 & V202073 <= 8~ "Other",
-##          V202073 == 11 ~ NA_character_,
-##          V202073 == 12 ~ NA_character_,
+##          V202073 >= 3~ "Other",
 ##          TRUE ~ NA_character_
 ##       ),
 ##       levels = c("Biden", "Trump", "Other")))
@@ -619,6 +617,35 @@ count(anes_in, V202073)
 #' ## Code example - collapsing levels: output
 ## ----derived2b, echo=FALSE, ref.label="derived2"--------------------------------------------------------------------------------
 
+#' 
+#' ???
+#' - Any issues with this output?
+#' - Should DK/Refuse be coded as other?
+#' 
+#' 
+#' ---
+#' ## Code example - collapsing levels - fix
+#' Recode V202073 as Biden, Trump, Other, and missing for unknown/no one
+#' 
+## ----derived2c, eval=FALSE------------------------------------------------------------------------------------------------------
+## anes_vote <- anes_in %>%
+##    mutate(VotedPres2020_selection = factor(
+##       case_when(
+##          V202073 == 1 ~ "Biden",
+##          V202073 == 2 ~ "Trump",
+##          V202073 >= 3 & V202073 <= 8~ "Other",
+##          TRUE ~ NA_character_
+##       ),
+##       levels = c("Biden", "Trump", "Other")))
+## 
+## anes_vote %>% count(VotedPres2020_selection, V202073)
+
+#' 
+#' ---
+#' ## Code example - collapsing levels: output
+## ----derived2d, echo=FALSE, ref.label="derived2c"-------------------------------------------------------------------------------
+
+#' 
 #' 
 #' ---
 #' ## Code example - creating construct
@@ -686,6 +713,9 @@ dat19_in <- get_pums(variables=c("NP", "HINCP"), state="37", puma=c("01301", "01
 ## ----der3c, echo=FALSE, fig.width=14--------------------------------------------------------------------------------------------
 print(p)
 
+#' 
+#' 
+#' 
 #' 
 #' ---
 #' ## Breakout rooms: Practice time
@@ -825,6 +855,29 @@ list.files(here("RawData", "RECS_2015"))
 #' 
 #' - Resource to **Git** started: https://happygitwithr.com/
 #' 
+#' ---
+#' # Useful packages for tables
+#' 
+#' - [kableExtra](http://haozhu233.github.io/kableExtra/): extends `kable` to allow piping for HTML and LaTeX
+#' 
+#' - [gt](https://gt.rstudio.com/): from tibble/data.frame to nice looking tables for HTML, LaTeX, and RTF
+#' 
+#' - [gtsummary](https://www.danieldsjoberg.com/gtsummary/): tbl_svysummary creates tables of summary statistics from survey objects
+#' 
+#' - [flextable](https://davidgohel.github.io/flextable/index.html): tables for HTML, PDF, Word, and Powerpoint
+#' 
+#' - [huxtable](https://hughjonesd.github.io/huxtable/): tables for LaTeX and HTML
+#' 
+#' ---
+#' # Other useful packages
+#' 
+#' - [ggsurvey](https://github.com/balexanderstats/ggsurvey): plotting data from surveys
+#' 
+#' - [naniar](https://naniar.njtierney.com/): visualize missing data and see missing patterns
+#' 
+#' - [likert](https://github.com/jbryer/likert): analyze and visualize Likert type items
+#' 
+#' - and more [CRAN Task View: Official Statistics & Survey Statistics](https://cran.r-project.org/web/views/OfficialStatistics.html)
 #' 
 #' ---
 #' class: inverse center middle

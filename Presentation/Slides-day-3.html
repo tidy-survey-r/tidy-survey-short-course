@@ -15,7 +15,7 @@
 class: center, middle, inverse, title-slide
 
 # Tidy Survey Analysis in R using the srvyr Package
-## Workshop Day 1 - Categorical Data
+## Workshop Day 3 - Design Objects, Variables, and Process
 ### Stephanie Zimmer, Abt Associates
 ### Rebecca Powell, RTI International
 ### Isabella Velásquez, RStudio
@@ -748,9 +748,52 @@ anes_vote &lt;- anes_in %&gt;%
       case_when(
          V202073 == 1 ~ "Biden",
          V202073 == 2 ~ "Trump",
+         V202073 &gt;= 3~ "Other",
+         TRUE ~ NA_character_
+      ),
+      levels = c("Biden", "Trump", "Other")))
+
+anes_vote %&gt;% count(VotedPres2020_selection, V202073)
+```
+
+---
+## Code example - collapsing levels: output
+
+```
+## # A tibble: 12 x 3
+##    VotedPres2020_selection                                    V202073     n
+##    &lt;fct&gt;                                                    &lt;dbl+lbl&gt; &lt;int&gt;
+##  1 Biden                    1 [1. Joe Biden]                           3267
+##  2 Trump                    2 [2. Donald Trump]                        2462
+##  3 Other                    3 [3. Jo Jorgensen]                          69
+##  4 Other                    4 [4. Howie Hawkins]                         23
+##  5 Other                    5 [5. Other candidate {SPECIFY}]             56
+##  6 Other                    7 [7. Specified as Republican candidate]      1
+##  7 Other                    8 [8. Specified as Libertarian candidate]     3
+##  8 Other                   11 [11. Specified as don't know]               2
+##  9 Other                   12 [12. Specified as refused]                 16
+## 10 &lt;NA&gt;                    -9 [-9. Refused]                              53
+## 11 &lt;NA&gt;                    -6 [-6. No post-election interview]            4
+## 12 &lt;NA&gt;                    -1 [-1. Inapplicable]                       1497
+```
+
+???
+- Any issues with this output?
+- Should DK/Refuse be coded as other?
+
+
+---
+## Code example - collapsing levels - fix
+Recode V202073 as Biden, Trump, Other, and missing for unknown/no one
+
+
+```r
+anes_vote &lt;- anes_in %&gt;%
+   mutate(VotedPres2020_selection = factor(
+      case_when(
+         V202073 == 1 ~ "Biden",
+         V202073 == 2 ~ "Trump",
          V202073 &gt;= 3 &amp; V202073 &lt;= 8~ "Other",
-         V202073 == 11 ~ NA_character_,
-         V202073 == 12 ~ NA_character_,
          TRUE ~ NA_character_
       ),
       levels = c("Biden", "Trump", "Other")))
@@ -778,6 +821,7 @@ anes_vote %&gt;% count(VotedPres2020_selection, V202073)
 ## 11 &lt;NA&gt;                    11 [11. Specified as don't know]               2
 ## 12 &lt;NA&gt;                    12 [12. Specified as refused]                 16
 ```
+
 
 ---
 ## Code example - creating construct
@@ -852,6 +896,9 @@ p &lt;- dat19_pov %&gt;% ggplot(aes(x=HINCP, y=NP, colour=FPL)) +
 ---
 ## Code example - creating construct: output
 ![](Slides-day-3_files/figure-html/der3c-1.png)&lt;!-- --&gt;
+
+
+
 
 ---
 ## Breakout rooms: Practice time
@@ -1005,6 +1052,29 @@ OK, you want to stick with .R files. What can you do?
 
 - Resource to **Git** started: https://happygitwithr.com/
 
+---
+# Useful packages for tables
+
+- [kableExtra](http://haozhu233.github.io/kableExtra/): extends `kable` to allow piping for HTML and LaTeX
+
+- [gt](https://gt.rstudio.com/): from tibble/data.frame to nice looking tables for HTML, LaTeX, and RTF
+
+- [gtsummary](https://www.danieldsjoberg.com/gtsummary/): tbl_svysummary creates tables of summary statistics from survey objects
+
+- [flextable](https://davidgohel.github.io/flextable/index.html): tables for HTML, PDF, Word, and Powerpoint
+
+- [huxtable](https://hughjonesd.github.io/huxtable/): tables for LaTeX and HTML
+
+---
+# Other useful packages
+
+- [ggsurvey](https://github.com/balexanderstats/ggsurvey): plotting data from surveys
+
+- [naniar](https://naniar.njtierney.com/): visualize missing data and see missing patterns
+
+- [likert](https://github.com/jbryer/likert): analyze and visualize Likert type items
+
+- and more [CRAN Task View: Official Statistics &amp; Survey Statistics](https://cran.r-project.org/web/views/OfficialStatistics.html)
 
 ---
 class: inverse center middle

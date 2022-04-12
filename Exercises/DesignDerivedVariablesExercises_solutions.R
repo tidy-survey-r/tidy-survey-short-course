@@ -40,15 +40,15 @@ library(srvyr)
 ## 
 ## chis19_adult <- haven::read_sas(here::here("RawData", "adult_2019_sas", "adult.sas7bdat"))
 ## 
-## des_rep <- chis19_adult %>%
+## rep_des <- chis19_adult %>%
 ##    as_survey_rep(weights=RAKEDW0, repweights=stringr::str_c("RAKEDW", 1:80),
 ##                  type="JKn", rscales=1)
 ## 
-## des_tsl <- chis19_adult %>%
+## tsl_des <- chis19_adult %>%
 ##    as_survey_design(weights=RAKEDW0, strata=TSVARSTR, ids=1)
 ## 
 ## # or
-## des_tsl <- chis19_adult %>%
+## tsl_des <- chis19_adult %>%
 ##    as_survey_design(weights=RAKEDW0, strata=TSVARSTR, ids=0)
 ## 
 ## 
@@ -62,7 +62,7 @@ library(srvyr)
 #' 
 ## ----nsduh, eval=FALSE----------------------------------------------------------------------------------------------------------
 ## nsduh19 <- haven::read_sav(here::here("RawData", "NSDUH_2019", "NSDUH_2019.SAV"))
-## des_nsduh <- nsduh19 %>%
+## nsduh_des <- nsduh19 %>%
 ##    as_survey_design(weights=ANALWT_C, strata=VESTR, ids=VEREP, nest=TRUE)
 ## 
 
