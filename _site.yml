@@ -1,0 +1,39 @@
+name: "Tidy Survey Analysis in R"
+output_dir: docs
+navbar:
+  title: "Tidy Survey Analysis in R Workshop Series"
+  left:
+  - icon: fa-home fa-lg
+    href: index.html
+  right:
+  - text: Day 01
+    menu:
+    - text: Slides
+      href: "./Presentation/Slides-day-1.html"
+    - text: ANES 2020 Codebook
+      href: "./Codebooks/ANES-2020-Derived-Variable-Codebook.html"
+    - text: Feedback Form
+      href: https://docs.google.com/forms/d/e/1FAIpQLSfXbje9uDLf8nMMff1tGdB6sw81WSEhU2QwFsIBQnv1lyvcTw/viewform
+  - text: Day 02
+    menu:
+    - text: Slides
+      href: "./Presentation/Slides-day-2.html"
+    - text: RECS 2015 Codebook
+      href: "./Codebooks/RECS-2015-Codebook.html"
+    - text: Feedback Form
+  - text: Day 03
+    menu:
+    - text: Slides
+      href: Presentation/Slides-day-3.html 
+    - text: Feedback Form
+  - text: RStudio Cloud
+    href: https://rstudio.cloud/spaces/237445/join?access_code=HILcftTWVuHvOKNIyDIMYAqENQY_Jhte2zVA1wW8 
+  - icon: fa-github
+    href: https://github.com/tidy-survey-r/tidy-survey-short-course
+
+output:
+  html_document:
+    theme: cerulean
+    highlight: tango
+    css: style.css
+    self_contained: false

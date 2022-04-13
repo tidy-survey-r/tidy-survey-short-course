@@ -1,0 +1,1056 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+  <head>
+    <title>Tidy Survey Analysis in R Using the srvyr Package</title>
+    <meta charset="utf-8" />
+    <meta name="author" content="Stephanie Zimmer, Abt Associates" />
+    <meta name="author" content="Rebecca Powell, RTI International" />
+    <meta name="author" content="Isabella Velásquez, RStudio" />
+    <meta name="date" content="2022-04-15" />
+    <script src="Slides-day-1_files/header-attrs-2.11/header-attrs.js"></script>
+    <script src="Slides-day-1_files/htmlwidgets-1.5.4/htmlwidgets.js"></script>
+    <link href="Slides-day-1_files/datatables-css-0.0.0/datatables-crosstalk.css" rel="stylesheet" />
+    <script src="Slides-day-1_files/datatables-binding-0.20/datatables.js"></script>
+    <script src="Slides-day-1_files/jquery-3.6.0/jquery-3.6.0.min.js"></script>
+    <link href="Slides-day-1_files/dt-core-1.11.3/css/jquery.dataTables.min.css" rel="stylesheet" />
+    <link href="Slides-day-1_files/dt-core-1.11.3/css/jquery.dataTables.extra.css" rel="stylesheet" />
+    <script src="Slides-day-1_files/dt-core-1.11.3/js/jquery.dataTables.min.js"></script>
+    <link href="Slides-day-1_files/crosstalk-1.2.0/css/crosstalk.min.css" rel="stylesheet" />
+    <script src="Slides-day-1_files/crosstalk-1.2.0/js/crosstalk.min.js"></script>
+    <link rel="stylesheet" href="xaringan-themer-mod.css" type="text/css" />
+  </head>
+  <body>
+    <textarea id="source">
+class: center, middle, inverse, title-slide
+
+# Tidy Survey Analysis in R Using the srvyr Package
+## Workshop Day 1 - Categorical Data
+### Stephanie Zimmer, Abt Associates
+### Rebecca Powell, RTI International
+### Isabella Velásquez, RStudio
+### April 15, 2022
+
+---
+
+
+
+
+class: inverse center middle
+# Introduction
+
+---
+
+&lt;style type="text/css"&gt;
+.small .remark-code { /*Change made here*/
+font-size: 80% !important;
+}
+.smaller .remark-code { /*Change made here*/
+font-size: 70% !important;
+}
+&lt;/style&gt;
+
+## Overview
+
+- At the end of this workshop series, you should be able to 
+   - Calculate point estimates and their standard errors with survey data 
+      - Proportions, totals, and counts
+      - Means, quantiles, and ratios
+   - Perform t-tests and chi-squared tests
+   - Fit regression models
+   - Specify a survey design in R to create a survey object
+
+- We will not be going over the following but provide some resources at the end
+   - Weighting (calibration, post-stratification, raking, etc.)
+   - Survival analysis
+   - Nonlinear models
+
+---
+
+## About Us
+
+&lt;div class="row"&gt;
+&lt;div class="column"&gt;
+&lt;center&gt;
+&lt;img src="http://www.mapor.org/wp-content/uploads/2022/03/StephanieZimmer_Headshot.jpeg" width="200px" /&gt;
+&lt;br&gt;
+&lt;b&gt;Stephanie Zimmer&lt;/b&gt;
+&lt;br&gt;
+Abt Associates
+&lt;/center&gt;
+&lt;/div&gt;
+
+&lt;div class="column"&gt;
+&lt;center&gt;
+&lt;img src="http://www.mapor.org/wp-content/uploads/2020/03/Powell_Rebecca_image-e1584649023839.jpg" width="200px" /&gt;
+&lt;br&gt;
+&lt;b&gt;Rebecca Powell&lt;/b&gt;
+&lt;br&gt;
+RTI International
+&lt;/center&gt;
+&lt;/div&gt;
+
+&lt;div class="column"&gt;
+&lt;center&gt;
+&lt;img src="http://www.mapor.org/wp-content/uploads/2022/03/IsabellaVelasquez_Headshot.jpeg" width="200px" /&gt;
+
+&lt;br&gt;
+&lt;b&gt;Isabella Velásquez&lt;/b&gt;
+&lt;br&gt;
+RStudio
+&lt;/center&gt;
+&lt;/div&gt;
+
+&lt;/div&gt;
+
+---
+
+## About This Workshop
+
+- Hosted by Midwest Association for Public Opinion Research (MAPOR), a regional chapter of the American Association for Public Opinion Research (AAPOR).
+
+- Originally delivered at AAPOR Conference in May 2021
+
+---
+
+## Upcoming Work
+
+- Book on analyzing survey data in R, published by CRC, Taylor &amp; Francis Group
+
+- We would love your help! After each course, we will send out a survey to gather your feedback on the material, organization, etc.
+
+- Keep updated by following our project on GitHub: [https://github.com/tidy-survey-r](https://github.com/tidy-survey-r)
+
+---
+class: inverse center middle
+
+# Workshop Overview
+
+---
+
+## Workshop Series Roadmap
+
+- Get familiar with RStudio Cloud with a warm-up exercise using the tidyverse (today)
+
+- Introduce the survey data we'll be using in the workshop (today)
+
+- Analysis of categorical data with time for practice (today)
+
+- Analysis of continuous data with time for practice (day 2)
+
+- Survey design objects, constructing replicate weights, and creating derived variables (day 3)
+
+
+---
+## Logistics
+
+- We will be using RStudio Cloud today to ensure everyone has access
+
+- Sign-up for a free RStudio Cloud account (https://rstudio.cloud/)
+- Access the project and files via link in email and Zoom chat
+- Click "START" to open the project and get started
+- RStudio Cloud has the same features and appearance as RStudio for ease of use
+
+- All slides and code are available on GitHub: https://github.com/tidy-survey-r/tidy-survey-short-course
+
+???
+Github repo is for future reference, all material on RStudio cloud
+
+---
+## Intro to RStudio Cloud: Penguins!!
+
+- Using `palmerpenguins` data for warm-up exercises
+
+- Data were collected and made available by Dr. Kristen Gorman and the Palmer Station, Antarctica LTER, a member of the Long Term Ecological Research Network.
+
+- Access data through `palmerpenguins` package https://github.com/allisonhorst/palmerpenguins/
+
+
+####If you are using your own RStudio environment:
+- Make sure you have `tidyverse`, `here`, and `palmerpenguins` installed
+
+
+```r
+# Run package installation if you don't have these packages already
+# As a reminder, installing takes package from internet to your computer 
+# and only needs to be done once, not each session
+
+install.packages(c("tidyverse", "here", "palmerpenguins"))
+```
+
+---
+## Intro to RStudio Cloud: Penguins!!
+
+- Load `tidyverse`, `here`, and `palmerpenguins`
+
+- Look at the penguins dataset using `glimpse`
+
+
+```r
+library(tidyverse) # for tidyverse
+library(here) # for file paths
+library(palmerpenguins) # for warm-up data
+glimpse(penguins)
+```
+
+```
+## Rows: 344
+## Columns: 8
+## $ species           &lt;fct&gt; Adelie, Adelie, Adelie, Adelie, Adelie, Adelie, Adel…
+## $ island            &lt;fct&gt; Torgersen, Torgersen, Torgersen, Torgersen, Torgerse…
+## $ bill_length_mm    &lt;dbl&gt; 39.1, 39.5, 40.3, NA, 36.7, 39.3, 38.9, 39.2, 34.1, …
+## $ bill_depth_mm     &lt;dbl&gt; 18.7, 17.4, 18.0, NA, 19.3, 20.6, 17.8, 19.6, 18.1, …
+## $ flipper_length_mm &lt;int&gt; 181, 186, 195, NA, 193, 190, 181, 195, 193, 190, 186…
+## $ body_mass_g       &lt;int&gt; 3750, 3800, 3250, NA, 3450, 3650, 3625, 4675, 3475, …
+## $ sex               &lt;fct&gt; male, female, female, NA, female, male, female, male…
+## $ year              &lt;int&gt; 2007, 2007, 2007, 2007, 2007, 2007, 2007, 2007, 2007…
+```
+
+---
+## Warm-up Exercises: WarmUpExercises.Rmd
+
+- &lt;b&gt;Let's open RStudio cloud and do some warm-up examples&lt;/b&gt;
+
+- Take 10 minutes to set up RStudio Cloud and do these exercises in breakout rooms. We will then go over together
+
+- Explore the penguins data
+   - How many penguins of each species are there? 
+   - How many penguins of each species and sex are there? 
+   - What is the proportion of each species of penguins?
+   - What is the proportion of each sex of penguins within species?
+
+
+---
+## Ex. 1: How many penguins of each species are there? 
+
+.pull-left[
+
+```r
+penguins %&gt;%
+   count(species)
+```
+
+```
+## # A tibble: 3 × 2
+##   species       n
+##   &lt;fct&gt;     &lt;int&gt;
+## 1 Adelie      152
+## 2 Chinstrap    68
+## 3 Gentoo      124
+```
+]
+
+.pull-right[
+
+```r
+penguins %&gt;%
+   group_by(species) %&gt;%
+   summarise(
+      n=n(), .groups="drop"
+   )
+```
+
+```
+## # A tibble: 3 × 2
+##   species       n
+##   &lt;fct&gt;     &lt;int&gt;
+## 1 Adelie      152
+## 2 Chinstrap    68
+## 3 Gentoo      124
+```
+]
+
+???
+- Using `count` we see there are 3 different species and the number of penguins for each species
+---
+## Ex. 2: How many penguins of each species and sex are there?
+
+
+```r
+penguins %&gt;%
+   count(species, sex)
+```
+
+```
+## # A tibble: 8 × 3
+##   species   sex        n
+##   &lt;fct&gt;     &lt;fct&gt;  &lt;int&gt;
+## 1 Adelie    female    73
+## 2 Adelie    male      73
+## 3 Adelie    &lt;NA&gt;       6
+## 4 Chinstrap female    34
+## 5 Chinstrap male      34
+## 6 Gentoo    female    58
+## 7 Gentoo    male      61
+## 8 Gentoo    &lt;NA&gt;       5
+```
+???
+- `count` can take more than one variable to get a cross-tabs between the two variables
+
+---
+## Ex. 3: What is the proportion of each species of penguins?
+
+
+```r
+penguins %&gt;%
+   count(species) %&gt;%
+   mutate(
+      p=n/sum(n)
+   )
+```
+
+```
+## # A tibble: 3 × 3
+##   species       n     p
+##   &lt;fct&gt;     &lt;int&gt; &lt;dbl&gt;
+## 1 Adelie      152 0.442
+## 2 Chinstrap    68 0.198
+## 3 Gentoo      124 0.360
+```
+
+---
+## What is the proportion of each sex of penguins within species?
+
+
+```r
+penguins %&gt;%
+   count(species, sex) %&gt;%
+   group_by(species) %&gt;%
+   mutate(
+      p=n/sum(n)
+   )
+```
+
+```
+## # A tibble: 8 × 4
+## # Groups:   species [3]
+##   species   sex        n      p
+##   &lt;fct&gt;     &lt;fct&gt;  &lt;int&gt;  &lt;dbl&gt;
+## 1 Adelie    female    73 0.480 
+## 2 Adelie    male      73 0.480 
+## 3 Adelie    &lt;NA&gt;       6 0.0395
+## 4 Chinstrap female    34 0.5   
+## 5 Chinstrap male      34 0.5   
+## 6 Gentoo    female    58 0.468 
+## 7 Gentoo    male      61 0.492 
+## 8 Gentoo    &lt;NA&gt;       5 0.0403
+```
+
+---
+class: inverse center middle
+# Survey Datasets
+---
+## American National Election Studies (ANES) 2020 
+
+- Pre and post election surveys
+
+- Fielded almost every 2 years since 1948
+
+- Topics include voter registration status, candidate preference, opinions on country and government, party and ideology affiliation, opinions on policy, news sources, and more
+
+- Collaboration of Stanford, University of Michigan - funding by the National Science Foundation
+
+- &lt;b&gt;Target Population&lt;/b&gt;: US citizens, 18 and older living in US 
+
+- &lt;b&gt;Mode&lt;/b&gt;: Web, videoconference, or telephone.
+
+- &lt;b&gt;Sample Information&lt;/b&gt;: Pseudo-strata and pseudo-cluster included for variance estimation
+
+https://electionstudies.org/
+
+???
+- We have subset the columns of this data and created derived variables, code in repository
+- Historically FTF existed but pandemic prevented this
+
+---
+class: inverse center middle
+# Categorical descriptive data analysis
+---
+## Overview of Survey Analysis using `srvyr` Package
+
+1. Create a `tbl_svy` object using: `as_survey_design` or `as_survey_rep`
+
+2. Subset data (if needed) using `filter` (subpopulations)
+
+3. Specify domains of analysis using `group_by` 
+
+4. Within `summarize`, specify variables to calculate including means, totals, proportions, quantiles and more
+
+
+&lt;b&gt;Note: We will be teaching this in the reverse order!!!&lt;/b&gt;
+---
+## Weighted Analysis for Categorical Variable
+
+- Functions to use within `summarize` after `group_by`
+- survey_mean/survey_prop
+- survey_total
+
+- Functions to get counts
+- survey_count
+
+???
+
+- we use the same mean and total functions as with continuous variables
+- `survey_count` is new
+- has a similar structure as the standard (non-survey) version of count
+
+
+---
+## Set-up for Analysis
+- `srvyr` package uses tidy-syntax but uses the `survey` package behind it to do calculations
+
+- If using your own RStudio environment, install both packages:
+
+```r
+# Install survey and srvyr packages
+
+remotes::install_github("bschneidr/r-forge-survey-mirror")
+install.packages("srvyr")
+```
+
+
+- First, we will set-up a design object and talk about what it means in Session 3
+
+```r
+library(survey) # for survey analysis
+library(srvyr) # for tidy survey analysis
+
+anes &lt;- read_rds(here("Data", "anes_2020.rds")) %&gt;%
+   mutate(Weight=Weight/sum(Weight)*231592693) 
+# adjust weight to sum to citizen pop, 18+ in Nov 2020 per ANES methodology documentation
+anes_des &lt;- anes %&gt;%
+   as_survey_design(weights = Weight,
+                    strata = Stratum,
+                    ids = VarUnit,
+                    nest = TRUE)
+```
+???
+- need to install github version of survey package if you want CIs with quantiles
+- American National Election Studies
+- provides weights that sum to the sample, but we want to get population estimates
+- need to adjust the weight to get it to the population count
+- we will cover setting up the sample design object later
+
+---
+## `survey_count` Syntax
+
+- `survey_count` functions similarly to `count` in that it is &lt;b&gt;NOT&lt;/b&gt; called within `summarize`
+
+- Produces weighted counts and variance of your choice of those counts
+
+```r
+survey_count(
+   x,
+   ...,
+   wt = NULL,
+   sort = FALSE,
+   name = "n",
+   .drop = dplyr::group_by_drop_default(x),
+   vartype = c("se", "ci", "var", "cv")
+)
+```
+???
+- similar to count in that it takes one or many variables
+- can change the variance type
+
+---
+## `survey_count` Example
+
+- Cross-tab of population in each age group and gender
+
+```r
+anes_des %&gt;%
+   survey_count(AgeGroup, Gender, name="N")
+```
+
+```
+## # A tibble: 21 × 4
+##    AgeGroup Gender         N     N_se
+##    &lt;fct&gt;    &lt;fct&gt;      &lt;dbl&gt;    &lt;dbl&gt;
+##  1 18-29    Male   21600792. 1418333.
+##  2 18-29    Female 22193812. 1766188.
+##  3 18-29    &lt;NA&gt;      65204.   56033.
+##  4 30-39    Male   19848178. 1077514.
+##  5 30-39    Female 19780778. 1158766.
+##  6 30-39    &lt;NA&gt;     118195.   62999.
+##  7 40-49    Male   17915676. 1123493.
+##  8 40-49    Female 18932548.  946369.
+##  9 40-49    &lt;NA&gt;      71911.   55174.
+## 10 50-59    Male   19054298. 1029844.
+## # … with 11 more rows
+```
+???
+- `survey_count` is placed on its own like `count`
+- it does NOT go in a `summarize` function
+- can take multiple variables
+- can change the output count name, `n` is the default
+
+---
+## `survey_mean` and `survey_total` within `summarize`
+- Specify the sample design,
+- then specify the crosstab in `group_by`,
+- then `survey_mean` or `survey_prop` used with no x (variable) calculates a proportion of groups within `summarize`, or
+- `survey_total` used with no x (variable) calculates a population count estimate within `summarize`
+
+---
+## `survey_mean` and `survey_prop` Syntax
+
+
+```r
+survey_mean(
+   x,
+   na.rm = FALSE,
+   vartype = c("se", "ci", "var", "cv"),
+   level = 0.95,
+   proportion = FALSE,
+   prop_method = c("logit", "likelihood", "asin", "beta", "mean"),
+   deff = FALSE,
+   df = NULL,
+   ...
+)
+
+survey_prop(
+  vartype = c("se", "ci", "var", "cv"),
+  level = 0.95,
+  proportion = FALSE,
+  prop_method = c("logit", "likelihood", "asin", "beta", "mean"),
+  deff = FALSE,
+  df = NULL,
+  ...
+)
+```
+
+???
+- `proportion`/ `prop_method` impact the CI only
+
+
+---
+## `survey_mean` and `survey_total` Examples
+
+Looking at population by age group as done with `survey_count`.
+
+```r
+anes_des %&gt;%
+   group_by(AgeGroup) %&gt;%
+   summarize(
+      p1=survey_mean(),
+      p2=survey_prop(),
+      N=survey_total(),
+      n=unweighted(n()), # this gets unweighted counts aka sample sizes
+      .groups="drop" # summarize option to remove groups
+   )
+```
+
+```
+## # A tibble: 7 × 8
+##   AgeGroup        p1   p1_se     p2   p2_se         N     N_se     n
+##   &lt;fct&gt;        &lt;dbl&gt;   &lt;dbl&gt;  &lt;dbl&gt;   &lt;dbl&gt;     &lt;dbl&gt;    &lt;dbl&gt; &lt;int&gt;
+## 1 18-29       0.189  0.00838 0.189  0.00838 43859809. 2340503.   871
+## 2 30-39       0.172  0.00659 0.172  0.00659 39747151. 1556193.  1241
+## 3 40-49       0.159  0.00609 0.159  0.00609 36920134. 1452300.  1081
+## 4 50-59       0.169  0.00657 0.169  0.00657 39191266. 1602082.  1200
+## 5 60-69       0.155  0.00488 0.155  0.00488 35833416. 1214320.  1436
+## 6 70 or older 0.119  0.00474 0.119  0.00474 27503517. 1146535.  1330
+## 7 &lt;NA&gt;        0.0369 0.00305 0.0369 0.00305  8537401.  710907.   294
+```
+???
+- to get proportions we use `group_by` and `survey_mean`
+- also use `survey_total` to get a population count estimate as before
+
+---
+## Conditional proportions with more than one group
+
+- Specifying more than one group calculates conditional proportions
+- Example: people voting in 2016 and 2020
+
+
+```r
+anes_des %&gt;%
+   filter(!is.na(VotedPres2016), !is.na(VotedPres2020)) %&gt;%
+   group_by(VotedPres2016, VotedPres2020) %&gt;%
+   summarize(
+      p=survey_mean(),
+      N=survey_total(),
+      n=unweighted(n()), 
+      .groups="drop"
+   )
+```
+
+```
+## # A tibble: 4 × 7
+##   VotedPres2016 VotedPres2020      p    p_se          N     N_se     n
+##   &lt;fct&gt;         &lt;fct&gt;          &lt;dbl&gt;   &lt;dbl&gt;      &lt;dbl&gt;    &lt;dbl&gt; &lt;int&gt;
+## 1 Yes           Yes           0.924  0.00566 144578247. 2617349.  5534
+## 2 Yes           No            0.0762 0.00566  11917394.  955174.   274
+## 3 No            Yes           0.455  0.0162   33923120. 1594478.   859
+## 4 No            No            0.545  0.0162   40606907. 2036095.   761
+```
+???
+- We will talk more about this next time but filter after creating design object to subset data
+- Note that this is the proportion of voting in 2020 by whether people voted in 2016
+- What if we don't want conditional proportions?
+
+---
+## Joint proportions with more than one group
+
+- Specify an interaction to get joint distribution - use `interact` within `group_by`
+- Example: people voting in 2016 and 2020
+
+
+```r
+anes_des %&gt;%
+   filter(!is.na(VotedPres2020), !is.na(VotedPres2016)) %&gt;%
+*  group_by(interact(VotedPres2016, VotedPres2020)) %&gt;%
+   summarize(
+      p=survey_mean(),
+      N=survey_total(),
+      .groups="drop"
+   )
+```
+
+```
+## # A tibble: 4 × 6
+##   VotedPres2016 VotedPres2020      p    p_se          N     N_se
+##   &lt;fct&gt;         &lt;fct&gt;          &lt;dbl&gt;   &lt;dbl&gt;      &lt;dbl&gt;    &lt;dbl&gt;
+## 1 Yes           Yes           0.626  0.00934 144578247. 2617349.
+## 2 Yes           No            0.0516 0.00391  11917394.  955174.
+## 3 No            Yes           0.147  0.00628  33923120. 1594478.
+## 4 No            No            0.176  0.00770  40606907. 2036095.
+```
+???
+- We add an interaction for the groups
+- This outputs the joint distribution
+
+---
+## Proportions with Design Effects
+
+
+```r
+anes_des %&gt;%
+   filter(!is.na(VotedPres2016), !is.na(VotedPres2020)) %&gt;%
+   group_by(interact(VotedPres2016, VotedPres2020)) %&gt;% 
+   summarize(
+*     p=survey_mean(deff=TRUE),
+      N=survey_total()
+   )
+```
+
+```
+## # A tibble: 4 × 7
+##   VotedPres2016 VotedPres2020      p    p_se p_deff          N     N_se
+##   &lt;fct&gt;         &lt;fct&gt;          &lt;dbl&gt;   &lt;dbl&gt;  &lt;dbl&gt;      &lt;dbl&gt;    &lt;dbl&gt;
+## 1 Yes           Yes           0.626  0.00934   2.76 144578247. 2617349.
+## 2 Yes           No            0.0516 0.00391   2.32  11917394.  955174.
+## 3 No            Yes           0.147  0.00628   2.34  33923120. 1594478.
+## 4 No            No            0.176  0.00770   3.04  40606907. 2036095.
+```
+???
+- Use `deff=TRUE` option in the `survey_mean` function
+
+---
+## Proportions: confidence intervals
+
+
+```r
+anes_des %&gt;%
+   group_by(interact(Income7, VotedPres2016, VotedPres2020)) %&gt;% 
+   summarize(
+      pd=survey_prop(vartype="ci") %&gt;% round(4),
+      pl=survey_prop(proportion = TRUE, prop_method="logit", vartype="ci") %&gt;% round(4),
+      px=survey_prop(proportion = TRUE, prop_method="likelihood", vartype="ci") %&gt;% round(4)
+   ) %&gt;% select(Income7, VotedPres2016, VotedPres2020, contains("_")) %&gt;%
+   DT::datatable(fillContainer = FALSE, options = list(pageLength = 4))
+```
+
+---
+## Proportions: confidence intervals (results)
+
+<div id="htmlwidget-c2901756b03d1ade20e3" style="width:100%;height:auto;" class="datatables html-widget"></div>
+<script type="application/json" data-for="htmlwidget-c2901756b03d1ade20e3">{"x":{"filter":"none","vertical":false,"fillContainer":false,"data":[["1","2","3","4","5","6","7","8","9","10","11","12","13","14","15","16","17","18","19","20","21","22","23","24","25","26","27","28","29","30","31","32","33","34","35","36","37","38","39","40","41","42","43","44","45"],["Under $20k","Under $20k","Under $20k","Under $20k","Under $20k","Under $20k","Under $20k","$20-40k","$20-40k","$20-40k","$20-40k","$20-40k","$20-40k","$40-60k","$40-60k","$40-60k","$40-60k","$40-60k","$60-80k","$60-80k","$60-80k","$60-80k","$60-80k","$80-100k","$80-100k","$80-100k","$80-100k","$80-100k","$100-125k","$100-125k","$100-125k","$100-125k","$125k or more","$125k or more","$125k or more","$125k or more",null,null,null,null,null,null,null,null,null],["Yes","Yes","No","No",null,null,null,"Yes","Yes","Yes","No","No",null,"Yes","Yes","No","No",null,"Yes","Yes","No","No",null,"Yes","Yes","No","No",null,"Yes","Yes","No","No","Yes","Yes","No","No","Yes","Yes","Yes","No","No","No",null,null,null],["Yes","No","Yes","No","Yes","No",null,"Yes","No",null,"Yes","No","Yes","Yes","No","Yes","No","No","Yes","No","Yes","No","Yes","Yes","No","Yes","No","Yes","Yes","No","Yes","No","Yes","No","Yes","No","Yes","No",null,"Yes","No",null,"Yes","No",null],[0.0286,0.0042,0.0109,0.0263,-0,-0,-0,0.0518,0.0057,-0.0002,0.0124,0.0301,-0.0001,0.0676,0.003,0.0134,0.0242,-0.0002,0.0691,0.0061,0.0102,0.0124,-0.0001,0.0506,0.002,0.007,0.0088,-0.0001,0.0888,0.0017,0.0179,0.0072,0.1648,0.0075,0.0312,0.0112,0.0369,0.0013,-0.0002,0.0053,0.0087,-0.0002,0.0001,-0.0001,-0.0002],[0.0377,0.0086,0.0173,0.039,0.0001,0.0001,0.0001,0.0656,0.0122,0.0005,0.0211,0.0449,0.0002,0.0818,0.0069,0.0227,0.0372,0.0005,0.0862,0.0109,0.0182,0.0235,0.0004,0.0662,0.0064,0.016,0.0188,0.0003,0.1104,0.0066,0.0303,0.0176,0.1951,0.0148,0.0492,0.0239,0.047,0.0051,0.0007,0.0097,0.0169,0.0009,0.0011,0.0004,0.0009],[0.0289,0.0045,0.0113,0.0269,0,0,0,0.0522,0.0062,0,0.0129,0.0308,0,0.0679,0.0033,0.0139,0.0248,0,0.0695,0.0064,0.0107,0.0131,0,0.0511,0.0025,0.0077,0.0096,0,0.0893,0.0023,0.0186,0.0081,0.1653,0.008,0.0321,0.0122,0.0372,0.0018,0,0.0056,0.0093,0.0001,0.0003,0,0.0001],[0.038,0.0091,0.0177,0.0397,0.0002,0.0002,0.0001,0.066,0.0128,0.0012,0.0217,0.0456,0.0006,0.0822,0.0074,0.0234,0.0379,0.0014,0.0867,0.0113,0.0188,0.0244,0.0007,0.0668,0.0071,0.017,0.0199,0.0007,0.1109,0.0075,0.0312,0.0189,0.1956,0.0155,0.0502,0.0251,0.0473,0.0058,0.0018,0.0101,0.0176,0.0015,0.0014,0.001,0.0015],[0.0288,0.0044,0.0112,0.0267,0,null,null,0.052,0.006,0,0.0128,0.0306,0,0.0678,0.0032,0.0138,0.0246,0,0.0694,0.0063,0.0106,0.0129,0,0.0509,0.0024,0.0075,0.0094,0,0.0892,0.0021,0.0184,0.0079,0.1652,0.0079,0.0319,0.0119,0.0371,0.0016,0,0.0055,0.0092,0.0001,0.0002,0,0.0001],[0.0379,0.0089,0.0176,0.0394,0.0001,0.0001,0.0001,0.0659,0.0126,0.0007,0.0215,0.0453,0.0004,0.082,0.0072,0.0231,0.0376,0.0008,0.0865,0.0112,0.0185,0.0241,0.0005,0.0666,0.0068,0.0166,0.0195,0.0004,0.1108,0.0071,0.0309,0.0184,0.1954,0.0152,0.0498,0.0246,0.0472,0.0055,0.0011,0.0099,0.0173,0.0012,0.0012,0.0006,0.0011]],"container":"<table class=\"display\">\n  <thead>\n    <tr>\n      <th> <\/th>\n      <th>Income7<\/th>\n      <th>VotedPres2016<\/th>\n      <th>VotedPres2020<\/th>\n      <th>pd_low<\/th>\n      <th>pd_upp<\/th>\n      <th>pl_low<\/th>\n      <th>pl_upp<\/th>\n      <th>px_low<\/th>\n      <th>px_upp<\/th>\n    <\/tr>\n  <\/thead>\n<\/table>","options":{"pageLength":4,"columnDefs":[{"className":"dt-right","targets":[4,5,6,7,8,9]},{"orderable":false,"targets":0}],"order":[],"autoWidth":false,"orderClasses":false,"lengthMenu":[4,10,25,50,100]}},"evals":[],"jsHooks":[]}</script>
+
+???
+Note that some of the lower bounds are less than 0 for the default method
+
+---
+## Breakout rooms: Practice time
+
+- Open CategoricalExercises.Rmd and work through Part 1
+
+- We will take 15 minutes. Use this time for the exercises and questions.
+
+
+---
+class: inverse center middle
+# Categorical data testing and modeling
+
+---
+## `svychisq` Syntax
+
+- Testing and modeling is done with the `survey` package
+- You can use the same design object
+
+
+```r
+svychisq(formula,
+         design, 
+         statistic = c("F",  "Chisq", "Wald", "adjWald", "lincom", "saddlepoint"),
+         na.rm=TRUE,
+         ...)
+```
+???
+- when we want to test categorical distributions we use `svychisq`
+- it takes a formula, and the survey design data
+
+---
+## `svychisq` Example 1: Function Defaults
+
+- How often can you trust the federal gov't to do what is right?
+- How often can you trust other people?
+
+
+```r
+anes_des %&gt;%
+   svychisq(design=.,
+            formula=~TrustPeople +TrustGovernment)
+```
+
+```
+## 
+## 	Pearson's X^2: Rao &amp; Scott adjustment
+## 
+## data:  NextMethod()
+## F = 29.08, ndf = 11.443, ddf = 583.587, p-value &lt; 2.2e-16
+```
+???
+- We want to compare the distributions of these two questions
+
+---
+## `svychisq` Example 2: Wald Statistic
+
+- How often can you trust the federal gov't to do what is right?
+- Who did you vote for? Biden, Trump, or Other
+
+
+```r
+anes_des %&gt;%
+   svychisq(design=.,
+            formula=~TrustGovernment +VotedPres2020_selection,
+            statistic="Wald")
+```
+
+```
+## 
+## 	Design-based Wald test of association
+## 
+## data:  NextMethod()
+## F = 6.136, ndf = 8, ddf = 51, p-value = 1.571e-05
+```
+???
+- Can use different statistics
+
+
+---
+## Refresher on formula notation
+Symbol | Example | Meaning
+-|-|-
++|`+X`|include this variable
+-|`-X`|delete this variable
+:|`X:Z`|include the interaction between these variables
+* |`X*Z`|include these variables and the interactions between them
+^n |`(X+Z+Y)^3`|include these variables and all interactions up to n way
+I |`I(X-Z)`| as-as: include a new variable which is the difference of these variables
+
+---
+## Formula notation - knowledge check
+
+I want to model the following:
+
+`$$mpg_i=\beta_0+\beta_1cyl_{i}+\beta_2disp_{i}+\beta_3hp_{i}+\beta_4cyl_{i}disp_{i}+\beta_5cyl_{i}hp_{i}+\beta_6disp_{i}hp_{i}+\epsilon_i$$`
+
+How can you write this formula? Select all that apply:
+
+1. `mpg~cyl:disp:hp`
+2. `mpg~(cyl+disp+hp)^2`
+3. `mpg~cyl+disp+hp+cyl:disp+cyl:hp+disp:hp`
+4. `mpg~cyl*disp*hp`
+5. `mpg~cyl*disp+cyl*hp+disp*hp`
+
+---
+## Formula notation - knowledge check (solution)
+
+I want to model the following:
+
+`$$mpg_i=\beta_0+\beta_1cyl_{i}+\beta_2disp_{i}+\beta_3hp_{i}+\beta_4cyl_{i}disp_{i}+\beta_5cyl_{i}hp_{i}+\beta_6disp_{i}hp_{i}+\epsilon_i$$`
+
+How can you write this formula? Select all that apply:
+
+1. `mpg~cyl:disp:hp` - no, this only has the interactions
+2. `mpg~(cyl+disp+hp)^2` - yes
+3. `mpg~cyl+disp+hp+cyl:disp+cyl:hp+disp:hp` - yes
+4. `mpg~cyl*disp*hp` - no, this also has the 3-way interaction
+5. `mpg~cyl*disp+cyl*hp+disp*hp` - yes
+
+There may be other ways as well!!!
+
+
+---
+## Logistic regression with `svyglm`
+
+
+
+```r
+svyglm(formula, # response ~ terms
+       design,
+       na.action, #default is na.omit
+       family = quasibinomial, # use this to avoid warning about non-integers
+       ....)
+```
+
+---
+## Example logistic regression
+- Predicting trust in government by who someone voted in 2020
+
+
+```r
+filter(anes_des, Weight&gt;0) %&gt;%
+   svyglm(design=.,
+          formula=TrustGovernment~ VotedPres2020_selection,
+          family = quasibinomial) %&gt;%
+   summary()
+```
+
+```
+## 
+## Call:
+## svyglm(formula = TrustGovernment ~ VotedPres2020_selection, design = ., 
+##     family = quasibinomial)
+## 
+## Survey design:
+## Called via srvyr
+## 
+## Coefficients:
+##                              Estimate Std. Error t value Pr(&gt;|t|)    
+## (Intercept)                    4.6785     0.3266  14.323   &lt;2e-16 ***
+## VotedPres2020_selectionTrump  -0.3530     0.4008  -0.881   0.3829    
+## VotedPres2020_selectionOther   2.5265     1.0868   2.325   0.0243 *  
+## ---
+## Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+## 
+## (Dispersion parameter for quasibinomial family taken to be 0.8947452)
+## 
+## Number of Fisher Scoring iterations: 9
+```
+
+---
+## Breakout rooms: Practice time
+
+- Open CategoricalExercises.Rmd and work through Part 2
+
+- We will take 15 minutes. Use this time for the exercises and questions.
+
+---
+class: inverse center middle
+# Closing
+---
+## Resources for more learning
+
+- https://cran.r-project.org/web/packages/srvyr/vignettes/srvyr-vs-survey.html
+
+- https://r-survey.r-forge.r-project.org/survey/ 
+- Includes more advanced modeling
+
+
+---
+## Thank You!
+
+### We hope you learned a lot in this session!
+
+Please let us know if you have any feedback on this workshop. All feedback is welcome!
+
+
+## Questions?
+
+---
+## Sources
+
+- &lt;font size="3"&gt;The American National Election Studies (https://electionstudies.org/). These materials are based on work supported by the National Science Foundation under grant numbers SES 1444721, 2014-2017, the University of Michigan, and Stanford University.  &lt;/font&gt;
+
+- &lt;font size="3"&gt;Horst AM, Hill AP, Gorman KB (2020). palmerpenguins: Palmer Archipelago (Antarctica) penguin data. R package version 0.1.0. https://allisonhorst.github.io/palmerpenguins/ &lt;/font&gt;
+
+- &lt;font size="3"&gt;T. Lumley (2020) "survey: analysis of complex survey samples". R package version 4.0. https://r-survey.r-forge.r-project.org/survey/ &lt;/font&gt;
+
+- &lt;font size="3"&gt;Greg Freedman Ellis and Ben Schneider (2020). srvyr: 'dplyr'-Like Syntax for Summary Statistics of Survey Data. R package version 1.0.0. https://CRAN.R-project.org/package=srvyr &lt;/font&gt;
+
+- &lt;font size="3"&gt;Hadley Wickham, Romain François, Lionel Henry and Kirill Müller (2021). dplyr: A Grammar of Data Manipulation. R package version 1.0.5. https://CRAN.R-project.org/package=dplyr &lt;/font&gt;
+
+
+---
+## Session info - platform
+
+
+```
+##  setting  value
+##  version  R version 4.1.2 (2021-11-01)
+##  os       macOS Big Sur 10.16
+##  system   x86_64, darwin17.0
+##  ui       X11
+##  language (EN)
+##  collate  en_US.UTF-8
+##  ctype    en_US.UTF-8
+##  tz       America/Chicago
+##  date     2022-04-03
+##  pandoc   2.17.1.1 @ /Applications/RStudio.app/Contents/MacOS/quarto/bin/ (via rmarkdown)
+```
+
+---
+## Session info - packages
+
+
+```
+##  package        * version date (UTC) lib source
+##  dplyr          * 1.0.8   2022-02-08 [1] CRAN (R 4.1.2)
+##  DT             * 0.20    2021-11-15 [1] CRAN (R 4.1.0)
+##  forcats        * 0.5.1   2021-01-27 [1] CRAN (R 4.1.0)
+##  ggplot2        * 3.3.5   2021-06-25 [1] CRAN (R 4.1.0)
+##  here           * 1.0.1   2020-12-13 [1] CRAN (R 4.1.0)
+##  knitr          * 1.37    2021-12-16 [1] CRAN (R 4.1.0)
+##  Matrix         * 1.4-0   2021-12-08 [1] CRAN (R 4.1.0)
+##  palmerpenguins * 0.1.0   2020-07-23 [1] CRAN (R 4.1.0)
+##  purrr          * 0.3.4   2020-04-17 [1] CRAN (R 4.1.0)
+##  readr          * 2.1.2   2022-01-30 [1] CRAN (R 4.1.2)
+##  remotes        * 2.4.2   2021-11-30 [1] CRAN (R 4.1.0)
+##  srvyr          * 1.1.1   2022-02-20 [1] CRAN (R 4.1.2)
+##  stringr        * 1.4.0   2019-02-10 [1] CRAN (R 4.1.0)
+##  survey         * 4.1-1   2021-07-19 [1] CRAN (R 4.1.0)
+##  survival       * 3.2-13  2021-08-24 [1] CRAN (R 4.1.2)
+##  tibble         * 3.1.6   2021-11-07 [1] CRAN (R 4.1.0)
+##  tidyr          * 1.2.0   2022-02-01 [1] CRAN (R 4.1.2)
+##  tidyverse      * 1.3.1   2021-04-15 [1] CRAN (R 4.1.0)
+##  xaringan       * 0.22    2021-06-23 [1] CRAN (R 4.1.0)
+## 
+##  [1] /Library/Frameworks/R.framework/Versions/4.1/Resources/library
+```
+    </textarea>
+<style data-target="print-only">@media screen {.remark-slide-container{display:block;}.remark-slide-scaler{box-shadow:none;}}</style>
+<script src="https://remarkjs.com/downloads/remark-latest.min.js"></script>
+<script>var slideshow = remark.create({
+"slideNumberFormat": "%current%",
+"highlightStyle": "github",
+"highlightLines": true,
+"ratio": "16:9",
+"countIncrementalSlides": true
+});
+if (window.HTMLWidgets) slideshow.on('afterShowSlide', function (slide) {
+  window.dispatchEvent(new Event('resize'));
+});
+(function(d) {
+  var s = d.createElement("style"), r = d.querySelector(".remark-slide-scaler");
+  if (!r) return;
+  s.type = "text/css"; s.innerHTML = "@page {size: " + r.style.width + " " + r.style.height +"; }";
+  d.head.appendChild(s);
+})(document);
+
+(function(d) {
+  var el = d.getElementsByClassName("remark-slides-area");
+  if (!el) return;
+  var slide, slides = slideshow.getSlides(), els = el[0].children;
+  for (var i = 1; i < slides.length; i++) {
+    slide = slides[i];
+    if (slide.properties.continued === "true" || slide.properties.count === "false") {
+      els[i - 1].className += ' has-continuation';
+    }
+  }
+  var s = d.createElement("style");
+  s.type = "text/css"; s.innerHTML = "@media print { .has-continuation { display: none; } }";
+  d.head.appendChild(s);
+})(document);
+// delete the temporary CSS (for displaying all slides initially) when the user
+// starts to view slides
+(function() {
+  var deleted = false;
+  slideshow.on('beforeShowSlide', function(slide) {
+    if (deleted) return;
+    var sheets = document.styleSheets, node;
+    for (var i = 0; i < sheets.length; i++) {
+      node = sheets[i].ownerNode;
+      if (node.dataset["target"] !== "print-only") continue;
+      node.parentNode.removeChild(node);
+    }
+    deleted = true;
+  });
+})();
+(function() {
+  "use strict"
+  // Replace <script> tags in slides area to make them executable
+  var scripts = document.querySelectorAll(
+    '.remark-slides-area .remark-slide-container script'
+  );
+  if (!scripts.length) return;
+  for (var i = 0; i < scripts.length; i++) {
+    var s = document.createElement('script');
+    var code = document.createTextNode(scripts[i].textContent);
+    s.appendChild(code);
+    var scriptAttrs = scripts[i].attributes;
+    for (var j = 0; j < scriptAttrs.length; j++) {
+      s.setAttribute(scriptAttrs[j].name, scriptAttrs[j].value);
+    }
+    scripts[i].parentElement.replaceChild(s, scripts[i]);
+  }
+})();
+(function() {
+  var links = document.getElementsByTagName('a');
+  for (var i = 0; i < links.length; i++) {
+    if (/^(https?:)?\/\//.test(links[i].getAttribute('href'))) {
+      links[i].target = '_blank';
+    }
+  }
+})();
+// adds .remark-code-has-line-highlighted class to <pre> parent elements
+// of code chunks containing highlighted lines with class .remark-code-line-highlighted
+(function(d) {
+  const hlines = d.querySelectorAll('.remark-code-line-highlighted');
+  const preParents = [];
+  const findPreParent = function(line, p = 0) {
+    if (p > 1) return null; // traverse up no further than grandparent
+    const el = line.parentElement;
+    return el.tagName === "PRE" ? el : findPreParent(el, ++p);
+  };
+
+  for (let line of hlines) {
+    let pre = findPreParent(line);
+    if (pre && !preParents.includes(pre)) preParents.push(pre);
+  }
+  preParents.forEach(p => p.classList.add("remark-code-has-line-highlighted"));
+})(document);</script>
+
+<script>
+slideshow._releaseMath = function(el) {
+  var i, text, code, codes = el.getElementsByTagName('code');
+  for (i = 0; i < codes.length;) {
+    code = codes[i];
+    if (code.parentNode.tagName !== 'PRE' && code.childElementCount === 0) {
+      text = code.textContent;
+      if (/^\\\((.|\s)+\\\)$/.test(text) || /^\\\[(.|\s)+\\\]$/.test(text) ||
+          /^\$\$(.|\s)+\$\$$/.test(text) ||
+          /^\\begin\{([^}]+)\}(.|\s)+\\end\{[^}]+\}$/.test(text)) {
+        code.outerHTML = code.innerHTML;  // remove <code></code>
+        continue;
+      }
+    }
+    i++;
+  }
+};
+slideshow._releaseMath(document);
+</script>
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+(function () {
+  var script = document.createElement('script');
+  script.type = 'text/javascript';
+  script.src  = 'https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML';
+  if (location.protocol !== 'file:' && /^https?:/.test(script.src))
+    script.src  = script.src.replace(/^https?:/, '');
+  document.getElementsByTagName('head')[0].appendChild(script);
+})();
+</script>
+  </body>
+</html>

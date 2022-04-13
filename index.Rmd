@@ -1,0 +1,19 @@
+---
+title: "Tidy Survey Analysis in R"
+---
+
+## MAPOR 2022 Spring Webinar Series
+
+---
+
+The Tidy Survey Analysis in R Workshop Series will feature 3 online sessions (1.5 hours each) on how to analyze survey data in R.  The first workshop will introduce functions to obtain weighted totals and proportions from survey data, and how to conduct weighted analyses using χ-squared tests and logistic regression models. The second workshop will introduce functions to obtain weighted means, quantiles, and ratios from survey data, and how to conduct weighted analyses using t-tests and linear regression models. The third workshop will take a closer look at the survey design object and will review common probability sampling designs.  We will also cover how to create replicate weights, derived variables, and reproducible research output. 
+
+All sessions will include time for exercises in breakout rooms using data from the 2020 American National Election Study and the 2015 Residential Energy Consumption Survey, so you can get hands-on experience with the functions. We will be using RStudio Cloud, so you do not need to have R or RStudio preinstalled on your computer. For the best learning experience, we recommend you have some prior experience with R and the tidyverse. You should be familiar with mutate, summarize, count, and group_by.  The instructors are providing this course to obtain feedback on the material for their upcoming book on tidy survey analysis in R.
+
+### Presenters
+
+**Dr. Stephanie Zimmer** is a senior survey statistician with 10 years experience in survey sampling and design, survey weighting and analysis, and data management. She is an expert statistical programmer in R, SAS, and SUDAAN. She earned her PhD in Statistics from Iowa State University and her BS in Statistics from NC State. After earning her RStudio Tidyverse Trainer certification, she taught a course on tidy survey analysis in R in an AAPOR short course. She is currently a senior associate at Abt Associates.
+
+**Dr. Rebecca Powell** is a research survey methodologist at RTI International.  Her research interests focus on visual design of questionnaires and contact materials. Additionally, Dr. Powell is a Certified RStudio Tidyverse Trainer and has taught courses and webinars on data management in R and tidy survey analysis in R at both AAPOR and MAPOR.  She has a PhD in Survey Research and Methodology from the University of Nebraska-Lincoln and a BS and MS in Applied Statistics from Rochester Institute of Technology.
+
+**Isabella Velásquez** is a content strategist, data enthusiast, and author. Her experience spans data collection, grantmaking, strategy development, and survey instrument development. She earned her MSc in Analytics and BA in Economics and East Asian Languages and Civilizations from the University of Chicago. She currently works as a Sr. Product Marketing Manager at RStudio.
