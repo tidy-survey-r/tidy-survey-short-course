@@ -57,7 +57,7 @@ font-size: 70% !important;
 <div class="row">
 <div class="column">
 <center>
-<img src="/Presentation/Images/StephanieZimmer_Headshot.jpeg">
+`r knitr::include_graphics("./Images/StephanieZimmer_Headshot.jpeg")`
 <br>
 <b>Stephanie Zimmer</b>
 <br>
@@ -67,7 +67,7 @@ Abt Associates
 
 <div class="column">
 <center>
-<img src="/Presentation/Images/RebeccaPowell_Headshot.jpeg">
+`r knitr::include_graphics("./Images/RebeccaPowell_Headshot.jpeg")`
 <br>
 <b>Rebecca Powell</b>
 <br>
@@ -77,8 +77,7 @@ RTI International
 
 <div class="column">
 <center>
-<img src="/Presentation/Images/IsabellaVelasquez_Headshot.jpeg">
-
+`r knitr::include_graphics("./Images/IsabellaVelasquez_Headshot.jpeg")`
 <br>
 <b>Isabella Velásquez</b>
 <br>
@@ -87,6 +86,12 @@ RStudio
 </div>
 
 </div>
+
+--
+
+#### Thank you to our volunteers!
+
+**Raphael Nishimura** will be assisting during our breakout rooms.
 
 ---
 
@@ -101,7 +106,7 @@ RStudio
 <br>
 <br>
 <center>
-<img src="/Presentation/Images/MAPOR-Logo1.png">
+`r knitr::include_graphics("./Images/MAPOR-Logo1.png")`
 </center>
 </div>
 
