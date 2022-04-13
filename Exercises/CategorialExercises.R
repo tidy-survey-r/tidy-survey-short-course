@@ -6,7 +6,7 @@
 #' ---
 #' 
 #' # Set-up
-## ----setup--------------------------------------------------------------------------------------------------------------------------------------------
+## ----setup---------------------------------------------------------------
 library(tidyverse) # for tidyverse
 library(here) # for file paths
 library(survey) # for survey analysis
@@ -26,7 +26,7 @@ anes_des <- anes %>%
 #' 
 #' 1. How many females have a graduate degree? Hint: the variables `Gender` and `Education` will be useful.
 #' 
-## ----ex1_1--------------------------------------------------------------------------------------------------------------------------------------------
+## ----ex1_1---------------------------------------------------------------
 
 
 
@@ -34,7 +34,7 @@ anes_des <- anes %>%
 #' 
 #' 2. What percentage of people identify as "Strong democrat"? Hint: The variable `PartyID` indicates what party people identify with.
 #' 
-## ----ex1_2--------------------------------------------------------------------------------------------------------------------------------------------
+## ----ex1_2---------------------------------------------------------------
 
 
 #' 
@@ -42,19 +42,19 @@ anes_des <- anes %>%
 #' 
 #' 3. What percentage of people who voted in the 2020 election identify as "Strong republican"? Hint: The variable `VotedPres2020` indicates whether someone voted in 2020.
 #' 
-## ----ex1_3--------------------------------------------------------------------------------------------------------------------------------------------
+## ----ex1_3---------------------------------------------------------------
 
 
 #' 
 #' 4. What percentage of people voted in both the 2016 election and in the 2020 election?  Include the logit confidence interval. Hint: The variable `VotedPres2016` indicates whether someone voted in 2016.
 #' 
-## ----ex1_4--------------------------------------------------------------------------------------------------------------------------------------------
+## ----ex1_4---------------------------------------------------------------
 
 
 #' 
 #' 5. What is the design effect for the proportion of people who voted early? Hint: The variable `EarlyVote2020` indicates whether someone voted early in 2020.
 #' 
-## ----ex1_5--------------------------------------------------------------------------------------------------------------------------------------------
+## ----ex1_5---------------------------------------------------------------
 
 
 #' 
@@ -62,14 +62,14 @@ anes_des <- anes %>%
 #' 
 #' 1. Is there a relationship between PartyID and whether people voted early?
 #' 
-## ----ex2_1--------------------------------------------------------------------------------------------------------------------------------------------
+## ----ex2_1---------------------------------------------------------------
 
 
 #' 
 #' 
 #' 2. Is there a relationship between PartyID and trust in the government? Hints: `TrustGovernment` indicates how strongly people trust the government. Use Wald as the `statistic` option.
 #' 
-## ----ex2_2--------------------------------------------------------------------------------------------------------------------------------------------
+## ----ex2_2---------------------------------------------------------------
 
 
 #' 
@@ -78,12 +78,12 @@ anes_des <- anes %>%
 #' 
 #' 1. What percentage of people lean republican? These are individuals that are strong republicans, not very strong republicans and are independent-republicans. Include an appropriate confidence interval. Hint: to get the correct confidence interval, create a new variable BEFORE calculating the estimate.
 #' 
-## ----exb_1--------------------------------------------------------------------------------------------------------------------------------------------
+## ----exb_1---------------------------------------------------------------
 
 
 #' 
 #' 2. Were people who lean democrat more likely to vote early in the 2020 election? Hint: use a logistic model and 3-level party variable to use in the model.
 #' 
-## ----exb_2--------------------------------------------------------------------------------------------------------------------------------------------
+## ----exb_2---------------------------------------------------------------
 
 

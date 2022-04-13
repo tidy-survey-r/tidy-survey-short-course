@@ -17,7 +17,7 @@
 #'       countIncrementalSlides: true
 #' ---
 #' 
-## ----setup, include=FALSE-------------------------------------------------------------------------------------------------------
+## ----setup, include=FALSE------------------------------------------------
 knitr::opts_chunk$set(echo = TRUE, message = FALSE, tidy = FALSE)
 library(survey)
 library(srvyr)
@@ -65,9 +65,7 @@ library(tidyverse)
 #' <div class="row">
 #' <div class="column">
 #' <center>
-## ---- echo=FALSE, out.width="200px"---------------------------------------------------------------------------------------------
-knitr::include_graphics('http://www.mapor.org/wp-content/uploads/2022/03/StephanieZimmer_Headshot.jpeg')
-
+#' `r knitr::include_graphics("./Images/StephanieZimmer_Headshot.jpeg")`
 #' <br>
 #' <b>Stephanie Zimmer</b>
 #' <br>
@@ -77,9 +75,7 @@ knitr::include_graphics('http://www.mapor.org/wp-content/uploads/2022/03/Stephan
 #' 
 #' <div class="column">
 #' <center>
-## ---- echo=FALSE, out.width="200px"---------------------------------------------------------------------------------------------
-knitr::include_graphics('http://www.mapor.org/wp-content/uploads/2020/03/Powell_Rebecca_image-e1584649023839.jpg')
-
+#' `r knitr::include_graphics("./Images/RebeccaPowell_Headshot.jpeg")`
 #' <br>
 #' <b>Rebecca Powell</b>
 #' <br>
@@ -89,10 +85,7 @@ knitr::include_graphics('http://www.mapor.org/wp-content/uploads/2020/03/Powell_
 #' 
 #' <div class="column">
 #' <center>
-## ---- echo=FALSE, out.width="200px"---------------------------------------------------------------------------------------------
-knitr::include_graphics('http://www.mapor.org/wp-content/uploads/2022/03/IsabellaVelasquez_Headshot.jpeg')
-
-#' 
+#' `r knitr::include_graphics("./Images/IsabellaVelasquez_Headshot.jpeg")`
 #' <br>
 #' <b>Isabella Velásquez</b>
 #' <br>
@@ -102,6 +95,12 @@ knitr::include_graphics('http://www.mapor.org/wp-content/uploads/2022/03/Isabell
 #' 
 #' </div>
 #' 
+#' --
+#' 
+#' #### Thank you to our volunteers!
+#' 
+#' **Greg Freedman-Ellis** and **Raphael Nishimura** will be assisting during our breakout rooms.
+#' 
 #' ---
 #' 
 #' ## About This Workshop
@@ -109,6 +108,15 @@ knitr::include_graphics('http://www.mapor.org/wp-content/uploads/2022/03/Isabell
 #' - Hosted by Midwest Association for Public Opinion Research (MAPOR), a regional chapter of the American Association for Public Opinion Research (AAPOR).
 #' 
 #' - Originally delivered at AAPOR Conference in May 2021
+#' 
+#' <div
+#' <br>
+#' <br>
+#' <br>
+#' <center>
+#' `r knitr::include_graphics("./Images/MAPOR-Logo1.png")`
+#' </center>
+#' </div>
 #' 
 #' ---
 #' 
@@ -249,7 +257,7 @@ knitr::include_graphics('http://www.mapor.org/wp-content/uploads/2022/03/Isabell
 #' 
 #' - Page 9: Syntax given for survey package which is similar to srvyr (as we will see)
 #' 
-## ----recsexamp, eval=FALSE------------------------------------------------------------------------------------------------------
+## ----recsexamp, eval=FALSE-----------------------------------------------
 ## library(survey)
 ## RECS15 <- read.csv(file='< location where file is stored >', header=TRUE, sep=",")
 ## sampweights <- RECS15$NWEIGHT
@@ -265,7 +273,7 @@ knitr::include_graphics('http://www.mapor.org/wp-content/uploads/2022/03/Isabell
 #' 
 #' - This creates a `tbl_svy` object that then correctly calculates weighted estimates and SEs using methods from Workshop 1 and 2
 #' 
-## ----sd_tsl_syn, eval=FALSE-----------------------------------------------------------------------------------------------------
+## ----sd_tsl_syn, eval=FALSE----------------------------------------------
 ## as_survey_design(
 ##    .data,
 ##    ids = NULL,#cluster IDs/PSUs
@@ -282,7 +290,7 @@ knitr::include_graphics('http://www.mapor.org/wp-content/uploads/2022/03/Isabell
 #' ---
 #' ## Syntax for common designs
 #' 
-## ----sd_tsl_gen_ex, eval=FALSE--------------------------------------------------------------------------------------------------
+## ----sd_tsl_gen_ex, eval=FALSE-------------------------------------------
 ## # simple random sample (SRS)
 ## apisrs %>% as_survey_design(fpc = fpc)
 ## 
@@ -309,7 +317,7 @@ knitr::include_graphics('http://www.mapor.org/wp-content/uploads/2022/03/Isabell
 #' -----------|-------------------------------|-------------------------
 #' V200010b| V200010c| V200010d
 #' 
-## ----anesdatin, eval=FALSE------------------------------------------------------------------------------------------------------
+## ----anesdatin, eval=FALSE-----------------------------------------------
 ## options(width=130)
 ## library(tidyverse) # for tidyverse
 ## library(here) # for file paths
@@ -328,7 +336,7 @@ knitr::include_graphics('http://www.mapor.org/wp-content/uploads/2022/03/Isabell
 #' ---
 #' ## ANES Example (cont'd)
 #' .smaller[
-## ----anesprint, ref.label="anesdatin", echo=FALSE-------------------------------------------------------------------------------
+## ----anesprint, ref.label="anesdatin", echo=FALSE------------------------
 
 #' ]
 #' 
@@ -338,7 +346,7 @@ knitr::include_graphics('http://www.mapor.org/wp-content/uploads/2022/03/Isabell
 #' - Final weights: NWEIGHT
 #' Replicate weights: BRRWT1 – BRRWT96
 #' 
-## ----recsin, eval=FALSE---------------------------------------------------------------------------------------------------------
+## ----recsin, eval=FALSE--------------------------------------------------
 ## options(width=130)
 ## recs <- read_rds(here("Data", "recs.rds"))
 ## 
@@ -356,7 +364,7 @@ knitr::include_graphics('http://www.mapor.org/wp-content/uploads/2022/03/Isabell
 #' ---
 #' ## RECS Example (cont'd)
 #' .smaller[
-## ----recsprint, ref.label="recsin", echo=FALSE----------------------------------------------------------------------------------
+## ----recsprint, ref.label="recsin", echo=FALSE---------------------------
 
 #' ]
 #' 
@@ -368,7 +376,7 @@ knitr::include_graphics('http://www.mapor.org/wp-content/uploads/2022/03/Isabell
 #' - Analysis weight: PWGTP
 #' - replicate weights: PWGTP1-PWGTP180
 #' - jackknife with scale adjustment of 4/80
-## ----sd_acs_fib, eval=FALSE-----------------------------------------------------------------------------------------------------
+## ----sd_acs_fib, eval=FALSE----------------------------------------------
 ## acs_des <- acs_pums %>%
 ##    as_survey_rep(
 ##       weights=___________,
@@ -379,7 +387,7 @@ knitr::include_graphics('http://www.mapor.org/wp-content/uploads/2022/03/Isabell
 
 #' --
 #' 
-## ----sd_acs_fib_sol, eval=FALSE-------------------------------------------------------------------------------------------------
+## ----sd_acs_fib_sol, eval=FALSE------------------------------------------
 ## acs_des <- acs_pums %>%
 ##    as_survey_rep(
 ##       weights=PWGTP,
@@ -396,7 +404,7 @@ knitr::include_graphics('http://www.mapor.org/wp-content/uploads/2022/03/Isabell
 #' - Analysis weight: wtsupp
 #' - replicate weights: repwtp1 -repwtp160
 #' - BRR
-## ----sd_cps_fib, eval=FALSE-----------------------------------------------------------------------------------------------------
+## ----sd_cps_fib, eval=FALSE----------------------------------------------
 ## cps_des <- cps %>%
 ##    as_survey_rep(
 ##       weights=___________,
@@ -405,7 +413,7 @@ knitr::include_graphics('http://www.mapor.org/wp-content/uploads/2022/03/Isabell
 ##    )
 
 #' --
-## ----sd_cps_fib_sol, eval=FALSE-------------------------------------------------------------------------------------------------
+## ----sd_cps_fib_sol, eval=FALSE------------------------------------------
 ## cps_des <- cps %>%
 ##    as_survey_rep(
 ##       weights=wtsupp,
@@ -420,7 +428,7 @@ knitr::include_graphics('http://www.mapor.org/wp-content/uploads/2022/03/Isabell
 #' - Analysis weight: WTINT2YR
 #' - Variance Stratum: SDMVSTRA
 #' - Variance Primary Sampling Unit: VPSU
-## ----sd_nhanes_fib, eval=FALSE--------------------------------------------------------------------------------------------------
+## ----sd_nhanes_fib, eval=FALSE-------------------------------------------
 ## nhanes_des <- nhanes %>%
 ##    as_survey_design(
 ##       weights=___________,
@@ -430,7 +438,7 @@ knitr::include_graphics('http://www.mapor.org/wp-content/uploads/2022/03/Isabell
 ##    )
 
 #' --
-## ----sd_nhanes_fib_sol, eval=FALSE----------------------------------------------------------------------------------------------
+## ----sd_nhanes_fib_sol, eval=FALSE---------------------------------------
 ## nhanes_des <- nhanes %>%
 ##    as_survey_design(
 ##       weights=WTINT2YR,
@@ -446,7 +454,7 @@ knitr::include_graphics('http://www.mapor.org/wp-content/uploads/2022/03/Isabell
 #' - Analysis weight: ANALYSISWEIGHT
 #' - Variance Stratum: STRATA
 #' - FPC: FRAMESIZE
-## ----sd_lemas_fib, eval=FALSE---------------------------------------------------------------------------------------------------
+## ----sd_lemas_fib, eval=FALSE--------------------------------------------
 ## lemas_des <- lemas %>%
 ##    as_survey_design(
 ##       weights=___________,
@@ -457,7 +465,7 @@ knitr::include_graphics('http://www.mapor.org/wp-content/uploads/2022/03/Isabell
 
 #' --
 #' 
-## ----sd_lemas_fib_sol, eval=FALSE-----------------------------------------------------------------------------------------------
+## ----sd_lemas_fib_sol, eval=FALSE----------------------------------------
 ## lemas_des <- lemas %>%
 ##    as_survey_design(
 ##       weights=ANALYSISWEIGHT,
@@ -487,7 +495,7 @@ knitr::include_graphics('http://www.mapor.org/wp-content/uploads/2022/03/Isabell
 #' 
 #' - See help file for `survey::svrepdesign` for more information on replicate weight types
 #' 
-## ----repsyn, eval=FALSE---------------------------------------------------------------------------------------------------------
+## ----repsyn, eval=FALSE--------------------------------------------------
 ## tsl_des %>%
 ##    as_survey_rep(
 ##       type = c("auto", "JK1", "JKn", "BRR", "bootstrap", "subbootstrap", "mrbbootstrap", "Fay"),
@@ -504,7 +512,7 @@ knitr::include_graphics('http://www.mapor.org/wp-content/uploads/2022/03/Isabell
 #' - Since this is not stratified, automatically used JK1
 #' 
 #' .smaller[
-## ----sd_create_rep--------------------------------------------------------------------------------------------------------------
+## ----sd_create_rep-------------------------------------------------------
 data(api)
 dclus1 <- apiclus1 %>% as_survey_design(ids = dnum, weights = pw, fpc = fpc)
 rclus1 <- as_survey_rep(dclus1)
@@ -518,7 +526,7 @@ summary(rclus1)
 #' - Specifying bootstrap weights
 #' 
 #' .smaller[
-## ----sd_create_boot-------------------------------------------------------------------------------------------------------------
+## ----sd_create_boot------------------------------------------------------
 bclus1 <- as_survey_rep(dclus1, type="bootstrap", replicates=100)
 summary(bclus1)
 
@@ -553,13 +561,13 @@ summary(bclus1)
 #' 
 #' V201507x is respondent age: -9=Refused
 #' 
-## ----anesin2, echo=FALSE--------------------------------------------------------------------------------------------------------
+## ----anesin2, echo=FALSE-------------------------------------------------
 anes_in <- anes %>%
    select(starts_with("V2"))
 
 #' 
 #' 
-## ----derived1, eval=FALSE-------------------------------------------------------------------------------------------------------
+## ----derived1, eval=FALSE------------------------------------------------
 ## anes_age <- anes_in %>%
 ##    mutate(
 ##       Age = if_else(V201507x > 0, as.numeric(V201507x), NA_real_),
@@ -584,14 +592,14 @@ anes_in <- anes %>%
 #' ---
 #' ## Code example - creating categorical variable: output
 #' 
-## ----derived1b, ref.label="derived1", echo=FALSE--------------------------------------------------------------------------------
+## ----derived1b, ref.label="derived1", echo=FALSE-------------------------
 
 #' 
 #' ---
 #' ## Code example - collapsing levels
 #' V202073 indicates who the person voted for
 #' 
-## ----votetab--------------------------------------------------------------------------------------------------------------------
+## ----votetab-------------------------------------------------------------
 count(anes_in, V202073)
 
 #' 
@@ -599,7 +607,7 @@ count(anes_in, V202073)
 #' ## Code example - collapsing levels
 #' Recode V202073 as Biden, Trump, Other, and missing for unknown/no one
 #' 
-## ----derived2, eval=FALSE-------------------------------------------------------------------------------------------------------
+## ----derived2, eval=FALSE------------------------------------------------
 ## anes_vote <- anes_in %>%
 ##    mutate(VotedPres2020_selection = factor(
 ##       case_when(
@@ -615,7 +623,7 @@ count(anes_in, V202073)
 #' 
 #' ---
 #' ## Code example - collapsing levels: output
-## ----derived2b, echo=FALSE, ref.label="derived2"--------------------------------------------------------------------------------
+## ----derived2b, echo=FALSE, ref.label="derived2"-------------------------
 
 #' 
 #' ???
@@ -627,7 +635,7 @@ count(anes_in, V202073)
 #' ## Code example - collapsing levels - fix
 #' Recode V202073 as Biden, Trump, Other, and missing for unknown/no one
 #' 
-## ----derived2c, eval=FALSE------------------------------------------------------------------------------------------------------
+## ----derived2c, eval=FALSE-----------------------------------------------
 ## anes_vote <- anes_in %>%
 ##    mutate(VotedPres2020_selection = factor(
 ##       case_when(
@@ -643,14 +651,14 @@ count(anes_in, V202073)
 #' 
 #' ---
 #' ## Code example - collapsing levels: output
-## ----derived2d, echo=FALSE, ref.label="derived2c"-------------------------------------------------------------------------------
+## ----derived2d, echo=FALSE, ref.label="derived2c"------------------------
 
 #' 
 #' 
 #' ---
 #' ## Code example - creating construct
 #' 
-## ----acsin, cache=TRUE, echo=FALSE, message=FALSE, warning=FALSE, results="hide"------------------------------------------------
+## ----acsin, cache=TRUE, echo=FALSE, message=FALSE, warning=FALSE, results="hide"----
 library(tidycensus)
 dat19_in <- get_pums(variables=c("NP", "HINCP"), state="37", puma=c("01301", "01302"), year=2019, survey="acs1",
                      variables_filter=list(NP=1:20, RELSHIPP=20))
@@ -678,7 +686,7 @@ dat19_in <- get_pums(variables=c("NP", "HINCP"), state="37", puma=c("01301", "01
 #' ## Code example - creating construct
 #' NP is the number of persons in a household, HINCP is the household income
 #' 
-## ----der3, eval=FALSE-----------------------------------------------------------------------------------------------------------
+## ----der3, eval=FALSE----------------------------------------------------
 ## dat19_pov <- dat19_in %>%
 ##    mutate(PovGuide=case_when(
 ##       NP==1~12490,
@@ -704,13 +712,13 @@ dat19_in <- get_pums(variables=c("NP", "HINCP"), state="37", puma=c("01301", "01
 #' ---
 #' ## Code example - creating construct: output
 #' 
-## ----der3b, ref.label="der3", echo=FALSE----------------------------------------------------------------------------------------
+## ----der3b, ref.label="der3", echo=FALSE---------------------------------
 
 
 #' 
 #' ---
 #' ## Code example - creating construct: output
-## ----der3c, echo=FALSE, fig.width=14--------------------------------------------------------------------------------------------
+## ----der3c, echo=FALSE, fig.width=14-------------------------------------
 print(p)
 
 #' 
@@ -765,7 +773,7 @@ print(p)
 #' 
 #' - Example
 #' 
-## ----hereexamp, eval=TRUE-------------------------------------------------------------------------------------------------------
+## ----hereexamp, eval=TRUE------------------------------------------------
 list.files(here())
 
 list.files(here("RawData", "RECS_2015"))
@@ -901,7 +909,7 @@ list.files(here("RawData", "RECS_2015"))
 #' ---
 #' ## Session info - platform
 #' 
-## ----si, echo=FALSE-------------------------------------------------------------------------------------------------------------
+## ----si, echo=FALSE------------------------------------------------------
 library(xaringan)
 library(knitr)
 library(tidycensus)
@@ -912,6 +920,6 @@ print(j$platform)
 #' ---
 #' ## Session info - packages
 #' 
-## ----sipack1, echo=FALSE--------------------------------------------------------------------------------------------------------
+## ----sipack1, echo=FALSE-------------------------------------------------
 print(j$packages)
 

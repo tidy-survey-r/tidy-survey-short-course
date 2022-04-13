@@ -9,7 +9,7 @@
 #' 
 #' First, let's make sure you have everything you need for the course. Run the following library statements. If something is not installed, install it.
 #' 
-## ----setup----------------------------------------------------------------------------------------------------------------------
+## ----setup---------------------------------------------------------------
 # install.packages("tidyverse")
 # remotes::install_github("bschneidr/r-forge-survey-mirror")
 # install.packages("srvyr")
@@ -36,7 +36,7 @@ library(srvyr)
 #'         -   <https://healthpolicy.ucla.edu/chis/analyze/Pages/weighting.aspx>
 #'     -   Assume you have the Public Use File for **adults** already read into R and the dataframe is called `chis19_adult`.
 #' 
-## ----chis, eval=FALSE-----------------------------------------------------------------------------------------------------------
+## ----chis, eval=FALSE----------------------------------------------------
 ## 
 ## chis19_adult <- haven::read_sas(here::here("RawData", "adult_2019_sas", "adult.sas7bdat"))
 ## 
@@ -60,7 +60,7 @@ library(srvyr)
 #'         -   <https://www.datafiles.samhsa.gov/dataset/national-survey-drug-use-and-health-2019-nsduh-2019-ds0001>
 #'     -   Assume you have the Public Use File for already read into R and the dataframe is called `nsduh19`.
 #' 
-## ----nsduh, eval=FALSE----------------------------------------------------------------------------------------------------------
+## ----nsduh, eval=FALSE---------------------------------------------------
 ## nsduh19 <- haven::read_sav(here::here("RawData", "NSDUH_2019", "NSDUH_2019.SAV"))
 ## nsduh_des <- nsduh19 %>%
 ##    as_survey_design(weights=ANALWT_C, strata=VESTR, ids=VEREP, nest=TRUE)
@@ -71,7 +71,7 @@ library(srvyr)
 #' # Part 2 - Derived variables
 #' 
 #' Before exercises, read the data in
-## ----datin, cache=TRUE----------------------------------------------------------------------------------------------------------
+## ----datin, cache=TRUE---------------------------------------------------
 anes <- read_rds(here("Data", "anes_2020.rds"))
 recs_in <- read_csv(here("RawData", "RECS_2015", "recs2015_public_v4.csv"))
 
@@ -90,7 +90,7 @@ recs_in <- read_csv(here("RawData", "RECS_2015", "recs2015_public_v4.csv"))
 #'    - $75,000-99,999
 #'    - $100,000 or more
 #'    
-## ----income5--------------------------------------------------------------------------------------------------------------------
+## ----income5-------------------------------------------------------------
 anes_income <- anes %>%
    mutate(
       Income5=factor(case_when(
@@ -116,7 +116,7 @@ anes_income %>%
 #'    - 75 or older
 #'    
 #'    
-## ----age5-----------------------------------------------------------------------------------------------------------------------
+## ----age5----------------------------------------------------------------
 anes_age <- anes %>%
    mutate(
       AgeGroup5=factor(case_when(
@@ -149,7 +149,7 @@ anes_age %>%
 #' 
 #' The relevant variables that should be used are included in parentheses.
 #' 
-## ----energyinsec----------------------------------------------------------------------------------------------------------------
+## ----energyinsec---------------------------------------------------------
 recs_insecur <- recs_in %>%
    select(starts_with("SCALE"), starts_with("NOHEAT"), starts_with("NOAC"), NWEIGHT) %>%
    mutate(
