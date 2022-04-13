@@ -57,9 +57,7 @@ font-size: 70% !important;
 <div class="row">
 <div class="column">
 <center>
-```{r, echo=FALSE, out.width="200px"}
-knitr::include_graphics('http://www.mapor.org/wp-content/uploads/2022/03/StephanieZimmer_Headshot.jpeg')
-```
+`r knitr::include_graphics("./Images/StephanieZimmer_Headshot.jpeg")`
 <br>
 <b>Stephanie Zimmer</b>
 <br>
@@ -69,9 +67,7 @@ Abt Associates
 
 <div class="column">
 <center>
-```{r, echo=FALSE, out.width="200px"}
-knitr::include_graphics('http://www.mapor.org/wp-content/uploads/2020/03/Powell_Rebecca_image-e1584649023839.jpg')
-```
+`r knitr::include_graphics("./Images/RebeccaPowell_Headshot.jpeg")`
 <br>
 <b>Rebecca Powell</b>
 <br>
@@ -81,10 +77,7 @@ RTI International
 
 <div class="column">
 <center>
-```{r, echo=FALSE, out.width="200px"}
-knitr::include_graphics('http://www.mapor.org/wp-content/uploads/2022/03/IsabellaVelasquez_Headshot.jpeg')
-```
-
+`r knitr::include_graphics("./Images/IsabellaVelasquez_Headshot.jpeg")`
 <br>
 <b>Isabella Velásquez</b>
 <br>
@@ -94,6 +87,12 @@ RStudio
 
 </div>
 
+--
+
+#### Thank you to our volunteers!
+
+**Raphael Nishimura** will be assisting during our breakout rooms.
+
 ---
 
 ## About This Workshop
@@ -101,6 +100,15 @@ RStudio
 - Hosted by Midwest Association for Public Opinion Research (MAPOR), a regional chapter of the American Association for Public Opinion Research (AAPOR).
 
 - Originally delivered at AAPOR Conference in May 2021
+
+<div>
+<br>
+<br>
+<br>
+<center>
+`r knitr::include_graphics("./Images/MAPOR-Logo1.png")`
+</center>
+</div>
 
 ---
 

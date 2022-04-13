@@ -18,13 +18,14 @@
 #' ---
 #' 
 #' 
-## ----setup, include=FALSE-------------------------------------------------------------------------------------------------------
+## ----setup, include=FALSE------------------------------------------------
 knitr::opts_chunk$set(echo = TRUE, message = FALSE, tidy = FALSE)
 
 if(!require(scales)) {
    install.packages("scales")
    library(scales)
 }
+
 if(!require(hexbin)){
    install.packages("hexbin")
    library(hexbin)
@@ -70,9 +71,7 @@ if(!require(hexbin)){
 #' <div class="row">
 #' <div class="column">
 #' <center>
-## ---- echo=FALSE, out.width="200px"---------------------------------------------------------------------------------------------
-knitr::include_graphics('http://www.mapor.org/wp-content/uploads/2022/03/StephanieZimmer_Headshot.jpeg')
-
+#' `r knitr::include_graphics("./Images/StephanieZimmer_Headshot.jpeg")`
 #' <br>
 #' <b>Stephanie Zimmer</b>
 #' <br>
@@ -82,9 +81,7 @@ knitr::include_graphics('http://www.mapor.org/wp-content/uploads/2022/03/Stephan
 #' 
 #' <div class="column">
 #' <center>
-## ---- echo=FALSE, out.width="200px"---------------------------------------------------------------------------------------------
-knitr::include_graphics('http://www.mapor.org/wp-content/uploads/2020/03/Powell_Rebecca_image-e1584649023839.jpg')
-
+#' `r knitr::include_graphics("./Images/RebeccaPowell_Headshot.jpeg")`
 #' <br>
 #' <b>Rebecca Powell</b>
 #' <br>
@@ -94,10 +91,7 @@ knitr::include_graphics('http://www.mapor.org/wp-content/uploads/2020/03/Powell_
 #' 
 #' <div class="column">
 #' <center>
-## ---- echo=FALSE, out.width="200px"---------------------------------------------------------------------------------------------
-knitr::include_graphics('http://www.mapor.org/wp-content/uploads/2022/03/IsabellaVelasquez_Headshot.jpeg')
-
-#' 
+#' `r knitr::include_graphics("./Images/IsabellaVelasquez_Headshot.jpeg")`
 #' <br>
 #' <b>Isabella Velásquez</b>
 #' <br>
@@ -107,6 +101,12 @@ knitr::include_graphics('http://www.mapor.org/wp-content/uploads/2022/03/Isabell
 #' 
 #' </div>
 #' 
+#' --
+#' 
+#' #### Thank you to our volunteers!
+#' 
+#' **Greg Freedman-Ellis**, **Raphael Nishimura**, and **Ben Schneider** will be assisting during our breakout rooms.
+#' 
 #' ---
 #' 
 #' ## About This Workshop
@@ -114,6 +114,15 @@ knitr::include_graphics('http://www.mapor.org/wp-content/uploads/2022/03/Isabell
 #' - Hosted by Midwest Association for Public Opinion Research (MAPOR), a regional chapter of the American Association for Public Opinion Research (AAPOR).
 #' 
 #' - Originally delivered at AAPOR Conference in May 2021
+#' 
+#' <div
+#' <br>
+#' <br>
+#' <br>
+#' <center>
+#' `r knitr::include_graphics("./Images/MAPOR-Logo1.png")`
+#' </center>
+#' </div>
 #' 
 #' ---
 #' 
@@ -188,7 +197,7 @@ knitr::include_graphics('http://www.mapor.org/wp-content/uploads/2022/03/Isabell
 #' ####If you are using your own RStudio environment:
 #' - Make sure you have `tidyverse`, `here`, and `palmerpenguins` installed
 #' 
-## ----inst_packages, error=FALSE, warning=FALSE, eval=FALSE----------------------------------------------------------------------
+## ----inst_packages, error=FALSE, warning=FALSE, eval=FALSE---------------
 ## # Run package installation if you don't have these packages already
 ## # As a reminder, installing takes package from internet to your computer
 ## # and only needs to be done once, not each session
@@ -203,7 +212,7 @@ knitr::include_graphics('http://www.mapor.org/wp-content/uploads/2022/03/Isabell
 #' 
 #' - Look at the penguins dataset using `glimpse`
 #' 
-## ----load_pack1, error=FALSE, warning=FALSE-------------------------------------------------------------------------------------
+## ----load_pack1, error=FALSE, warning=FALSE------------------------------
 library(tidyverse) # for tidyverse
 library(here) # for file paths
 library(palmerpenguins) # for warm-up data
@@ -230,7 +239,7 @@ glimpse(penguins)
 #' ---
 #' ## Ex. 1: What is the mean body mass in grams of all penguins? Hint: use `summarize` and remove missing data
 #' 
-## ----peng_meanmass--------------------------------------------------------------------------------------------------------------
+## ----peng_meanmass-------------------------------------------------------
 penguins %>%
    summarize(
      MeanBodyMass=mean(body_mass_g, 
@@ -243,7 +252,7 @@ penguins %>%
 #' ---
 #' ## Ex. 2: What is the mean length of flipper by species? Hint: use `group_by`
 #' 
-## ----peng_meanflip_species------------------------------------------------------------------------------------------------------
+## ----peng_meanflip_species-----------------------------------------------
 penguins %>%
    group_by(species) %>%
    summarize(
@@ -257,7 +266,7 @@ penguins %>%
 #' ---
 #' ## Ex. 3: What is the mean flipper length by species and sex?
 #' 
-## ----peng_meanflip_speciessex---------------------------------------------------------------------------------------------------
+## ----peng_meanflip_speciessex--------------------------------------------
 penguins %>%
    group_by(species,sex) %>%
    summarize(
@@ -270,7 +279,7 @@ penguins %>%
 #' ---
 #' ## Ex. 4: Fit a simple linear regression between body mass and flipper length.
 #' .small[
-## ----pengLM1--------------------------------------------------------------------------------------------------------------------
+## ----pengLM1-------------------------------------------------------------
 mod1 <- lm(body_mass_g ~ flipper_length_mm, data=penguins)
 summary(mod1)
 
@@ -326,7 +335,7 @@ summary(mod1)
 #' - `srvyr` package uses tidy-syntax but uses the `survey` package behind it to do calculations
 #' 
 #' - If using your own RStudio environment, install both packages:
-## ----inst_srv, eval=FALSE-------------------------------------------------------------------------------------------------------
+## ----inst_srv, eval=FALSE------------------------------------------------
 ## # Install survey and srvyr packages
 ## 
 ## remotes::install_github("bschneidr/r-forge-survey-mirror")
@@ -334,7 +343,7 @@ summary(mod1)
 
 #' 
 #' - First, we will set-up a design object and talk about what it means in Session 3
-## ----recs_des, error=FALSE, warning=FALSE---------------------------------------------------------------------------------------
+## ----recs_des, error=FALSE, warning=FALSE--------------------------------
 library(survey) # for survey analysis
 library(srvyr) # for tidy survey analysis
 
@@ -366,7 +375,7 @@ recs_des <- recs %>%
 #' ---
 #' ## `survey_mean` Syntax
 #' 
-## ----survey_mean_syn, eval=FALSE------------------------------------------------------------------------------------------------
+## ----survey_mean_syn, eval=FALSE-----------------------------------------
 ## survey_mean(
 ##   x,
 ##   na.rm = FALSE,
@@ -380,7 +389,7 @@ recs_des <- recs %>%
 
 #' 
 #' To calculate a survey mean, we use this in `summarize`/`summarise`
-## ----survey_mean_syn2, eval=FALSE-----------------------------------------------------------------------------------------------
+## ----survey_mean_syn2, eval=FALSE----------------------------------------
 ## survey_design_object %>%
 ##    summarize(
 ##       mean_varname=survey_mean(x = continuous_varname)
@@ -395,7 +404,7 @@ recs_des <- recs %>%
 #' 
 #' This is an example using the `recs_des` survey design object and `survey_mean` function defaults
 #' 
-## ----survey_mean_ex1------------------------------------------------------------------------------------------------------------
+## ----survey_mean_ex1-----------------------------------------------------
 recs_des %>%
    summarize(
       TD_mean=survey_mean(x = TOTALDOL)
@@ -406,7 +415,7 @@ recs_des %>%
 #' 
 #' Run this code. What happens?
 #' 
-## ----survey_mean_ex2, eval=FALSE------------------------------------------------------------------------------------------------
+## ----survey_mean_ex2, eval=FALSE-----------------------------------------
 ## recs_des %>%
 ##    summarize(
 ##       TD_mean=survey_mean(x = SummerTempDay)
@@ -417,7 +426,7 @@ recs_des %>%
 #' 
 #' Run this code. What happens?
 #' 
-## ----survey_mean_ex2_r, error=TRUE----------------------------------------------------------------------------------------------
+## ----survey_mean_ex2_r, error=TRUE---------------------------------------
 recs_des %>%
    summarize(
       TD_mean=survey_mean(x = SummerTempDay)
@@ -432,7 +441,7 @@ recs_des %>%
 #' ---
 #' ## `survey_mean` Example 2: Missing data solution
 #' 
-## ----survey_mean_ex2_sol, error=TRUE, tidy=FALSE--------------------------------------------------------------------------------
+## ----survey_mean_ex2_sol, error=TRUE, tidy=FALSE-------------------------
 recs_des %>%
    summarize(
       TD_mean = survey_mean(
@@ -444,7 +453,7 @@ recs_des %>%
 #' ---
 #' ## `survey_median` Syntax
 #' 
-## ----survey_median_syn, eval=FALSE----------------------------------------------------------------------------------------------
+## ----survey_median_syn, eval=FALSE---------------------------------------
 ## survey_median(
 ##   x,
 ##   na.rm = FALSE,
@@ -463,7 +472,7 @@ recs_des %>%
 #' ## `survey_median` Example: What is the median temperature US households set their homes to on a summer day?
 #' 
 #' .pull-left[
-## ----survey_median_fib, eval=FALSE----------------------------------------------------------------------------------------------
+## ----survey_median_fib, eval=FALSE---------------------------------------
 ## recs_des %>%
 ##    summarize(
 ##       TD_median=survey_median(x=_________,
@@ -473,7 +482,7 @@ recs_des %>%
 #' ]
 #' --
 #' .pull-right[
-## ----survey_median_fib_sol------------------------------------------------------------------------------------------------------
+## ----survey_median_fib_sol-----------------------------------------------
 recs_des %>%
  summarize(
    TD_median=survey_median(x=SummerTempDay,
@@ -489,7 +498,7 @@ recs_des %>%
 #' ---
 #' ## `survey_quantile` Syntax
 #' 
-## ----survey_quantile_syn, eval=FALSE--------------------------------------------------------------------------------------------
+## ----survey_quantile_syn, eval=FALSE-------------------------------------
 ## survey_quantile(
 ##   x,
 ##   quantiles, #<<
@@ -507,7 +516,7 @@ recs_des %>%
 #' ---
 #' ## `survey_quantile` Example 1: What are the 1st and 3rd quantile of dollars spent on energy?
 #' 
-## ----survey_quantile_ex1, error=TRUE--------------------------------------------------------------------------------------------
+## ----survey_quantile_ex1, error=TRUE-------------------------------------
 recs_des %>%
    summarize(
       Spent=survey_quantile(
@@ -521,7 +530,7 @@ recs_des %>%
 #' ---
 #' ## `survey_quantile` Example 2:  What are the 1st and 3rd quantile of dollars spent on energy with confidence intervals?
 #' 
-## ----survey_quantile_ex2, error=TRUE--------------------------------------------------------------------------------------------
+## ----survey_quantile_ex2, error=TRUE-------------------------------------
 recs_des %>%
    summarize(
       Spent=survey_quantile(x = TOTALDOL,
@@ -534,7 +543,7 @@ recs_des %>%
 #' ---
 #' ## `survey_quantile` Updated Output
 #' 
-## ----survey_quantile_ex2a, error=TRUE-------------------------------------------------------------------------------------------
+## ----survey_quantile_ex2a, error=TRUE------------------------------------
 recs_des %>%
    summarize(
       Spent=survey_quantile(x = TOTALDOL,
@@ -557,7 +566,7 @@ recs_des %>%
 #' 
 #' - Note this estimates: $\sum x_i/\sum y_i$ not $\sum \frac{x_i}{y_i}$
 #' 
-## ----survey_ratio_syn, eval=FALSE-----------------------------------------------------------------------------------------------
+## ----survey_ratio_syn, eval=FALSE----------------------------------------
 ## survey_ratio(
 ##   numerator, #<<
 ##   denominator, #<<
@@ -574,7 +583,7 @@ recs_des %>%
 #' ---
 #' ## `survey_ratio` Example: What is the average dollar per BTU spent on energy?
 #' 
-## ----survey_ratio_ex------------------------------------------------------------------------------------------------------------
+## ----survey_ratio_ex-----------------------------------------------------
 recs_des %>%
    summarize(
       DolPerBTU=survey_ratio(
@@ -601,7 +610,7 @@ recs_des %>%
 #' 
 #' - Example: What is the average amount of dollars spent on electricity for households that use AC and those that do not use AC?
 #' 
-## ----domain_ex------------------------------------------------------------------------------------------------------------------
+## ----domain_ex-----------------------------------------------------------
 recs_des %>%
   group_by(ACUsed) %>% #<<
   summarize(
@@ -614,7 +623,7 @@ recs_des %>%
 #' 
 #' - If we want the overall average electric bill too, use the `cascade` function instead of `summarize`
 #' 
-## ----domain_ex_casc-------------------------------------------------------------------------------------------------------------
+## ----domain_ex_casc------------------------------------------------------
 recs_des %>%
    group_by(ACUsed) %>%
    cascade(
@@ -631,7 +640,7 @@ recs_des %>%
 #' 
 #' - Also can add sample and pop sizes
 #' 
-## ----domain_tot-----------------------------------------------------------------------------------------------------------------
+## ----domain_tot----------------------------------------------------------
 recs_des %>%
    group_by(ACUsed) %>%
    cascade(
@@ -654,7 +663,7 @@ recs_des %>%
 #' - Use the `filter` function after creating the survey design object and before summarizing
 #' 
 #' Wrong way:
-## ----filter_bad, eval = FALSE---------------------------------------------------------------------------------------------------
+## ----filter_bad, eval = FALSE--------------------------------------------
 ## data %>%
 ##   filter(state=="NC") %>% #<<
 ##   as_survey_design(...) %>%
@@ -662,7 +671,7 @@ recs_des %>%
 
 #' 
 #' Right way:
-## ----filter_good, eval=FALSE----------------------------------------------------------------------------------------------------
+## ----filter_good, eval=FALSE---------------------------------------------
 ## data %>%
 ##   as_survey_design(...) %>%
 ##   filter(state=="NC") %>% #<<
@@ -675,7 +684,7 @@ recs_des %>%
 #' ---
 #' ## Subpopulation Example: Average electric cost of single family homes
 #' 
-## ----subpop1--------------------------------------------------------------------------------------------------------------------
+## ----subpop1-------------------------------------------------------------
 recs_des %>%
   filter(HousingUnitType %in% c("Single-family detached",
                                 "Single-family attached")) %>%
@@ -694,7 +703,7 @@ recs_des %>%
 #' 
 #' - t-tests are done in the package `survey` not `srvyr` but you can use the same design object
 #' 
-## ----ttest_syn1, eval=FALSE-----------------------------------------------------------------------------------------------------
+## ----ttest_syn1, eval=FALSE----------------------------------------------
 ## svyttest(formula, # outcome~group for two-sample, outcome~0 for one-sample
 ##          design,
 ##          na.rm = FALSE
@@ -708,7 +717,7 @@ recs_des %>%
 #' ---
 #' ## `svyttest` Syntax with `%>%`
 #' 
-## ----ttest_syn2, eval=FALSE-----------------------------------------------------------------------------------------------------
+## ----ttest_syn2, eval=FALSE----------------------------------------------
 ## recs_des %>%
 ##    svyttest(formula=,
 ##             design=., #<<
@@ -723,7 +732,7 @@ recs_des %>%
 #' ---
 #' ## `svyttest` Syntax with `%>%`
 #' 
-## ----ttest_syn3, eval=FALSE-----------------------------------------------------------------------------------------------------
+## ----ttest_syn3, eval=FALSE----------------------------------------------
 ## recs_des %>%
 ##    svyttest(design=., #<<
 ##             formula=,
@@ -739,7 +748,7 @@ recs_des %>%
 #' 
 #' - I keep my house at 68 degrees at night during the summer. Is this different from the national average?
 #' 
-## ----ttest_ex1------------------------------------------------------------------------------------------------------------------
+## ----ttest_ex1-----------------------------------------------------------
 recs_des %>%
    svyttest(design=.,
             formula=I(SummerTempNight-68)~0, #<<
@@ -754,7 +763,7 @@ recs_des %>%
 #' 
 #' - Do people keep their house the same temperature at night during the summer and the winter?
 #' 
-## ----ttest_ex2------------------------------------------------------------------------------------------------------------------
+## ----ttest_ex2-----------------------------------------------------------
 recs_des %>%
    svyttest(design=.,
             formula=I(SummerTempNight-WinterTempNight)~0,
@@ -770,7 +779,7 @@ recs_des %>%
 #' 
 #' - Are electric bills different between those with and without A/C?
 #' 
-## ----ttest_ex3------------------------------------------------------------------------------------------------------------------
+## ----ttest_ex3-----------------------------------------------------------
 recs_des %>%
    svyttest(design=.,
             formula=DOLLAREL~ACUsed,
@@ -786,7 +795,7 @@ recs_des %>%
 #' 
 #' - Syntax is similar between t-test and glm
 #' 
-## ----glm_syn, eval=FALSE--------------------------------------------------------------------------------------------------------
+## ----glm_syn, eval=FALSE-------------------------------------------------
 ## svyglm(formula,
 ##        design,
 ##        na.action, #default is na.omit
@@ -798,7 +807,7 @@ recs_des %>%
 #' Same example as two-sample t-test: Are electric bills different between those with and without A/C?
 #' 
 #' <b>t-test:</b>
-## ----twosamp_ex_ttest, eval=FALSE-----------------------------------------------------------------------------------------------
+## ----twosamp_ex_ttest, eval=FALSE----------------------------------------
 ## recs_des %>%
 ##    svyttest(design=.,
 ##             formula=DOLLAREL~ACUsed,
@@ -806,7 +815,7 @@ recs_des %>%
 
 #' 
 #' <b>glm:</b>
-## ----twosamp_ex_glm, eval=FALSE-------------------------------------------------------------------------------------------------
+## ----twosamp_ex_glm, eval=FALSE------------------------------------------
 ## recs_des %>%
 ##    svyglm(design=.,
 ##           formula=DOLLAREL~ACUsed,
@@ -823,7 +832,7 @@ recs_des %>%
 #' 
 #' Are electric bills different between those with and without A/C?
 #' .small[
-## ----twosamp_ex_ttest_run-------------------------------------------------------------------------------------------------------
+## ----twosamp_ex_ttest_run------------------------------------------------
 recs_des %>%
    svyglm(design=.,
           formula=DOLLAREL~ACUsed,
@@ -840,7 +849,7 @@ recs_des %>%
 #' 
 #' Does temperature of AC at night vary by region?
 #' .smaller[
-## ----anova_ex-------------------------------------------------------------------------------------------------------------------
+## ----anova_ex------------------------------------------------------------
 recs_des %>%
    svyglm(design=.,
           formula=SummerTempNight~Region,
@@ -859,7 +868,7 @@ recs_des %>%
 #' - Is there a relationship between square footage and electric bill?
 #' - Let's review the data first with a ggplot. <i>Note we use the original data and do <b>NOT</b> use the survey design object.</i>
 #' 
-## ----plot_sf_elbill-------------------------------------------------------------------------------------------------------------
+## ----plot_sf_elbill------------------------------------------------------
 p <- recs %>%
   ggplot(aes(x=TOTSQFT_EN, y=DOLLAREL, weight=NWEIGHT)) +
   geom_hex(color="white") + 
@@ -872,7 +881,7 @@ p <- recs %>%
 #' 
 #' ---
 #' ## `svyglm` Example 2: Linear Model
-## ----plot_sf_elbill_disp, echo=FALSE, fig.asp=9/16, fig.align="center", out.width="90%", dpi=300--------------------------------
+## ----plot_sf_elbill_disp, echo=FALSE, fig.asp=9/16, fig.align="center", out.width="90%", dpi=300----
 p +
   theme_bw() 
 
@@ -881,7 +890,7 @@ p +
 #' ---
 #' ## `svyglm` Example 2: Linear Model
 #' .small[
-## ----lm_ex----------------------------------------------------------------------------------------------------------------------
+## ----lm_ex---------------------------------------------------------------
 m_electric_sqft <- recs_des %>%
    svyglm(design=.,
           formula=DOLLAREL~TOTSQFT_EN,
@@ -937,7 +946,7 @@ summary(m_electric_sqft)
 #' ---
 #' ## Session info - platform
 #' 
-## ----si, echo=FALSE-------------------------------------------------------------------------------------------------------------
+## ----si, echo=FALSE------------------------------------------------------
 library(xaringan)
 library(knitr)
 library(remotes)
@@ -949,6 +958,6 @@ print(j$platform)
 #' ---
 #' ## Session info - packages
 #' 
-## ----sipack1, echo=FALSE--------------------------------------------------------------------------------------------------------
+## ----sipack1, echo=FALSE-------------------------------------------------
 print(j$packages)
 

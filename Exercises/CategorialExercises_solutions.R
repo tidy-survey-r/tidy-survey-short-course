@@ -6,7 +6,7 @@
 #' ---
 #' 
 #' # Set-up
-## ----setup--------------------------------------------------------------------------------------------------------------------------------------------
+## ----setup---------------------------------------------------------------
 library(tidyverse) # for tidyverse
 library(here) # for file paths
 library(survey) # for survey analysis
@@ -26,7 +26,7 @@ anes_des <- anes %>%
 #' 
 #' 1. How many females have a graduate degree? Hint: the variables `Gender` and `Education` will be useful.
 #' 
-## ----ex1_1--------------------------------------------------------------------------------------------------------------------------------------------
+## ----ex1_1---------------------------------------------------------------
 #Option 1:
 femgd <- anes_des %>%
    filter(Gender=="Female", Education=="Graduate") %>%
@@ -45,7 +45,7 @@ femgd <- anes_des %>%
 #' 
 #' 2. What percentage of people identify as "Strong democrat"? Hint: The variable `PartyID` indicates what party people identify with.
 #' 
-## ----ex1_2--------------------------------------------------------------------------------------------------------------------------------------------
+## ----ex1_2---------------------------------------------------------------
 (psd <- anes_des %>%
    group_by(PartyID) %>% 
    summarize(
@@ -59,7 +59,7 @@ femgd <- anes_des %>%
 #' 
 #' 3. What percentage of people who voted in the 2020 election identify as "Strong republican"? Hint: The variable `VotedPres2020` indicates whether someone voted in 2020.
 #' 
-## ----ex1_3--------------------------------------------------------------------------------------------------------------------------------------------
+## ----ex1_3---------------------------------------------------------------
 (psr <- anes_des %>%
    filter(VotedPres2020=="Yes") %>% 
    group_by(PartyID) %>% 
@@ -73,7 +73,7 @@ femgd <- anes_des %>%
 #' 
 #' 4. What percentage of people voted in both the 2016 election and in the 2020 election?  Include the logit confidence interval. Hint: The variable `VotedPres2016` indicates whether someone voted in 2016.
 #' 
-## ----ex1_4--------------------------------------------------------------------------------------------------------------------------------------------
+## ----ex1_4---------------------------------------------------------------
 (pvb <- anes_des %>%
    filter(!is.na(VotedPres2016), !is.na(VotedPres2020)) %>%
    group_by(interact(VotedPres2016, VotedPres2020)) %>% 
@@ -89,7 +89,7 @@ femgd <- anes_des %>%
 #' 
 #' 5. What is the design effect for the proportion of people who voted early? Hint: The variable `EarlyVote2020` indicates whether someone voted early in 2020.
 #' 
-## ----ex1_5--------------------------------------------------------------------------------------------------------------------------------------------
+## ----ex1_5---------------------------------------------------------------
 (pdeff <- anes_des %>%
    filter(!is.na(EarlyVote2020)) %>%
    group_by(EarlyVote2020) %>%
@@ -105,7 +105,7 @@ femgd <- anes_des %>%
 #' 
 #' 1. Is there a relationship between PartyID and whether people voted early?
 #' 
-## ----ex2_1--------------------------------------------------------------------------------------------------------------------------------------------
+## ----ex2_1---------------------------------------------------------------
 anes_des %>%
    filter(!is.na(PartyID), !is.na(EarlyVote2020)) %>%
    group_by(PartyID, EarlyVote2020) %>%
@@ -124,7 +124,7 @@ anes_des %>%
 #' 
 #' 2. Is there a relationship between PartyID and trust in the government? Hints: `TrustGovernment` indicates how strongly people trust the government. Use Wald as the `statistic` option.
 #' 
-## ----ex2_2--------------------------------------------------------------------------------------------------------------------------------------------
+## ----ex2_2---------------------------------------------------------------
 anes_des %>%
    filter(!is.na(PartyID), !is.na(TrustGovernment)) %>%
    group_by(PartyID, TrustGovernment) %>%
@@ -146,7 +146,7 @@ anes_des %>%
 #' 
 #' 1. What percentage of people lean republican? These are individuals that are strong republicans, not very strong republicans and are independent-republicans. Include an appropriate confidence interval. Hint: to get the correct confidence interval, create a new variable BEFORE calculating the estimate.
 #' 
-## ----exb_1--------------------------------------------------------------------------------------------------------------------------------------------
+## ----exb_1---------------------------------------------------------------
 
 #Solution 1: Using forcats package
 anes_des %>%
@@ -179,7 +179,7 @@ anes_des %>%
 #' 
 #' 2. Were people who lean democrat more likely to vote early in the 2020 election? Hint: use a logistic model and 3-level party variable to use in the model.
 #' 
-## ----exb_2--------------------------------------------------------------------------------------------------------------------------------------------
+## ----exb_2---------------------------------------------------------------
 anes_des %>%
    mutate(PartyID3=fct_collapse(PartyID,
                                 LeanDem=c("Strong democrat",
@@ -216,7 +216,7 @@ summary(earlyv_glm)
 #' 
 #' # Session information
 #' 
-## ----si-----------------------------------------------------------------------------------------------------------------------------------------------
+## ----si------------------------------------------------------------------
 devtools::session_info(pkgs="attached")
 
 #' 

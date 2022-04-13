@@ -17,7 +17,7 @@
 #'       countIncrementalSlides: true
 #' ---
 #' 
-## ----setup, include=FALSE-----------------------------------------------------------------------------------------------------------------------------
+## ----setup, include=FALSE------------------------------------------------
 knitr::opts_chunk$set(echo = TRUE, message = FALSE, tidy = FALSE)
 
 #' 
@@ -61,9 +61,7 @@ knitr::opts_chunk$set(echo = TRUE, message = FALSE, tidy = FALSE)
 #' <div class="row">
 #' <div class="column">
 #' <center>
-## ---- echo=FALSE, out.width="200px"-------------------------------------------------------------------------------------------------------------------
-knitr::include_graphics('http://www.mapor.org/wp-content/uploads/2022/03/StephanieZimmer_Headshot.jpeg')
-
+#' `r knitr::include_graphics("./Images/StephanieZimmer_Headshot.jpeg")`
 #' <br>
 #' <b>Stephanie Zimmer</b>
 #' <br>
@@ -73,9 +71,7 @@ knitr::include_graphics('http://www.mapor.org/wp-content/uploads/2022/03/Stephan
 #' 
 #' <div class="column">
 #' <center>
-## ---- echo=FALSE, out.width="200px"-------------------------------------------------------------------------------------------------------------------
-knitr::include_graphics('http://www.mapor.org/wp-content/uploads/2020/03/Powell_Rebecca_image-e1584649023839.jpg')
-
+#' `r knitr::include_graphics("./Images/RebeccaPowell_Headshot.jpeg")`
 #' <br>
 #' <b>Rebecca Powell</b>
 #' <br>
@@ -85,10 +81,7 @@ knitr::include_graphics('http://www.mapor.org/wp-content/uploads/2020/03/Powell_
 #' 
 #' <div class="column">
 #' <center>
-## ---- echo=FALSE, out.width="200px"-------------------------------------------------------------------------------------------------------------------
-knitr::include_graphics('http://www.mapor.org/wp-content/uploads/2022/03/IsabellaVelasquez_Headshot.jpeg')
-
-#' 
+#' `r knitr::include_graphics("./Images/IsabellaVelasquez_Headshot.jpeg")`
 #' <br>
 #' <b>Isabella Velásquez</b>
 #' <br>
@@ -98,6 +91,12 @@ knitr::include_graphics('http://www.mapor.org/wp-content/uploads/2022/03/Isabell
 #' 
 #' </div>
 #' 
+#' --
+#' 
+#' #### Thank you to our volunteers!
+#' 
+#' **Raphael Nishimura** will be assisting during our breakout rooms.
+#' 
 #' ---
 #' 
 #' ## About This Workshop
@@ -105,6 +104,15 @@ knitr::include_graphics('http://www.mapor.org/wp-content/uploads/2022/03/Isabell
 #' - Hosted by Midwest Association for Public Opinion Research (MAPOR), a regional chapter of the American Association for Public Opinion Research (AAPOR).
 #' 
 #' - Originally delivered at AAPOR Conference in May 2021
+#' 
+#' <div>
+#' <br>
+#' <br>
+#' <br>
+#' <center>
+#' `r knitr::include_graphics("./Images/MAPOR-Logo1.png")`
+#' </center>
+#' </div>
 #' 
 #' ---
 #' 
@@ -165,7 +173,7 @@ knitr::include_graphics('http://www.mapor.org/wp-content/uploads/2022/03/Isabell
 #' ####If you are using your own RStudio environment:
 #' - Make sure you have `tidyverse`, `here`, and `palmerpenguins` installed
 #' 
-## ----inst_packages, error=FALSE, warning=FALSE, eval=FALSE--------------------------------------------------------------------------------------------
+## ----inst_packages, error=FALSE, warning=FALSE, eval=FALSE---------------
 ## # Run package installation if you don't have these packages already
 ## # As a reminder, installing takes package from internet to your computer
 ## # and only needs to be done once, not each session
@@ -180,7 +188,7 @@ knitr::include_graphics('http://www.mapor.org/wp-content/uploads/2022/03/Isabell
 #' 
 #' - Look at the penguins dataset using `glimpse`
 #' 
-## ----load_pack1, error=FALSE, warning=FALSE-----------------------------------------------------------------------------------------------------------
+## ----load_pack1, error=FALSE, warning=FALSE------------------------------
 library(tidyverse) # for tidyverse
 library(here) # for file paths
 library(palmerpenguins) # for warm-up data
@@ -205,14 +213,14 @@ glimpse(penguins)
 #' ## Ex. 1: How many penguins of each species are there? 
 #' 
 #' .pull-left[
-## ----peng1--------------------------------------------------------------------------------------------------------------------------------------------
+## ----peng1---------------------------------------------------------------
 penguins %>%
    count(species)
 
 #' ]
 #' 
 #' .pull-right[
-## ----peng1alt-----------------------------------------------------------------------------------------------------------------------------------------
+## ----peng1alt------------------------------------------------------------
 penguins %>%
    group_by(species) %>%
    summarise(
@@ -226,7 +234,7 @@ penguins %>%
 #' ---
 #' ## Ex. 2: How many penguins of each species and sex are there?
 #' 
-## ----peng2--------------------------------------------------------------------------------------------------------------------------------------------
+## ----peng2---------------------------------------------------------------
 penguins %>%
    count(species, sex)
 
@@ -236,7 +244,7 @@ penguins %>%
 #' ---
 #' ## Ex. 3: What is the proportion of each species of penguins?
 #' 
-## ----speciestabp--------------------------------------------------------------------------------------------------------------------------------------
+## ----speciestabp---------------------------------------------------------
 penguins %>%
    count(species) %>%
    mutate(
@@ -247,7 +255,7 @@ penguins %>%
 #' ---
 #' ## What is the proportion of each sex of penguins within species?
 #' 
-## ----speciessextabp-----------------------------------------------------------------------------------------------------------------------------------
+## ----speciessextabp------------------------------------------------------
 penguins %>%
    count(species, sex) %>%
    group_by(species) %>%
@@ -322,7 +330,7 @@ penguins %>%
 #' - `srvyr` package uses tidy-syntax but uses the `survey` package behind it to do calculations
 #' 
 #' - If using your own RStudio environment, install both packages:
-## ----inst_srv, eval=FALSE-----------------------------------------------------------------------------------------------------------------------------
+## ----inst_srv, eval=FALSE------------------------------------------------
 ## # Install survey and srvyr packages
 ## 
 ## remotes::install_github("bschneidr/r-forge-survey-mirror")
@@ -331,7 +339,7 @@ penguins %>%
 #' 
 #' 
 #' - First, we will set-up a design object and talk about what it means in Session 3
-## ----anes_des, error=FALSE, warning=FALSE-------------------------------------------------------------------------------------------------------------
+## ----anes_des, error=FALSE, warning=FALSE--------------------------------
 library(survey) # for survey analysis
 library(srvyr) # for tidy survey analysis
 
@@ -358,7 +366,7 @@ anes_des <- anes %>%
 #' - `survey_count` functions similarly to `count` in that it is <b>NOT</b> called within `summarize`
 #' 
 #' - Produces weighted counts and variance of your choice of those counts
-## ----survey_count_syn, eval=FALSE, tidy=FALSE---------------------------------------------------------------------------------------------------------
+## ----survey_count_syn, eval=FALSE, tidy=FALSE----------------------------
 ## survey_count(
 ##    x,
 ##    ...,
@@ -377,7 +385,7 @@ anes_des <- anes %>%
 #' ## `survey_count` Example
 #' 
 #' - Cross-tab of population in each age group and gender
-## ----survey_count_ex----------------------------------------------------------------------------------------------------------------------------------
+## ----survey_count_ex-----------------------------------------------------
 anes_des %>%
    survey_count(AgeGroup, Gender, name="N")
 
@@ -398,7 +406,7 @@ anes_des %>%
 #' ---
 #' ## `survey_mean` and `survey_prop` Syntax
 #' 
-## ----survey_mean_syn, eval=FALSE----------------------------------------------------------------------------------------------------------------------
+## ----survey_mean_syn, eval=FALSE-----------------------------------------
 ## survey_mean(
 ##    x,
 ##    na.rm = FALSE,
@@ -430,7 +438,7 @@ anes_des %>%
 #' ## `survey_mean` and `survey_total` Examples
 #' 
 #' Looking at population by age group as done with `survey_count`.
-## ----survey_p_ex1-------------------------------------------------------------------------------------------------------------------------------------
+## ----survey_p_ex1--------------------------------------------------------
 anes_des %>%
    group_by(AgeGroup) %>%
    summarize(
@@ -451,7 +459,7 @@ anes_des %>%
 #' - Specifying more than one group calculates conditional proportions
 #' - Example: people voting in 2016 and 2020
 #' 
-## ----survey_p_cond, tidy=FALSE------------------------------------------------------------------------------------------------------------------------
+## ----survey_p_cond, tidy=FALSE-------------------------------------------
 anes_des %>%
    filter(!is.na(VotedPres2016), !is.na(VotedPres2020)) %>%
    group_by(VotedPres2016, VotedPres2020) %>%
@@ -473,7 +481,7 @@ anes_des %>%
 #' - Specify an interaction to get joint distribution - use `interact` within `group_by`
 #' - Example: people voting in 2016 and 2020
 #' 
-## ----survey_p_joint-----------------------------------------------------------------------------------------------------------------------------------
+## ----survey_p_joint------------------------------------------------------
 anes_des %>%
    filter(!is.na(VotedPres2020), !is.na(VotedPres2016)) %>%
    group_by(interact(VotedPres2016, VotedPres2020)) %>% #<<
@@ -490,7 +498,7 @@ anes_des %>%
 #' ---
 #' ## Proportions with Design Effects
 #' 
-## ----survey_p_deff------------------------------------------------------------------------------------------------------------------------------------
+## ----survey_p_deff-------------------------------------------------------
 anes_des %>%
    filter(!is.na(VotedPres2016), !is.na(VotedPres2020)) %>%
    group_by(interact(VotedPres2016, VotedPres2020)) %>% 
@@ -505,7 +513,7 @@ anes_des %>%
 #' ---
 #' ## Proportions: confidence intervals
 #' 
-## ----survey_p_ci, eval=FALSE--------------------------------------------------------------------------------------------------------------------------
+## ----survey_p_ci, eval=FALSE---------------------------------------------
 ## anes_des %>%
 ##    group_by(interact(Income7, VotedPres2016, VotedPres2020)) %>%
 ##    summarize(
@@ -519,7 +527,7 @@ anes_des %>%
 #' ---
 #' ## Proportions: confidence intervals (results)
 #' 
-## ----survey_p_ci_print, ref.label="survey_p_ci", eval=TRUE, echo=FALSE--------------------------------------------------------------------------------
+## ----survey_p_ci_print, ref.label="survey_p_ci", eval=TRUE, echo=FALSE----
 
 #' 
 #' ???
@@ -543,7 +551,7 @@ anes_des %>%
 #' - Testing and modeling is done with the `survey` package
 #' - You can use the same design object
 #' 
-## ----svychisq_syn, eval=FALSE-------------------------------------------------------------------------------------------------------------------------
+## ----svychisq_syn, eval=FALSE--------------------------------------------
 ## svychisq(formula,
 ##          design,
 ##          statistic = c("F",  "Chisq", "Wald", "adjWald", "lincom", "saddlepoint"),
@@ -561,7 +569,7 @@ anes_des %>%
 #' - How often can you trust the federal gov't to do what is right?
 #' - How often can you trust other people?
 #' 
-## ----svychisq_ex1-------------------------------------------------------------------------------------------------------------------------------------
+## ----svychisq_ex1--------------------------------------------------------
 anes_des %>%
    svychisq(design=.,
             formula=~TrustPeople +TrustGovernment)
@@ -577,7 +585,7 @@ anes_des %>%
 #' - How often can you trust the federal gov't to do what is right?
 #' - Who did you vote for? Biden, Trump, or Other
 #' 
-## ----svychisq_ex2-------------------------------------------------------------------------------------------------------------------------------------
+## ----svychisq_ex2--------------------------------------------------------
 anes_des %>%
    svychisq(design=.,
             formula=~TrustGovernment +VotedPres2020_selection,
@@ -637,7 +645,7 @@ anes_des %>%
 #' ## Logistic regression with `svyglm`
 #' 
 #' 
-## ----logisticsyntax, eval=FALSE-----------------------------------------------------------------------------------------------------------------------
+## ----logisticsyntax, eval=FALSE------------------------------------------
 ## svyglm(formula, # response ~ terms
 ##        design,
 ##        na.action, #default is na.omit
@@ -649,7 +657,7 @@ anes_des %>%
 #' ## Example logistic regression
 #' - Predicting trust in government by who someone voted in 2020
 #' 
-## ----logisticexamp------------------------------------------------------------------------------------------------------------------------------------
+## ----logisticexamp-------------------------------------------------------
 filter(anes_des, Weight>0) %>%
    svyglm(design=.,
           formula=TrustGovernment~ VotedPres2020_selection,
@@ -703,7 +711,7 @@ filter(anes_des, Weight>0) %>%
 #' ---
 #' ## Session info - platform
 #' 
-## ----si, echo=FALSE-----------------------------------------------------------------------------------------------------------------------------------
+## ----si, echo=FALSE------------------------------------------------------
 library(xaringan)
 library(knitr)
 library(remotes)
@@ -715,6 +723,6 @@ print(j$platform)
 #' ---
 #' ## Session info - packages
 #' 
-## ----sipack1, echo=FALSE------------------------------------------------------------------------------------------------------------------------------
+## ----sipack1, echo=FALSE-------------------------------------------------
 print(j$packages)
 
