@@ -1,4 +1,4 @@
-### This program creates PDF slides and R files from the Rmd files
+### This program creates PDF slides, PPTX slides, and R files from the Rmd files
 
 # remotes::install_github("jhelvy/xaringanBuilder")
 # remotes::install_github('rstudio/chromote')
@@ -18,6 +18,9 @@ mypurl <- function(folder, fn){
 # Day 1 processing
 
 mypurl("Presentation", "Slides-day-1")
+xaringanBuilder::build_html(
+   input=here("Presentation", "Slides-day-1.Rmd"),
+   output_file=here("Presentation", "Slides-day-1.html"))
 xaringanBuilder::build_pdf(
    input=here("Presentation", "Slides-day-1.html"),
    output_file=here("Presentation", "Slides-day-1.pdf"),
@@ -35,6 +38,9 @@ mypurl("Exercises", "WarmUpExercises_solutions")
 
 # Day 2 processing
 mypurl("Presentation", "Slides-day-2")
+xaringanBuilder::build_html(
+   input=here("Presentation", "Slides-day-2.Rmd"),
+   output_file=here("Presentation", "Slides-day-2.html"))
 xaringanBuilder::build_pdf(
    input=here("Presentation", "Slides-day-2.html"),
    output_file=here("Presentation", "Slides-day-2.pdf"),
@@ -51,6 +57,9 @@ mypurl("Exercises", "ContinuousExercises_solutions")
 # Day 3 processing
 
 mypurl("Presentation", "Slides-day-3")
+xaringanBuilder::build_html(
+   input=here("Presentation", "Slides-day-3.Rmd"),
+   output_file=here("Presentation", "Slides-day-3.html"))
 xaringanBuilder::build_pdf(
    input=here("Presentation", "Slides-day-3.html"),
    output_file=here("Presentation", "Slides-day-3.pdf"),
