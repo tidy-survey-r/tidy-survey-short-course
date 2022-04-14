@@ -12,8 +12,8 @@ Materials for a forthcoming short course presented in 3 sessions.
 - **Presentation** folder contains the slides for the course
    - Includes Rmd to create slides
    - Slides are available in html, pptx, R, and PDF
-- **Exercises** contains RMD and R files with exercises and solutions to practice concepts
-- **Codebooks** contains HTML and MD codebooks for the variables used from ANES 2020 and RECS 2015.
+- **Exercises** folder contains RMD and R files with exercises and solutions to practice concepts
+- **Codebooks** folder contains HTML and MD codebooks for the variables used from ANES 2020 and RECS 2015.
 
 ## Sources
 
