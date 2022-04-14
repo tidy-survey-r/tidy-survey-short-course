@@ -72,6 +72,8 @@ class: inverse center middle
 <b>Stephanie Zimmer</b>
 <br>
 Abt Associates
+<br>
+<a href="https://twitter.com/StatSteph">Twitter: @statsteph</a>
 </center>
 </div>
 
@@ -82,6 +84,8 @@ Abt Associates
 <b>Rebecca Powell</b>
 <br>
 RTI International
+<br>
+<a href="https://education.rstudio.com/trainers/people/powell+rebecca/">RStudio Education Profile</a>
 </center>
 </div>
 
@@ -92,6 +96,8 @@ RTI International
 <b>Isabella Velásquez</b>
 <br>
 RStudio
+<br>
+<a href="https://twitter.com/ivelasq3">Twitter: @ivelasq3</a>
 </center>
 </div>
 
