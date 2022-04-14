@@ -175,9 +175,9 @@ Recommend for the workshops just having Zoom and your RStudio Cloud tab open
   - **Exercises** folder contains RMD and R files with exercises and solutions to practice concepts.
   - **Codebooks** folder contains HTML and MD codebooks for the variables used from the surveys.
   
-<center>
-`r knitr::include_graphics("./Images/Project-Contents.png")`
-</center>
+```{r, out.width=300, fig.align='right', echo=FALSE}
+knitr::include_graphics("./Images/Project-Contents.png")
+```
 
 ???
 Open HTML file as an example
@@ -221,7 +221,7 @@ library(palmerpenguins) # for warm-up data
 glimpse(penguins)
 ```
 
-??
+???
 Let's walk through how to use RStudio Cloud
 Recommend watching this part because then you will try an exercise on your own
 ---
