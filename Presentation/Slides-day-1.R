@@ -24,6 +24,10 @@ knitr::opts_chunk$set(echo = TRUE, message = FALSE, tidy = FALSE)
 #' class: inverse center middle
 #' # Introduction
 #' 
+#' ???
+#' Icebreaker: where is everybody joining from?
+#' Justine to start off
+#' 
 #' ---
 #' 
 ## .small .remark-code { /*Change made here*/
@@ -61,7 +65,7 @@ knitr::opts_chunk$set(echo = TRUE, message = FALSE, tidy = FALSE)
 #' <div class="row">
 #' <div class="column">
 #' <center>
-#' `r knitr::include_graphics("./Images/StephanieZimmer_Headshot.jpeg")`
+#' `r knitr::include_graphics("Images/StephanieZimmer_Headshot.jpeg")`
 #' <br>
 #' <b>Stephanie Zimmer</b>
 #' <br>
@@ -73,7 +77,7 @@ knitr::opts_chunk$set(echo = TRUE, message = FALSE, tidy = FALSE)
 #' 
 #' <div class="column">
 #' <center>
-#' `r knitr::include_graphics("./Images/RebeccaPowell_Headshot.jpeg")`
+#' `r knitr::include_graphics("Images/RebeccaPowell_Headshot.jpeg")`
 #' <br>
 #' <b>Rebecca Powell</b>
 #' <br>
@@ -85,7 +89,7 @@ knitr::opts_chunk$set(echo = TRUE, message = FALSE, tidy = FALSE)
 #' 
 #' <div class="column">
 #' <center>
-#' `r knitr::include_graphics("./Images/IsabellaVelasquez_Headshot.jpeg")`
+#' `r knitr::include_graphics("Images/IsabellaVelasquez_Headshot.jpeg")`
 #' <br>
 #' <b>Isabella Velásquez</b>
 #' <br>
@@ -111,7 +115,7 @@ knitr::opts_chunk$set(echo = TRUE, message = FALSE, tidy = FALSE)
 #' <br>
 #' <br>
 #' <center>
-#' `r knitr::include_graphics("./Images/MAPOR-Logo1.png")`
+#' `r knitr::include_graphics("Images/MAPOR-Logo1.png")`
 #' </center>
 #' </div>
 #' 
@@ -145,21 +149,43 @@ knitr::opts_chunk$set(echo = TRUE, message = FALSE, tidy = FALSE)
 #' - Survey design objects, constructing replicate weights, and creating derived variables (day 3)
 #' 
 #' 
+#' ???
+#' We assume some familiarity with the tidyverse packages and functions
+#' 
 #' ---
 #' ## Logistics
 #' 
 #' - We will be using RStudio Cloud today to ensure everyone has access
 #' 
-#' - Sign-up for a free RStudio Cloud account (https://rstudio.cloud/)
-#' - Access the project and files via link in email and Zoom chat
+#'   - RStudio Cloud has the same features and appearance as RStudio for ease of use
 #' 
-#' - Click "START" to open the project and get started
-#' - RStudio Cloud has the same features and appearance as RStudio for ease of use
+#' - Access the project and files via instructions in email and Zoom chat
 #' 
-#' - All slides and code are available on GitHub: https://github.com/tidy-survey-r/tidy-survey-short-course
+#' - Navigate to "Tidy Survey Analysis in R" under Projects then click name to get started
+#' 
+#' - We will go through slides of content then work on exercises together in breakout rooms
 #' 
 #' ???
-#' Github repo is for future reference, all material on RStudio cloud
+#' Walk through this
+#' These sessions will not be recorded and we will close RStudio Cloud after the workshop is over but GitHub repo will be available with everything that we cover in this series, such as the code, the slides, etc.
+#' Recommend for the workshops just having Zoom and your RStudio Cloud tab open
+#' ---
+#' ## Project Contents
+#' 
+#' - All slides and code are available on GitHub: https://github.com/tidy-survey-r/tidy-survey-short-course
+#'   - **RawData** folder contains public use file data along with any documentation.
+#'   - **DataCleaningScripts** folder contains scripts for making public use files analysis ready.
+#'   - **Data** folder contains data files ready for analysis in presentation and examples.
+#'   - **Exercises** folder contains RMD and R files with exercises and solutions to practice concepts.
+#'   - **Codebooks** folder contains HTML and MD codebooks for the variables used from the surveys.
+#'   
+## ---- out.width=300, fig.align='right', echo=FALSE------------------------------------------------------------------------------------------
+knitr::include_graphics("Images/Project-Contents.png")
+
+#' 
+#' ???
+#' Open HTML file as an example
+#' In addition to R Markdown documents, we have also provided an R script version for each of the projects in case you are more comfortable with scripts
 #' 
 #' ---
 #' ## Intro to RStudio Cloud: Penguins!!
@@ -182,6 +208,9 @@ knitr::opts_chunk$set(echo = TRUE, message = FALSE, tidy = FALSE)
 ## install.packages(c("tidyverse", "here", "palmerpenguins"))
 
 #' 
+#' ???
+#' RStudio Cloud will have packages already installed for you
+#' 
 #' ---
 #' ## Intro to RStudio Cloud: Penguins!!
 #' 
@@ -196,10 +225,14 @@ library(palmerpenguins) # for warm-up data
 glimpse(penguins)
 
 #' 
+#' ???
+#' Let's walk through how to use RStudio Cloud
+#' Recommend watching this part because then you will try an exercise on your own
 #' ---
+#' 
 #' ## Warm-up Exercises: WarmUpExercises.Rmd
 #' 
-#' - <b>Let's open RStudio cloud and do some warm-up examples</b>
+#' - <b>Let's open RStudio Cloud and do some warm-up examples</b>
 #' 
 #' - Take 10 minutes to set up RStudio Cloud and do these exercises in breakout rooms. We will then go over together
 #' 
