@@ -159,10 +159,12 @@ We assume some familiarity with the tidyverse packages and functions
 
 - Navigate to "Tidy Survey Analysis in R" under Projects then click name to get started
 
+  - If you want to save your progress, click "Save a Permanent Copy" from within the project
+
 - We will go through slides of content then work on exercises together in breakout rooms
 
 ???
-Walk through this
+Walk through this and suggest to watch as we will have time to set up RStudio Cloud if they haven't already and provide help
 These sessions will not be recorded and we will close RStudio Cloud after the workshop is over but GitHub repo will be available with everything that we cover in this series, such as the code, the slides, etc.
 Recommend for the workshops just having Zoom and your RStudio Cloud tab open
 ---
@@ -261,6 +263,7 @@ penguins %>%
 
 ???
 - Using `count` we see there are 3 different species and the number of penguins for each species
+- `group_by` with `summarise` does the same thing. The .groups= argument controls the grouping structure of the output. When the output no longer have grouping variables because they are dropped, it becomes ungrouped.
 ---
 ## Ex. 2: How many penguins of each species and sex are there?
 
