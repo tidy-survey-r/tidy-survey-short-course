@@ -125,6 +125,10 @@ RStudio
 
 - Keep updated by following our project on GitHub: [https://github.com/tidy-survey-r](https://github.com/tidy-survey-r)
 
+???
+Upcoming book, very early stages //
+GitHub org also has all the materials for this workshop
+
 ---
 class: inverse center middle
 
@@ -151,38 +155,34 @@ We assume some familiarity with the tidyverse packages and functions
 ---
 ## Logistics
 
-- We will be using RStudio Cloud today to ensure everyone has access
+- We will be using RStudio Cloud today to ensure everyone has access //
 
-  - RStudio Cloud has the same features and appearance as RStudio for ease of use
+- RStudio Cloud has the same features and appearance as RStudio for ease of use //
 
-- Access the project and files via instructions in email and Zoom chat
+- Access the project and files via instructions in email and Zoom chat //
 
-- Navigate to "Tidy Survey Analysis in R" under Projects then click name to get started
+- Navigate to "Tidy Survey Analysis in R" under Projects then click name to get started //
 
-  - If you want to save your progress, click "Save a Permanent Copy" from within the project
+  - If you want to save your progress, click "Save a Permanent Copy" from within the project //
 
 - We will go through slides of content then work on exercises together in breakout rooms
 
 ???
-Walk through this and suggest to watch as we will have time to set up RStudio Cloud if they haven't already and provide help
-These sessions will not be recorded and we will close RStudio Cloud after the workshop is over but GitHub repo will be available with everything that we cover in this series, such as the code, the slides, etc.
-Recommend for the workshops just having Zoom and your RStudio Cloud tab open
+RStudio Cloud is a hosted version of RStudio in the cloud that comes with configuration of the environment for learning, training, teaching //
+I will walk through this and suggest to watch as we will have time to set up RStudio Cloud if they haven't already and provide help, don't feel like you have to do it now //
+These sessions will not be recorded and we will close RStudio Cloud after the workshop is over but GitHub repo will be available with everything that we cover in this series, such as the code, the slides, etc. // RStudio Cloud is a clone of the GitHub repo so do not have to save anything unless you want to //
+Recommend for the workshops just having Zoom and your RStudio Cloud tab open.
 ---
 ## Project Contents
 
 - All slides and code are available on GitHub: https://github.com/tidy-survey-r/tidy-survey-short-course
-  - **RawData** folder contains public use file data along with any documentation.
-  - **DataCleaningScripts** folder contains scripts for making public use files analysis ready.
-  - **Data** folder contains data files ready for analysis in presentation and examples.
-  - **Exercises** folder contains RMD and R files with exercises and solutions to practice concepts.
-  - **Codebooks** folder contains HTML and MD codebooks for the variables used from the surveys.
   
-```{r, out.width=300, fig.align='right', echo=FALSE}
+```{r, out.width=500, fig.align='center', echo=FALSE}
 knitr::include_graphics("Images/Project-Contents.png")
 ```
 
 ???
-Open HTML file as an example
+Open HTML file as an example //
 In addition to R Markdown documents, we have also provided an R script version for each of the projects in case you are more comfortable with scripts
 
 ---
@@ -207,6 +207,7 @@ install.packages(c("tidyverse", "here", "palmerpenguins"))
 ```
 
 ???
+Great package for clean, interesting data for analysis
 RStudio Cloud will have packages already installed for you
 
 ---
@@ -224,8 +225,8 @@ glimpse(penguins)
 ```
 
 ???
-Let's walk through how to use RStudio Cloud
-Recommend watching this part because then you will try an exercise on your own
+Let's walk through how to use RStudio Cloud //
+Recommend watching this part because then you will try the rest of the exercises in your breakout rooms
 ---
 
 ## Warm-up Exercises: WarmUpExercises.Rmd
@@ -240,7 +241,8 @@ Recommend watching this part because then you will try an exercise on your own
    - What is the proportion of each species of penguins?
    - What is the proportion of each sex of penguins within species?
 
-
+???
+Try to use tidyverse syntax to get warmed up
 ---
 ## Ex. 1: How many penguins of each species are there? 
 
@@ -255,7 +257,7 @@ penguins %>%
 ```{r peng1alt}
 penguins %>%
    group_by(species) %>%
-   summarise(
+   summarize(
       n=n(), .groups="drop"
    )
 ```
@@ -263,7 +265,7 @@ penguins %>%
 
 ???
 - Using `count` we see there are 3 different species and the number of penguins for each species
-- `group_by` with `summarise` does the same thing. The .groups= argument controls the grouping structure of the output. When the output no longer have grouping variables because they are dropped, it becomes ungrouped and a regular tibble.
+- `group_by` with `summarize` does the same thing. The .groups= argument controls the grouping structure of the output. When the output no longer have grouping variables because they are dropped, it becomes ungrouped and a regular tibble.
 ---
 ## Ex. 2: How many penguins of each species and sex are there?
 
@@ -273,7 +275,7 @@ penguins %>%
 ```
 ???
 - `count` can take more than one variable to get a cross-tabs between the two variables
-- If you want an additional exercise, try it with `group_by` and `summarise`
+- If you want an additional exercise, try it with `group_by` and `summarize`
 
 ---
 ## Ex. 3: What is the proportion of each species of penguins?
@@ -337,13 +339,18 @@ class: inverse center middle
 
 3. Specify domains of analysis using `group_by` 
 
-4. Within `summarise`, specify variables to calculate including means, totals, proportions, quantiles and more
+4. Within `summarize`, specify variables to calculate including means, totals, proportions, quantiles and more
 
 
 <b>Note: We will be teaching this in the reverse order!!!</b>
+
+???
+These are the steps in order for survey analysis using sryvr
+Today we're going to start off with a survey object and then calculate our point estimates
+In the next two sessions, we'll go deeper into filtering and the design object itself
 ---
 
-## Weighted Analysis for Categorical Variable
+## Weighted Analysis for Categorical Variables
 
 - Functions to get counts
   - survey_count
@@ -354,12 +361,11 @@ class: inverse center middle
 
 ???
 - These functions are what we will go over today
-- `survey_mean` calculates means and proportions from complex survey data
-- wraps around `svymean` or `svyciprop` from the survey package
-- we use the same mean and total functions as with continuous variables
 - `survey_count` is new
 - has a similar structure as the standard (non-survey) version of count
-
+- `survey_mean` and `survey_prop` calculate means and proportions from complex survey data
+- wraps around `svymean` or `svyciprop` from the survey package
+- we use the same mean and total functions as with continuous variables
 
 ---
 ## Set-up for Analysis
@@ -390,10 +396,12 @@ anes_des <- anes %>%
 
 ```
 ???
+- as_survey_design creates a survey object using the sampling design
 - need to install github version of survey package if you want CIs with quantiles (which is what we did for the RStudio Cloud account)
 - American National Election Studies
-- provides weights that sum to the sample, but we want to get population estimates
+- Data provides weights that sum to the sample, but we want to get population estimates
 - need to adjust the weight to get it to the population count
+- the calculation for the population is available in the repo under DataCleaningScripts
 - we will cover setting up the sample design object later
 
 ---
@@ -414,8 +422,14 @@ survey_count(
 )
 ```
 ???
+- The srvyr syntax is very similar to standard dplyr syntax; recall beginning of presentation
+- switching count() for survey_count()
+- we don’t need a wt argument because we defined the weights when we set up the srvyr object.
 - similar to count in that it takes one or many variables
-- can change the variance type
+- `wt` adds additional weights in addition to the survey weights, by default is `NULL`
+- you can sort the variables, by default is `FALSE`
+- you can edit the name of the variable created to make it something other than n
+- you can change the variance type with `vartype`, defaults to standard error
 
 ---
 ## `survey_count` Example
@@ -430,10 +444,11 @@ anes_des %>%
 - `survey_count` is placed on its own like `count`
 - it does NOT go in a `summarize` function
 - can take multiple variables
-- can change the output count name, `n` is the default
+- can change the output count name, `n` is the default, here we call it capital N
 
 ---
 ## `survey_mean` and `survey_total` within `summarize`
+
 - Specify the sample design,
 - then specify the crosstab in `group_by`,
 - then `survey_mean` or `survey_prop` used with no x (variable) calculates a proportion of groups within `summarize`, or
@@ -467,8 +482,12 @@ survey_prop(
 ```
 
 ???
+- Using `survey_prop` is equivalent to leaving out the x argument in `survey_mean`
+- using `proportion = TRUE` make confidence intervals more accurate near 0 and 1
+- `prop_method` says the type of proportion method to use if `proportion` is TRUE
 - `proportion`/ `prop_method` impact the CI only
-
+- `deff` defines whether the design effect should be returned
+- `df` defines the degrees of freedom for the confidence interval `var_type`
 
 ---
 ## `survey_mean` and `survey_total` Examples
@@ -487,6 +506,7 @@ anes_des %>%
 ```
 ???
 - to get proportions we use `group_by` and `survey_mean`
+- You can also calculate the proportion or count in each group of a factor or character variable by leaving x empty in `survey_mean` or `survey_total`.
 - also use `survey_total` to get a population count estimate as before
 
 ---
@@ -507,7 +527,7 @@ anes_des %>%
    )
 ```
 ???
-- We will talk more about this next time but filter after creating design object to subset data
+- We will talk more about this next time but you can use `filter` after creating design object to subset data, in this case, removing `NAs`
 - Note that this is the proportion of voting in 2020 by whether people voted in 2016
 - What if we don't want conditional proportions?
 
@@ -528,8 +548,9 @@ anes_des %>%
    )
 ```
 ???
-- We add an interaction for the groups
+- We add an interaction for the groups with `interact`
 - This outputs the joint distribution
+- It groups by multiple variables as if they were a single variable which allows for calculating proportions that sum to 100% across more than a single grouping variable
 
 ---
 ## Proportions with Design Effects
@@ -544,8 +565,9 @@ anes_des %>%
    )
 ```
 ???
+- The design effect is a ratio of two variances.
 - Use `deff=TRUE` option in the `survey_mean` function
-
+- It is a logical value to indicate whether the design effect should be returned.
 ---
 ## Proportions: confidence intervals
 
@@ -560,6 +582,9 @@ anes_des %>%
    DT::datatable(fillContainer = FALSE, options = list(pageLength = 4))
 ```
 
+???
+- We can also calculate confidence intervals within summarize and using `survey_prop` or `survey_mean`
+- Provides us with an upper and lower column for each method
 ---
 ## Proportions: confidence intervals (results)
 
@@ -596,9 +621,11 @@ svychisq(formula,
 
 ```
 ???
+- going to switch to the survey package (no more dplyr syntax for functions but can still pipe our data)
 - when we want to test categorical distributions we use `svychisq`
-- it takes a formula, and the survey design data
-
+- it takes a formula, and the survey design data to create contigency tables
+- default statistic is the Rao-Scott second-order correction
+- only works for two-way tables
 ---
 ## `svychisq` Example 1: Function Defaults
 
@@ -608,13 +635,14 @@ svychisq(formula,
 ```{r svychisq_ex1}
 anes_des %>%
    svychisq(design=.,
-            formula=~TrustPeople +TrustGovernment)
+            formula=~TrustPeople + TrustGovernment)
 
 
 ```
 ???
 - We want to compare the distributions of these two questions
-
+- We want to know if there's a statistically significant relationship
+- This low p-value tells us a relationship exists between the two values
 ---
 ## `svychisq` Example 2: Wald Statistic
 
@@ -631,7 +659,8 @@ anes_des %>%
 ```
 ???
 - Can use different statistics
-
+- The other type of test is a Wald test based on the differences between the observed cell counts and those expected under independence
+- Used by SUDAAN
 
 ---
 ## Refresher on formula notation
@@ -644,6 +673,10 @@ Symbol | Example | Meaning
 ^n |`(X+Z+Y)^3`|include these variables and all interactions up to n way
 I |`I(X-Z)`| as-as: include a new variable which is the difference of these variables
 
+
+???
+- Before we jump into modeling, let's refresh our formula notation
+- These are how formulas are represented in R
 ---
 ## Formula notation - knowledge check
 
@@ -689,6 +722,11 @@ svyglm(formula, # response ~ terms
        ....)
 ```
 
+???
+- `svyglm` gives us survey-weighted generalised linear models.
+- notice how you remove `NA`
+- use appropriate distribution
+
 ---
 ## Example logistic regression
 - Predicting trust in government by who someone voted in 2020
@@ -700,6 +738,9 @@ filter(anes_des, Weight>0) %>%
           family = quasibinomial) %>%
    summary()
 ```
+
+???
+- Estimates show our associations between our predictors and our outcome
 
 ---
 ## Breakout rooms: Practice time
@@ -728,8 +769,10 @@ class: inverse center middle
 Please let us know if you have any feedback on this workshop. All feedback is welcome!
 
 
-## Questions?
+### Questions?
 
+???
+Please take our survey, too!
 ---
 ## Sources
 
