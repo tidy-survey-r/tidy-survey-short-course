@@ -65,7 +65,7 @@ library(tidyverse)
 #' <div class="row">
 #' <div class="column">
 #' <center>
-#' `r knitr::include_graphics("./Images/StephanieZimmer_Headshot.jpeg")`
+#' `r knitr::include_graphics("Images/StephanieZimmer_Headshot.jpeg")`
 #' <br>
 #' <b>Stephanie Zimmer</b>
 #' <br>
@@ -77,7 +77,7 @@ library(tidyverse)
 #' 
 #' <div class="column">
 #' <center>
-#' `r knitr::include_graphics("./Images/RebeccaPowell_Headshot.jpeg")`
+#' `r knitr::include_graphics("Images/RebeccaPowell_Headshot.jpeg")`
 #' <br>
 #' <b>Rebecca Powell</b>
 #' <br>
@@ -89,7 +89,7 @@ library(tidyverse)
 #' 
 #' <div class="column">
 #' <center>
-#' `r knitr::include_graphics("./Images/IsabellaVelasquez_Headshot.jpeg")`
+#' `r knitr::include_graphics("Images/IsabellaVelasquez_Headshot.jpeg")`
 #' <br>
 #' <b>Isabella Velásquez</b>
 #' <br>
@@ -121,7 +121,7 @@ library(tidyverse)
 #' <br>
 #' <br>
 #' <center>
-#' `r knitr::include_graphics("./Images/MAPOR-Logo1.png")`
+#' `r knitr::include_graphics("Images/MAPOR-Logo1.png")`
 #' </center>
 #' </div>
 #' 

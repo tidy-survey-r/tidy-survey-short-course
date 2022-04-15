@@ -71,7 +71,7 @@ if(!require(hexbin)){
 #' <div class="row">
 #' <div class="column">
 #' <center>
-#' `r knitr::include_graphics("./Images/StephanieZimmer_Headshot.jpeg")`
+#' `r knitr::include_graphics("Images/StephanieZimmer_Headshot.jpeg")`
 #' <br>
 #' <b>Stephanie Zimmer</b>
 #' <br>
@@ -83,7 +83,7 @@ if(!require(hexbin)){
 #' 
 #' <div class="column">
 #' <center>
-#' `r knitr::include_graphics("./Images/RebeccaPowell_Headshot.jpeg")`
+#' `r knitr::include_graphics("Images/RebeccaPowell_Headshot.jpeg")`
 #' <br>
 #' <b>Rebecca Powell</b>
 #' <br>
@@ -95,7 +95,7 @@ if(!require(hexbin)){
 #' 
 #' <div class="column">
 #' <center>
-#' `r knitr::include_graphics("./Images/IsabellaVelasquez_Headshot.jpeg")`
+#' `r knitr::include_graphics("Images/IsabellaVelasquez_Headshot.jpeg")`
 #' <br>
 #' <b>Isabella Velásquez</b>
 #' <br>
@@ -126,7 +126,7 @@ if(!require(hexbin)){
 #' <br>
 #' <br>
 #' <center>
-#' `r knitr::include_graphics("./Images/MAPOR-Logo1.png")`
+#' `r knitr::include_graphics("Images/MAPOR-Logo1.png")`
 #' </center>
 #' </div>
 #' 
