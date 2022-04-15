@@ -263,7 +263,7 @@ penguins %>%
 
 ???
 - Using `count` we see there are 3 different species and the number of penguins for each species
-- `group_by` with `summarise` does the same thing. The .groups= argument controls the grouping structure of the output. When the output no longer have grouping variables because they are dropped, it becomes ungrouped.
+- `group_by` with `summarise` does the same thing. The .groups= argument controls the grouping structure of the output. When the output no longer have grouping variables because they are dropped, it becomes ungrouped and a regular tibble.
 ---
 ## Ex. 2: How many penguins of each species and sex are there?
 
@@ -273,6 +273,7 @@ penguins %>%
 ```
 ???
 - `count` can take more than one variable to get a cross-tabs between the two variables
+- If you want an additional exercise, try it with `group_by` and `summarise`
 
 ---
 ## Ex. 3: What is the proportion of each species of penguins?
@@ -321,7 +322,7 @@ class: inverse center middle
 https://electionstudies.org/
 
 ???
-- We have subset the columns of this data and created derived variables, code in repository
+- We have subset the columns of this data and created derived variables, code and codebook in repository
 - Historically FTF existed but pandemic prevented this
 
 ---
@@ -336,7 +337,7 @@ class: inverse center middle
 
 3. Specify domains of analysis using `group_by` 
 
-4. Within `summarize`, specify variables to calculate including means, totals, proportions, quantiles and more
+4. Within `summarise`, specify variables to calculate including means, totals, proportions, quantiles and more
 
 
 <b>Note: We will be teaching this in the reverse order!!!</b>
@@ -344,15 +345,17 @@ class: inverse center middle
 
 ## Weighted Analysis for Categorical Variable
 
+- Functions to get counts
+  - survey_count
+
 - Functions to use within `summarize` after `group_by`
   - survey_mean/survey_prop
   - survey_total
 
-- Functions to get counts
-  - survey_count
-
 ???
-
+- These functions are what we will go over today
+- `survey_mean` calculates means and proportions from complex survey data
+- wraps around `svymean` or `svyciprop` from the survey package
 - we use the same mean and total functions as with continuous variables
 - `survey_count` is new
 - has a similar structure as the standard (non-survey) version of count
@@ -387,7 +390,7 @@ anes_des <- anes %>%
 
 ```
 ???
-- need to install github version of survey package if you want CIs with quantiles
+- need to install github version of survey package if you want CIs with quantiles (which is what we did for the RStudio Cloud account)
 - American National Election Studies
 - provides weights that sum to the sample, but we want to get population estimates
 - need to adjust the weight to get it to the population count
